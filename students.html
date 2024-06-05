@@ -941,16 +941,6 @@ iframe#quiz {
   -webkit-transform: translate(0%,0%);
 }
 
-  
-  
-  @media screen and (min-width:605px) {
-    .user-stats{
-      display: none;
-    }
-    .user-achievements{
-      display: none;
-    }
-  }
 
 </style>
 
@@ -1355,7 +1345,8 @@ $http.post('https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7
   
   function speak(text) {
         var utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'es-ES'; 
+        utterance.lang = 'spa'; 
+	  utterance.rate = 2;
         window.speechSynthesis.speak(utterance);
     }
   
