@@ -729,7 +729,28 @@ section{
 </body>
 
 <script>
-    var swiper = new Swiper(".mySwiper", {
+    
+var studentsApp = angular.module('studentsApp', []);
+
+
+studentsApp.controller('Controller1', ['$http', '$scope', function($http, $scope) {
+  $scope.students = [];
+
+  $http({
+    method: 'GET',
+    url: 'https://script.google.com/macros/s/AKfycbzIra465SJypRhzRL6ihOF0dmuCCykgZF3F4PufbHR76OBkyhS7NLvAu0joiJr5VfwM/exec',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
+  }).then(function(response) {
+    $scope.students = response.data;
+    $scope.students.forEach(function(student) {
+     student.modalState = { isModalOpen1: false, isModalOpen2: false     };
+        });
+
+
+	  var swiper = new Swiper(".mySwiper", {
     effect: "coverflow",
   grabCursor: true,
   centeredSlides: true,
@@ -749,28 +770,6 @@ section{
         clickable: true,
       }
     });
-
-
-
-
-var studentsApp = angular.module('studentsApp', []);
-
-
-studentsApp.controller('Controller1', ['$http', '$scope', function($http, $scope) {
-  $scope.students = [];
-
-  $http({
-    method: 'GET',
-    url: 'https://script.google.com/macros/s/AKfycbzIra465SJypRhzRL6ihOF0dmuCCykgZF3F4PufbHR76OBkyhS7NLvAu0joiJr5VfwM/exec',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    }
-  }).then(function(response) {
-    $scope.students = response.data;
-    $scope.students.forEach(function(student) {
-     student.modalState = { isModalOpen1: false, isModalOpen2: false     };
-        });
 
   });
   
