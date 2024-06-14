@@ -226,7 +226,12 @@
 .achievement-list-panel .panel-body .list-unstyled li.current .achievement-content p {color: #fbfbfb}
 .achievement-list-panel .panel-body .list-unstyled li.current .achievement-actions a {font-weight: bold; color: #fbfbfb}
 
-
+.progress{
+  height: 8px; width: 90%; 
+  background-color: #484B53; 
+  margin-top: 5px;
+  margin-bottom: -25px;
+}
 
 
 .progress .progress-bar {
@@ -1025,11 +1030,11 @@ iframe#quiz {
 		<div class="main-data" >
             <h4 style="font-size: 19px; color: white;">{{student.name}}</h4>
             
-            <div class="pull-left achievement-count" ng-if="student.plan === 'PREMIUM'" style="color: white; font-size: 12px;"> PLAN PREMIUM
+            <div class="pull-left achievement-count" ng-if="student.plan === 'Premium - $1300'" style="color: white; font-size: 12px;"> PLAN PREMIUM
             <i class="ri-vip-crown-fill text-golden"></i>  </div>
-        <div class="pull-left achievement-count" ng-if="student.plan === 'PRO'" style="color: white; font-size: 12px;"> PLAN PRO
+        <div class="pull-left achievement-count" ng-if="student.plan === 'Pro - $700'" style="color: white; font-size: 12px;"> PLAN PRO
             <i class="ri-verified-badge-fill text-blue"></i>  </div>
-       <div class="pull-left achievement-count" ng-if="student.plan === 'ESTUDIANTE'" style="color: white; font-size: 12px;"> PLAN ESTUDIANTE
+       <div class="pull-left achievement-count" ng-if="student.plan === 'Estudiante - $350'" style="color: white; font-size: 12px;"> PLAN ESTUDIANTE
             <i class="ri-graduation-cap-fill"></i>  </div>
        
           <br>
