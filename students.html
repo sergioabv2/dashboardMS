@@ -247,7 +247,16 @@
 }
 
 
-
+.profile-pic {
+  width: 100px;
+  height: 100px;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  -o-object-position: center;
+     object-position: center;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
 
 
 .btn {
@@ -1029,7 +1038,7 @@ iframe#quiz {
       <div class="col-sm-5">
         <div class="profile-user-data clearfix">
 		<div class="circle">
-          <img ng-src={{student.photo}} >
+          <img class="profile-pic" ng-src={{student.photo}} >
 		</div>
        
 
