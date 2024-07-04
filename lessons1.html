@@ -1,4 +1,4 @@
-
+<head>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
 
@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css"></link>
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></link>
 <link href="https://cdn.jsdelivr.net/npm/remixicon@3.7.0/fonts/remixicon.css" rel="stylesheet"/>
+</head>
+
 
 <style>
 	.collection {
@@ -105,14 +107,14 @@
     transform: scale(1);
   }
 
-  .modal-container.four .modal-background .modal2 {
+  .modal-container.four .modal-background .modal-doc {
     animation: blowUpModal 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
   }
   .modal-container.four + body {
     z-index: 1;
     animation: blowUpContent 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
   }
-  .modal-container.four.out .modal-background .modal2 {
+  .modal-container.four.out .modal-background .modal-doc {
     animation: blowUpModalTwo 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
   }
   .modal-container.four.out + body {
@@ -125,7 +127,7 @@
     text-align: center;
     vertical-align: middle;
   }
-  .modal-container .modal-background .modal2 {
+  .modal-container .modal-background .modal-doc {
     padding: 50px;
     display: inline-block;
     border-radius: 3px;
@@ -354,6 +356,7 @@ iframe#quiz {
 }
 </style>
 
+
 <body ng-app="materializeApp" >
 
   <!-- End Header -->
@@ -394,8 +397,8 @@ iframe#quiz {
     <div class="col s12">
       <ul class="tabs">
           <li ng-repeat="activity in material.activity" class="tab col">
-    <span class="text-inside"  ng-click="showModal(activity.url)" ng-if="activity.media == 'pdf'"><i class="material-icons inside">{{activity.icon}}</i>{{activity.type}}</span>
-<span class="text-inside js-trigger-video-modal"  onclick="toggle_video_modal()" data-youtube-id="{{activity.url}}" ng-if="activity.media == 'video'"><i class="material-icons inside">{{activity.icon}}</i>{{activity.type}}</span>
+    <span class="text-inside"  onclick="showModal(this)" data-pdf-id="{{activity.url}}" ng-if="activity.media == 'pdf'"><i class="material-icons inside">{{activity.icon}}</i>{{activity.type}}</span>
+<span class="text-inside js-trigger-video-modal"  onclick="toggle_video_modal(this)" data-youtube-id="{{activity.url}}" ng-if="activity.media == 'video'"><i class="material-icons inside">{{activity.icon}}</i>{{activity.type}}</span>
   </li>
       </ul>
     </div>
@@ -406,40 +409,7 @@ iframe#quiz {
     </li>
   </ul>
       
-      
-      <div id="modalPDF" class="modal-container">
-        <div class="modal-background" ng-click="hideModal()">
-            <div class="modal2">
-          
-                <a 
-        	href="#" 
-        	class="close-modal" 
-        >
-        	<!-- X close video icon -->
-          <svg 
-            version="1.1" 
-            xmlns="http://www.w3.org/2000/svg" 
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            x="0"
-            y="0"
-            viewBox="0 0 32 32" 
-            style="enable-background:new 0 0 32 32;" 
-            xml:space="preserve" 
-            width="24" 
-            height="24" 
-          >
-                <path fill="#ffffff" d="M30.3448276,31.4576271 C29.9059965,31.4572473 29.4852797,31.2855701 29.1751724,30.980339 L0.485517241,2.77694915 C-0.122171278,2.13584324 -0.104240278,1.13679247 0.52607603,0.517159487 C1.15639234,-0.102473494 2.17266813,-0.120100579 2.82482759,0.477288136 L31.5144828,28.680678 C31.9872448,29.1460053 32.1285698,29.8453523 31.8726333,30.4529866 C31.6166968,31.0606209 31.0138299,31.4570487 30.3448276,31.4576271 Z" id="Shape"></path>
-                <path fill="#ffffff" d="M1.65517241,31.4576271 C0.986170142,31.4570487 0.383303157,31.0606209 0.127366673,30.4529866 C-0.12856981,29.8453523 0.0127551942,29.1460053 0.485517241,28.680678 L29.1751724,0.477288136 C29.8273319,-0.120100579 30.8436077,-0.102473494 31.473924,0.517159487 C32.1042403,1.13679247 32.1221713,2.13584324 31.5144828,2.77694915 L2.82482759,30.980339 C2.51472031,31.2855701 2.09400353,31.4572473 1.65517241,31.4576271 Z" id="Shape"></path>
-          </svg>
-        </a>
-              
-                <iframe id="drive" ng-src="{{trustAsResourceUrl(selectedManualUrl)}}" frameborder="0"></iframe>
-            
-            </div>
-        </div>
-    </div>
-      
-      
+    
         
 </div>
 
@@ -457,105 +427,80 @@ iframe#quiz {
 
 <div id="test2" class="col s12" ng-controller="level1">
     <!-- CSS Course Start -->
-    <ul class="collection with-header level1" ng-repeat="data in allData">
-        <li class="collection-header">
-            <h4 class="grey-text">{{data.block}}</h4>
+      <ul class="collection with-header level1" ng-repeat="data in allData">
+    <li class="collection-header">
+      <h4 class="grey-text">{{data.block}}</h4>
+    </li>
+    <li class="collection-item" ng-repeat="lesson in data.lessons">
+      <a href="#lesson" ng-init="lesson.showButton = false" ng-click="lesson.showButton = !lesson.showButton">
+        <div>{{lesson.name}}<span class="secondary-content"><i class="material-icons" ng-if="lesson.material[lesson.material.length - 1].id < num">check</i></span></div>
+      </a>
+      
+      <ul class="collapsible popout" data-collapsible="accordion" ng-if="lesson.showButton">
+     <div class="linehorizontal" ></div>
+        <li ng-repeat="material in lesson.material" class="container-lessons" ng-if="lesson.material[0].id <= num">
+          <div class="collapsible-header">
+      <i class="material-icons" ng-if="material.id < num">{{material.icon}}</i>
+<i class="material-icons" ng-if="material.id >= num">pending_actions</i>
+            {{material.title}}<span class="secondary-content"><i class="material-icons" ng-if="material.id < num">check</i></span></div>
+          <div class="collapsible-body">
+            
+  <div class="row">
+    <div class="col s12">
+      <ul class="tabs">
+          <li ng-repeat="activity in material.activity" class="tab col">
+    <span class="text-inside"  onclick="showModal(this)" data-pdf-id="{{activity.url}}" ng-if="activity.media == 'pdf'"><i class="material-icons inside">{{activity.icon}}</i>{{activity.type}}</span>
+<span class="text-inside js-trigger-video-modal"  onclick="toggle_video_modal(this)" data-youtube-id="{{activity.url}}" ng-if="activity.media == 'video'"><i class="material-icons inside">{{activity.icon}}</i>{{activity.type}}</span>
+  </li>
+      </ul>
+    </div>
+     </div>
+          </div>
         </li>
-        <li class="collection-item" ng-repeat="lesson in data.lessons">
-            <a href="#" ng-click="toggleAccordion(lesson)">
-                <div>{{lesson.name}}<span class="secondary-content"><i class="material-icons">pageview</i></span></div>
-            </a>
-        </li>
-        <!-- Modal for Lesson1 -->
-        <ul class="collapsible popout" data-collapsible="accordion" ng-repeat="material in lesson.material" ng-show="lesson.showAccordion">
-            <li>
-                <div class="collapsible-header"><i class="{{material.icon}}"></i>{{material.title}}</div>
-                <div class="collapsible-body">
-                    <p>{{material.instructions}}</p>
-                </div>
-            </li>
-        </ul>
-    </ul>
+      </ul>
+    </li>
+  </ul>
 </div>
 
 
 
 
 
-    <div id="test3" class="col s12">
+    <div id="test3" class="col s12" ng-controller="level2">
       <!-- JAVASCRIPT Course Start -->
-      <ul class="collection with-header level2">
-        <li class="collection-header">
-          <h4 class="grey-text">Course Overview</h4></li>
-        <li class="collection-item">
-          <a href="#!" ng-init="showJavascript1" ng-click="showJavascript1 = !showJavascript1">
-            <div>Lesson 1: Introduction to Javascript<span class="secondary-content"><i class="material-icons">pageview</i></span></div>
-          </a>
-        </li>
-        <!-- Modal for Lesson1 -->
-        <ul class="collapsible popout" data-collapsible="accordion" ng-if="showJavascript1" watch>
-          <li ng-repeat="single in javascriptLesson1">
-            <div class="collapsible-header"><i class="{{single.icon}}">{{single.iconDisplay}}</i>{{single.title}}</div>
-            <div class="collapsible-body">
-              <p>
-                {{single.content}}
-              </p>
-            </div>
-          </li>
-        </ul>
-        <!-- End Modal for Lesson1 -->
-        <li class="collection-item">
-          <a href="#!" ng-init="showJavascript2" ng-click="showJavascript2 = !showJavascript2">
-            <div>Lesson 2: Control Flow<span class="secondary-content"><i class="material-icons">pageview</i></span></div>
-          </a>
-        </li>
-        <!-- Modal for Lesson2 -->
-        <ul class="collapsible popout" data-collapsible="accordion" ng-if="showJavascript2" watch>
-          <li ng-repeat="single in javascriptLesson2">
-            <div class="collapsible-header"><i class="{{single.icon}}">{{single.iconDisplay}}</i>{{single.title}}</div>
-            <div class="collapsible-body">
-              <p>
-                {{single.content}}
-              </p>
-            </div>
-          </li>
-        </ul>
-        <!-- End Modal for Lesson2 -->
-        <li class="collection-item">
-          <a href="#!" ng-init="showJavascript3" ng-click="showJavascript3 = !showJavascript3">
-            <div>Lesson 3: Functions & Scope<span class="secondary-content"><i class="material-icons">pageview</i></span></div>
-          </a>
-        </li>
-        <!-- Modal for Lesson3 -->
-        <ul class="collapsible popout" data-collapsible="accordion" ng-if="showJavascript3" watch>
-          <li ng-repeat="single in javascriptLesson3">
-            <div class="collapsible-header"><i class="{{single.icon}}">{{single.iconDisplay}}</i>{{single.title}}</div>
-            <div class="collapsible-body">
-              <p>
-                {{single.content}}
-              </p>
-            </div>
-          </li>
-        </ul>
-        <!-- End Modal for Lesson3 -->
-        <li class="collection-item">
-          <a href="#!" ng-init="showJavascript4" ng-click="showJavascript4 = !showJavascript4">
-            <div>Lesson 4: Arrays & Loops<span class="secondary-content"><i class="material-icons">pageview</i></span></div>
-          </a>
-        </li>
-        <!-- Modal for Lesson4 -->
-        <ul class="collapsible popout" data-collapsible="accordion" ng-if="showJavascript4" watch>
-          <li ng-repeat="single in javascriptLesson4">
-            <div class="collapsible-header"><i class="{{single.icon}}">{{single.iconDisplay}}</i>{{single.title}}</div>
-            <div class="collapsible-body">
-              <p>
-                {{single.content}}
-              </p>
-            </div>
-          </li>
-        </ul>
-        <!-- End Modal for Lesson4 -->
+      <ul class="collection with-header level2" ng-repeat="data in allData">
+    <li class="collection-header">
+      <h4 class="grey-text">{{data.block}}</h4>
+    </li>
+    <li class="collection-item" ng-repeat="lesson in data.lessons">
+      <a href="#lesson" ng-init="lesson.showButton = false" ng-click="lesson.showButton = !lesson.showButton">
+        <div>{{lesson.name}}<span class="secondary-content"><i class="material-icons" ng-if="lesson.material[lesson.material.length - 1].id < num">check</i></span></div>
+      </a>
+      
+      <ul class="collapsible popout" data-collapsible="accordion" ng-if="lesson.showButton">
+     <div class="linehorizontal" ></div>
+        <li ng-repeat="material in lesson.material" class="container-lessons" ng-if="lesson.material[0].id <= num">
+          <div class="collapsible-header">
+      <i class="material-icons" ng-if="material.id < num">{{material.icon}}</i>
+<i class="material-icons" ng-if="material.id >= num">pending_actions</i>
+            {{material.title}}<span class="secondary-content"><i class="material-icons" ng-if="material.id < num">check</i></span></div>
+          <div class="collapsible-body">
+            
+  <div class="row">
+    <div class="col s12">
+      <ul class="tabs">
+          <li ng-repeat="activity in material.activity" class="tab col">
+    <span class="text-inside"  onclick="showModal(this)" data-pdf-id="{{activity.url}}" ng-if="activity.media == 'pdf'"><i class="material-icons inside">{{activity.icon}}</i>{{activity.type}}</span>
+<span class="text-inside js-trigger-video-modal"  onclick="toggle_video_modal(this)" data-youtube-id="{{activity.url}}" ng-if="activity.media == 'video'"><i class="material-icons inside">{{activity.icon}}</i>{{activity.type}}</span>
+  </li>
       </ul>
+    </div>
+     </div>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
       <!-- JAVASCRIPT Course End -->
     </div>
    
@@ -605,6 +550,38 @@ iframe#quiz {
 </div>
   
 
+<div id="modalPDF" class="modal-container">
+        <div class="modal-background">
+            <div class="modal-doc">
+     <iframe id="drive" src="https://drive.google.com/file/d/1Dom_0ZjNoslBKZpUa3IUDN8XMzcxZ1Jd/preview" frameborder="0"></iframe>     
+                <a 
+          href="#" 
+          class="close-modal" onclick="closemodal()" 
+        >
+          <!-- X close video icon -->
+          <svg 
+            version="1.1" 
+            xmlns="http://www.w3.org/2000/svg" 
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            x="0"
+            y="0"
+            viewBox="0 0 32 32" 
+            style="enable-background:new 0 0 32 32;" 
+            xml:space="preserve" 
+            width="24" 
+            height="24" 
+          >
+                <path fill="#ffffff" d="M30.3448276,31.4576271 C29.9059965,31.4572473 29.4852797,31.2855701 29.1751724,30.980339 L0.485517241,2.77694915 C-0.122171278,2.13584324 -0.104240278,1.13679247 0.52607603,0.517159487 C1.15639234,-0.102473494 2.17266813,-0.120100579 2.82482759,0.477288136 L31.5144828,28.680678 C31.9872448,29.1460053 32.1285698,29.8453523 31.8726333,30.4529866 C31.6166968,31.0606209 31.0138299,31.4570487 30.3448276,31.4576271 Z" id="Shape"></path>
+                <path fill="#ffffff" d="M1.65517241,31.4576271 C0.986170142,31.4570487 0.383303157,31.0606209 0.127366673,30.4529866 C-0.12856981,29.8453523 0.0127551942,29.1460053 0.485517241,28.680678 L29.1751724,0.477288136 C29.8273319,-0.120100579 30.8436077,-0.102473494 31.473924,0.517159487 C32.1042403,1.13679247 32.1221713,2.13584324 31.5144828,2.77694915 L2.82482759,30.980339 C2.51472031,31.2855701 2.09400353,31.4572473 1.65517241,31.4576271 Z" id="Shape"></path>
+          </svg>
+        </a>
+              
+                
+            
+            </div>
+        </div>
+    </div>
+
 </body>
 
 
@@ -625,7 +602,7 @@ app.factory('SharedState', function() {
   };
 });
   app
-.controller('levelP', ["$scope", "SharedState", '$sce', function($scope, SharedState, $sce) {
+.controller('levelP', ["$scope", "SharedState", function($scope, SharedState) {
    //$scope.num = SharedState.num
   $scope.num = 20
     $scope.allData = [
@@ -1252,30 +1229,11 @@ app.factory('SharedState', function() {
   
   
   
-  $scope.trustAsResourceUrl = function(url) {
-        return $sce.trustAsResourceUrl(url);
-    };
-    
-     $scope.selectedManualUrl = '';
-
-    $scope.showModal = function(url) {
-      $scope.selectedManualUrl = url;
-        document.getElementById('modalPDF').classList.add('four');
-    };
-
-    $scope.hideModal = function(index) {
-        const modal = document.getElementById('modalPDF');
-        modal.classList.add('out');
-        setTimeout(() => {
-            modal.classList.remove('four', 'out');
-        }, 400);
-    };
-  
   }])
 
 .controller('level1', ["$scope", function($scope) {
  
-    
+     $scope.num = 20
     $scope.allData = [
      {
           block: "Bloque 1",
@@ -1890,33 +1848,636 @@ app.factory('SharedState', function() {
 
         ]
       }
-
-
-
       
 ]
   
-  
-  
-  $scope.trustAsResourceUrl = function(url) {
-        return $sce.trustAsResourceUrl(url);
-    };
+
     
-     $scope.selectedManualUrl = '';
+}])
 
-    $scope.showModal = function(url) {
-      $scope.selectedManualUrl = url;
-        document.getElementById('modalPDF').classList.add('four');
-    };
 
-    $scope.hideModal = function(index) {
-        const modal = document.getElementById('modalPDF');
-        modal.classList.add('out');
-        setTimeout(() => {
-            modal.classList.remove('four', 'out');
-        }, 400);
-    };
+
+.controller('level2', ["$scope", function($scope) {
+ 
+     $scope.num = 20
+    $scope.allData = [
+     {
+          block: "Bloque 1",
+          lessons: [
+            {
+              name: 'Lección 1: Introducción',
+              material:[{
+                id: 1,
+                title: 'Ritmo y métrica',
+                icon: 'library_books',
+                activity:[{
+                  icon: 'smart_display',
+                  type: 'Lección',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/qh-4OyTcuJw'
+                  },{
+                  icon: 'auto_stories',
+                  type: 'Teoría',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d/1FI1eaRN-JowdgRRFEF_peZktBd-VY3Ke/preview'
+                  }
+                ]
+              },
+              {
+                id: 2,
+                title: 'Posición de Do',
+                icon: 'library_books',
+                activity:[{
+                  icon: 'smart_display',
+                  type: 'Lección',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/3wn33KNLy5M'
+                  },{
+                  icon: 'auto_stories',
+                  type: 'Teoría',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d/1WqVnSwujAS7Rps02XNfqueu7PtiNVG7D/preview'
+                  },{
+                  icon: 'description',
+                  type: 'Ejercicios',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d/1s5bZw8XCq5cHPcDgOniZSqwpmc6xcKYG/preview'
+                  }
+                ]
+              },
+              {
+                id: 3,
+                title: 'Pieza: Ode to Joy - var 2',
+                icon: 'audio_file',
+                activity:[{
+                  icon: 'piano',
+                  type: 'Ejemplo',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/bVWXlV8Neic'
+                  },{
+                  icon: 'description',
+                  type: 'Partitura',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d/1frOQ8O1QNfFf8GUKFYH2-lEYvWhSG6RS/preview'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+              name: 'Lección 2: Grand Staff',
+              material:[
+              {
+                id: 4,
+                title: 'El Pentagrama y el Grand Staff',
+                icon: 'library_books',
+                activity:[{
+                  icon: 'smart_display',
+                  type: 'Lección',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/HHF95sBbmwQ'
+                  },{
+                  icon: 'auto_stories',
+                  type: 'Teoría',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d/1HKC6x6ca-whFRxlYAUKOQo7M-dpR8dtY/preview'
+                  },{
+                  icon: 'description',
+                  type: 'Ejercicios',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d/1Ys_fybQsMIjS4zaCRLO9lV8qsvmvooXq/preview'
+                  }
+                ]
+              },
+              {
+                id: 5,
+                title: 'Pieza: Ode to Joy - var 3',
+                icon: 'audio_file',
+                activity:[{
+                  icon: 'piano',
+                  type: 'Ejemplo',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/ec4ZRGMYgrY'
+                  },{
+                  icon: 'description',
+                  type: 'Partitura',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d/15amNYqOJwINhWNjw8I77uRWZ-6sh15-e/preview'
+                  }
+                ]
+              }
+            ]
+          },
+
+          {
+              name: 'Lección 3: Intervalos',
+              material:[{
+                id: 6,
+                title: 'Intervalos de 2da y 3era',
+                icon: 'library_books',
+                activity:[{
+                  icon: 'smart_display',
+                  type: 'Lección',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/H4x0TPlSoaQ'
+                  },
+                  {
+                  icon: 'auto_stories',
+                  type: 'Teoría',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d/1Wu2qa7B3hyVoOHkPWdVcDHklBgn5nk0T/preview'
+                  },
+                  {
+                  icon: 'description',
+                  type: 'Ejercicios',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d/1Dom_0ZjNoslBKZpUa3IUDN8XMzcxZ1Jd/preview'
+                  }
+                ]
+              },
+              {
+                id: 7,
+                title: 'Pieza: Mountain Climbing',
+                icon: 'audio_file',
+                activity:[{
+                  icon: 'piano',
+                  type: 'Ejemplo',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/XfUF1yv0Ook'
+                  },{
+                  icon: 'description',
+                  type: 'Partitura',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d/1jo4LcVuPV-Q0eytfVFyDdCPqbTDX1aU9/preview'
+                  }
+                ]
+              }
+            ]
+          },
+
+          {
+              name: 'Lección 4: Intervalos (2da parte)',
+              material:[{
+                id: 8,
+                title: 'Intervalos de 4ta y 5ta',
+                icon: 'library_books',
+                activity:[{
+                  icon: 'smart_display',
+                  type: 'Lección',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/M6DCHr2wVh8'
+                  },
+                  {
+                  icon: 'auto_stories',
+                  type: 'Teoría',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d/178foCLFrPUNg1Tr536m0oBNLU3JY87JY/preview'
+                  },
+                  {
+                  icon: 'description',
+                  type: 'Ejercicios',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d/1G3Cun9yL_xl8ZJUhDJE5CAYTXMQUCIZY/preview'
+                  }
+                ]
+              },
+              {
+                id: 9,
+                title: 'Pieza: Jingle Bells',
+                icon: 'audio_file',
+                activity:[{
+                  icon: 'piano',
+                  type: 'Ejemplo',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/JCogx6-fQ0Q'
+                  },{
+                  icon: 'description',
+                  type: 'Partitura',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d/19_81QSEylsakl04ZEnFXHKTDThcnI3MC/preview'
+                  }
+                ]
+              }
+            ]
+          }
+
+        ]
+      },
+
+
+//BLOQUE 2
+     {
+          block: "Bloque 2",
+          lessons: [
+            {
+              name: 'Lección 5: Frases',
+              material:[{
+                id: 10,
+                title: 'Construcción de frases',
+                icon: 'library_books',
+                activity:[{
+                  icon: 'smart_display',
+                  type: 'Lección',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/RJnwVQHexW0'
+                  },
+                  {
+                  icon: 'auto_stories',
+                  type: 'Teoría',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d/1V15F3hT0JQYYBP90XIMT2lHogik6s2Kj/preview'
+                  },
+
+                  {
+                  icon: 'description',
+                  type: 'Ejercicios',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d/1gum-qE-LUdxxRNmjh39A1xImbqYRABAX/preview'
+                  }
+                ]
+              },
+              {
+                id: 11,
+                title: 'Pieza: Run Away River',
+                icon: 'audio_file',
+                activity:[{
+                  icon: 'piano',
+                  type: 'Ejemplo',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/kl_V1GltXDc'
+                  },{
+                  icon: 'description',
+                  type: 'Partitura',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d/1pHinigt3CUDZeBMYowtaHHP_yGjRigWo/preview'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+              name: 'Lección 6: Acordes',
+              material:[{
+                id: 12,
+                title: 'Construcción de acordes',
+                icon: 'library_books',
+                activity:[{
+                  icon: 'smart_display',
+                  type: 'Lección',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/Y2MokfVUSqs'
+                  },{
+                  icon: 'auto_stories',
+                  type: 'Teoría',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d/1zhyiUNAagb5l-Z8pkWSrDt5EOtUGCf0h/preview'
+                  }
+                ]
+              },
+              {
+                id: 13,
+                title: 'Acorde C y G7',
+                icon: 'library_books',
+                activity:[{
+                  icon: 'smart_display',
+                  type: 'Lección',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/n7qaCP5a-Pc'
+                  },
+                  {
+                  icon: 'auto_stories',
+                  type: 'Teoría',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d/14g5yaRgRo66fJtigaCVpN7zcZ6AusP05/preview'
+                  },
+                  {
+                  icon: 'description',
+                  type: 'Ejercicios',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d/1UtQsQYtjkYxqbVnCGfTmNa85xtnhG3W7/preview'
+                  }
+                ]
+              },
+              {
+                id: 14,
+                title: 'Pieza: Trumpet Voluntary',
+                icon: 'audio_file',
+                activity:[{
+                  icon: 'piano',
+                  type: 'Ejemplo',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/k7ZlQezPHPk'
+                  },{
+                  icon: 'description',
+                  type: 'Partitura',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d/1-b7JbEAe5M5j_3KoSOCIs8Ss5uzez2Rw/preview'
+                  }
+                ]
+              }
+            ]
+          },
+            {
+              name: 'Lección 7: Corcheas y Staccato',
+              material:[{
+                id: 15,
+                title: 'Definición',
+                icon: 'library_books',
+                activity:[{
+                  icon: 'smart_display',
+                  type: 'Corcheas',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/'
+                  },
+                   {
+                  icon: 'smart_display',
+                  type: 'Staccato',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/'
+                  },
+                  {
+                  icon: 'auto_stories',
+                  type: 'Teoría',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d//preview'
+                  }
+                 
+                ]
+              },
+              {
+                id: 16,
+                title: 'Ejercicios',
+                icon: 'library_books',
+                activity:[{
+                  icon: 'smart_display',
+                  type: 'Explicación adicional',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/'
+                  },
+                  {
+                  icon: 'description',
+                  type: 'Ejercicios',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d//preview'
+                  }
+                ]
+              },
+              {
+                id: 17,
+                title: 'Pieza: Old German Dance',
+                icon: 'audio_file',
+                activity:[{
+                  icon: 'piano',
+                  type: 'Ejemplo',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/'
+                  },{
+                  icon: 'description',
+                  type: 'Partitura',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d//preview'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+              name: 'Lección 8: Ejercicios de coordinación',
+              material:[{
+                id: 18,
+                title: 'Transposición',
+                icon: 'library_books',
+                activity:[{
+                  icon: 'smart_display',
+                  type: 'Lección',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/'
+                  },
+                  {
+                  icon: 'description',
+                  type: 'Ejercicios',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d//preview'
+                  }
+                 
+                ]
+              },
+              {
+                id: 19,
+                title: 'Pieza: Allegro',
+                icon: 'audio_file',
+                activity:[{
+                  icon: 'piano',
+                  type: 'Ejemplo',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/'
+                  },{
+                  icon: 'description',
+                  type: 'Partitura',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d//preview'
+                  }
+                ]
+              }
+            ]
+          }
+
+        ]
+      },
+
+//BLOQUE 3
+       {
+          block: "Bloque 3",
+          lessons: [
+            {
+              name: 'Lección 9: Marcas de expresión',
+              material:[{
+                id: 20,
+                title: 'Posición de Do II',
+                icon: 'library_books',
+                activity:[{
+                  icon: 'smart_display',
+                  type: 'Lección',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/'
+                  },
+                  {
+                  icon: 'description',
+                  type: 'Ejercicios',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d//preview'
+                  }
+                ]
+              },
+              {
+                id: 21,
+                title: 'Marcas de Tempo y Dinámicas',
+                icon: 'library_books',
+                activity:[{
+                  icon: 'smart_display',
+                  type: 'Lección',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/'
+                  },
+                   {
+                  icon: 'auto_stories',
+                  type: 'Teoría',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d//preview'
+                  }
+                ]
+              },
+              {
+                id: 22,
+                title: 'Pieza: Waltz',
+                icon: 'audio_file',
+                activity:[{
+                  icon: 'piano',
+                  type: 'Ejemplo',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/'
+                  },{
+                  icon: 'description',
+                  type: 'Partitura',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d//preview'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+              name: 'Lección 10: Escala de Do Mayor',
+              material:[{
+                id: 23,
+                title: 'Definición y ejercicios',
+                icon: 'library_books',
+                activity:[{
+                  icon: 'smart_display',
+                  type: 'Lección',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/'
+                  },{
+                  icon: 'description',
+                  type: 'Ejercicios',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d//preview'
+                  }
+                ]
+              },
+
+              {
+                id: 24,
+                title: 'Pieza: Little Playmates',
+                icon: 'audio_file',
+                activity:[{
+                  icon: 'piano',
+                  type: 'Ejemplo',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/'
+                  },{
+                  icon: 'description',
+                  type: 'Partitura',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d//preview'
+                  }
+                ]
+              }
+            ]
+          },
+
+           {
+              name: 'Lección 11: Posición de Sol',
+              material:[{
+                id: 25,
+                title: 'Definición y ejercicios',
+                icon: 'library_books',
+                activity:[{
+                  icon: 'smart_display',
+                  type: 'Lección',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/'
+                  },
+                  {
+                  icon: 'auto_stories',
+                  type: 'Teoría',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d//preview'
+                  },
+                  {
+                  icon: 'description',
+                  type: 'Ejercicios',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d//preview'
+                  }
+                 
+                ]
+              },
+              {
+                id: 26,
+                title: 'Pieza: Bagpipe',
+                icon: 'audio_file',
+                activity:[{
+                  icon: 'piano',
+                  type: 'Ejemplo',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/'
+                  },{
+                  icon: 'description',
+                  type: 'Partitura',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d//preview'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+              name: 'Lección 12: Ligadura de prolongación',
+              material:[{
+                id: 27,
+                title: 'Definición y ejercicios',
+                icon: 'library_books',
+                activity:[{
+                  icon: 'smart_display',
+                  type: 'Lección',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/'
+                  },
+                  {
+                  icon: 'description',
+                  type: 'Ejercicios',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d//preview'
+                  }                 
+                ]
+              },
+              {
+                id: 28,
+                title: 'Pieza: Sonatina',
+                icon: 'audio_file',
+                activity:[{
+                  icon: 'piano',
+                  type: 'Ejemplo',
+                  media: 'video',
+                  url: 'https://www.youtube.com/embed/'
+                  },{
+                  icon: 'description',
+                  type: 'Partitura',
+                  media: 'pdf',
+                  url: 'https://drive.google.com/file/d//preview'
+                  }
+                ]
+              }
+            ]
+          }
+
+        ]
+      }
+      
+]
   
+
     
 }]);
 
@@ -1926,21 +2487,11 @@ app.factory('SharedState', function() {
 
 
 
-
-
-function toggle_video_modal() {
-      $(".js-trigger-video-modal").on("click", function(e){
-           
-          e.preventDefault();
-          var url = $(this).attr('data-youtube-id');
-
-          var src = url
-
-          $("#youtube").attr('src', src);
-          
-          $("body").addClass("show-video-modal noscroll");
-      
-      });
+function toggle_video_modal(element) {
+     var url = element.getAttribute('data-youtube-id');
+          $("#youtube").attr('src', url);        
+          $("body").addClass("show-video-modal noscroll");   
+}
 
       // Close and Reset the Video Modal
       function close_video_modal() {
@@ -1952,12 +2503,25 @@ function toggle_video_modal() {
       }
       $('body').on('click', '.close-video-modal, .video-modal .overlay', function(event) {
           close_video_modal();
-          
       });
-      $('body').keyup(function(e) {
-          if (e.keyCode == 27) { 
-            close_video_modal();
-          }
-      });
-  }
+ 
+
+
+function showModal(element) {
+     var url = element.getAttribute('data-pdf-id');
+          $("#drive").attr('src', url);        
+        document.getElementById('modalPDF').classList.add('four');
+}
+ 
+      function closemodal() {
+        
+       const modal = document.getElementById('modalPDF');
+        modal.classList.add('out');
+        setTimeout(() => {
+            modal.classList.remove('four', 'out');
+        }, 300);
+        $("#drive").attr('src', '');
+        
+      }
+
 </script>
