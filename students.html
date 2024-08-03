@@ -1077,7 +1077,7 @@ iframe#quiz {
           <div class="panel-body">
        <ul class="list-unstyled" ng-repeat="lesson in data[student.lvl].lessons">
               <li ng-class="{ 'current': lesson.id === student.id, 'completed': lesson.id < student.id }">
-            <!--    <div class="achievement-icon js-trigger-video-modal" onclick="toggle_video_modal()" data-youtube-id="{{lesson.video}}"><i class="fa {{lesson.icon}}" ></i></div> -->
+            <!--    <div class="achievement-icon js-trigger-video-modal" onclick="toggle_video_modal(this)" data-youtube-id="{{lesson.video}}"><i class="fa {{lesson.icon}}" ></i></div> -->
  <div ng-if="lesson.media == 'video'" class="achievement-icon js-trigger-video-modal" onclick="toggle_video_modal()" data-youtube-id="{{lesson.video}}"><i class="fa fa-youtube-play" ></i></div>
                 
  <div ng-if="lesson.media == 'quiz'" class="achievement-icon js-trigger-quiz-modal" onclick="toggle_quiz_modal()" url="{{lesson.url}}"><i class="fa fa-question" ></i></div>               
@@ -1554,7 +1554,7 @@ $http.post('https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7
               media: 'video',
               icon: 'fa-youtube-play',
               name: 'Tema 1.2: Posición de Do',
-              video: '3wn33KNLy5M',
+              video: 'https://www.youtube.com/embed/3wn33KNLy5M',
               points: ''
             },
             {
@@ -1563,7 +1563,7 @@ $http.post('https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7
               media: 'video',
               icon: 'fa-youtube-play',
               name: 'Tema 1.1: Ritmo y métrica',
-              video: 'Q4r5gnfAtzs',
+              video: 'https://www.youtube.com/embed/Q4r5gnfAtzs',
               points: ''
             }
             
@@ -1580,7 +1580,7 @@ $http.post('https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7
               media: 'video',
               icon: 'fa-youtube-play',
               name: 'Tema 1.1 ',
-              video: 'videoseries?si=O2Hei4Ehsc-VfaXF&amp;list=PLFLLmJ16LJSysX0faq2DsSUFXjnrXLlK1',
+              video: 'https://www.youtube.com/embed/videoseries?si=O2Hei4Ehsc-VfaXF&amp;list=PLFLLmJ16LJSysX0faq2DsSUFXjnrXLlK1',
               points: ''
             },
             {
