@@ -199,7 +199,7 @@
 
 
 /*-- Logros --*/
-.achievement-list-panel .panel-body {padding: 10px 10px; min-height: 440px; }
+.achievement-list-panel .panel-body {padding: 10px 10px; min-height: 300px; max-height: 350px; }
 .achievement-list-panel .panel-body .list-unstyled li {padding: 0 0 10.5px; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-align:center; -ms-flex-align:center; -ms-grid-row-align:center; align-items:center; border-bottom: 1px dashed #cccccc}
 
 .achievement-list-panel .panel-body .list-unstyled li .achievement-icon {-webkit-box-flex: 1;-ms-flex: 1 0 70px; flex: 1 0 70px; margin-right: 15px;}
@@ -1020,14 +1020,7 @@ iframe#quiz {
   
  <section class="userInterface" ng-show="showUserInterface"> 
  <div class="ready-btn" >   
-<div id="menu">
-  <div id="menu-main" ng-click="postReady()">
-    <span data-next="" id="current-option"></span>
-    <button id="next-option" >
-    </button>    
-  </div>
-  <div id="width-fix"></div>
-</div> 
+
 </div>
 
 
@@ -1243,32 +1236,6 @@ iframe#quiz {
 
 
 
-const options = ['Practicando...', '✅  Listo'];
-const mainEl = document.getElementById("menu");
-let currentOption = 0;
-const optionEl = document.getElementById("current-option");
-
-const widthFix = document.getElementById("width-fix");
-
-options.forEach(e => {
-    let el = document.createElement('span');
-    el.innerText = e;
-    widthFix.appendChild(el)
-});
-
-optionEl.innerText = options[currentOption];
-
-mainEl.onclick = function() {
-    currentOption = currentOption<options.length-1?currentOption+1:0;
-    optionEl.dataset.next = options[currentOption];
-
-    mainEl.classList.add('anim');
-
-    setTimeout(() => {
-        optionEl.innerText = options[currentOption];
-        mainEl.classList.remove('anim');
-    }, 650);
-};
 
 
 
@@ -1348,11 +1315,15 @@ $http.post('https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7
       $scope.student = user
       postUpdate("online", $scope.student.row)
       $scope.showUserInterface = true;
-       $('.userInterface').fadeIn('slow', function() {
+       /*$('.userInterface').fadeIn('slow', function() {
         $('.userSelect').fadeOut('slow', function(){
           $('#metronome-iframe').show();
         });
-      });
+      });*/
+    $('.userInterface').show();
+    $('.userSelect').hide();
+    $('#metronome-iframe').show();
+	    
       speak("Bienvenido "+$scope.student.firstname)
       dataIntervalPromise = $interval(refreshData, 1000);
     };
@@ -1361,9 +1332,12 @@ $http.post('https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7
       $scope.showUserInterface = false;
      postUpdate("offline", $scope.student.row)
      $scope.student = {};
-     $('.userSelect').fadeIn('slow', function() {
+     /*$('.userSelect').fadeIn('slow', function() {
         $('.userInterface').fadeOut('slow');
-    });
+    });*/
+	    $('.userSelect').show();
+    $('.userInterface').hide();
+	   
      if (angular.isDefined(dataIntervalPromise)) {
         $interval.cancel(dataIntervalPromise);
       }
@@ -1565,7 +1539,7 @@ $http.post('https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7
               pdf: 'https://drive.google.com/file/d/1kxLyedr3tlxEG-rE0RGlRC2gFL2H05o1/preview',
               points: ''
             },
-            {
+            /*{
               id: 2,
               type: 'Quiz',
               media: 'quiz',
@@ -1573,14 +1547,23 @@ $http.post('https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7
               name: 'Tema 1.2',
               url: 'https://www.youtube.com/embed/videoseries?;list=PLFLLmJ16LJSwFeQsI_tZCan4FBG4O7_mz',
               points: ''
+            },*/
+		   {
+              id: 1,
+              type: 'Teoria',
+              media: 'video',
+              icon: 'fa-youtube-play',
+              name: 'Tema 1.2: Posición de Do',
+              video: '3wn33KNLy5M',
+              points: ''
             },
             {
               id: 1,
               type: 'Teoria',
               media: 'video',
               icon: 'fa-youtube-play',
-              name: 'Tema 1.1 ',
-              video: 'videoseries?si=O2Hei4Ehsc-VfaXF&amp;list=PLFLLmJ16LJSysX0faq2DsSUFXjnrXLlK1',
+              name: 'Tema 1.1: Ritmo y métrica',
+              video: 'Q4r5gnfAtzs',
               points: ''
             }
             
@@ -1591,12 +1574,13 @@ $http.post('https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7
           pdf: "",
           id: 2,
           lessons: [
-            {
+             {
               id: 1,
-              type: 'Técnica',
+              type: 'Teoria',
+              media: 'video',
               icon: 'fa-youtube-play',
-              name: 'Ejercicios de coordinación',
-              video: '',
+              name: 'Tema 1.1 ',
+              video: 'videoseries?si=O2Hei4Ehsc-VfaXF&amp;list=PLFLLmJ16LJSysX0faq2DsSUFXjnrXLlK1',
               points: ''
             },
             {
