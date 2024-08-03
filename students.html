@@ -1078,7 +1078,7 @@ iframe#quiz {
        <ul class="list-unstyled" ng-repeat="lesson in data[student.lvl].lessons">
               <li ng-class="{ 'current': lesson.id === student.id, 'completed': lesson.id < student.id }">
             <!--    <div class="achievement-icon js-trigger-video-modal" onclick="toggle_video_modal(this)" data-youtube-id="{{lesson.video}}"><i class="fa {{lesson.icon}}" ></i></div> -->
- <div ng-if="lesson.media == 'video'" class="achievement-icon js-trigger-video-modal" onclick="toggle_video_modal()" data-youtube-id="{{lesson.video}}"><i class="fa fa-youtube-play" ></i></div>
+ <div ng-if="lesson.media == 'video'" class="achievement-icon js-trigger-video-modal" onclick="toggle_video_modal(this)" data-youtube-id="{{lesson.video}}"><i class="fa fa-youtube-play" ></i></div>
                 
  <div ng-if="lesson.media == 'quiz'" class="achievement-icon js-trigger-quiz-modal" onclick="toggle_quiz_modal()" url="{{lesson.url}}"><i class="fa fa-question" ></i></div>               
 
@@ -1131,7 +1131,7 @@ iframe#quiz {
             
           </div>
         </div>
-        <button class="aboutMe" ng-click="logout(); resetTimer()">Regresar</button>   
+        <button class="aboutMe" ng-click="logout(); resetTimer()" style="float: right;">Regresar</button>   
       </div>
     </div>
   </div>
@@ -1315,14 +1315,11 @@ $http.post('https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7
       $scope.student = user
       postUpdate("online", $scope.student.row)
       $scope.showUserInterface = true;
-       /*$('.userInterface').fadeIn('slow', function() {
+       $('.userInterface').fadeIn('slow', function() {
         $('.userSelect').fadeOut('slow', function(){
           $('#metronome-iframe').show();
         });
-      });*/
-    $('.userInterface').css('display', 'block');
-    $('.userSelect').css('display', 'none');
-    $('#metronome-iframe').css('display', 'block');
+      });
 	    
       speak("Bienvenido "+$scope.student.firstname)
       dataIntervalPromise = $interval(refreshData, 1000);
@@ -1332,11 +1329,9 @@ $http.post('https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7
       $scope.showUserInterface = false;
      postUpdate("offline", $scope.student.row)
      $scope.student = {};
-     /*$('.userSelect').fadeIn('slow', function() {
+     $('.userSelect').fadeIn('slow', function() {
         $('.userInterface').fadeOut('slow');
-    });*/
-	$('.userSelect').css('display', 'block');
-    $('.userInterface').css('display', 'none');
+    });
 	   
      if (angular.isDefined(dataIntervalPromise)) {
         $interval.cancel(dataIntervalPromise);
