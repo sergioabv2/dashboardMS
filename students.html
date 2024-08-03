@@ -1320,9 +1320,9 @@ $http.post('https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7
           $('#metronome-iframe').show();
         });
       });*/
-    $('.userInterface').show();
-    $('.userSelect').hide();
-    $('#metronome-iframe').show();
+    $('.userInterface').css('display', 'block');
+    $('.userSelect').css('display', 'none');
+    $('#metronome-iframe').css('display', 'block');
 	    
       speak("Bienvenido "+$scope.student.firstname)
       dataIntervalPromise = $interval(refreshData, 1000);
@@ -1335,8 +1335,8 @@ $http.post('https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7
      /*$('.userSelect').fadeIn('slow', function() {
         $('.userInterface').fadeOut('slow');
     });*/
-	    $('.userSelect').show();
-    $('.userInterface').hide();
+	$('.userSelect').css('display', 'block');
+    $('.userInterface').css('display', 'none');
 	   
      if (angular.isDefined(dataIntervalPromise)) {
         $interval.cancel(dataIntervalPromise);
