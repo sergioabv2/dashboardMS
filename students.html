@@ -1060,7 +1060,7 @@ iframe#quiz {
         </div>
         <div class="user-stats clearfix">
           
-  <iframe id="metronome-iframe" src="https://embed.metronome.app/" style="border-width:0; display: none;" width="390" height="400" frameborder="0" scrolling="no"></iframe>         
+  <iframe id="metronome-iframe" src="https://embed.metronome.app/" style="border-width:0;" width="390" height="400" frameborder="0" scrolling="no"></iframe>         
           
           
         </div>
@@ -1632,21 +1632,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-function toggle_video_modal() {
-      $(".js-trigger-video-modal").on("click", function(e){
-           
-          e.preventDefault();
-          var id = $(this).attr('data-youtube-id');
-          var autoplay = '?autoplay=1';
-          var related_no = '&rel=0';
-
-          var src = '//www.youtube.com/embed/'+id+autoplay+related_no;
-
-          $("#youtube").attr('src', src);
-          
-          $("body").addClass("show-video-modal noscroll");
-      
-      });
+function toggle_video_modal(element) {
+     var url = element.getAttribute('data-youtube-id');
+          $("#youtube").attr('src', url);        
+          $("body").addClass("show-video-modal noscroll");   
+}
 
       // Close and Reset the Video Modal
       function close_video_modal() {
@@ -1658,14 +1648,7 @@ function toggle_video_modal() {
       }
       $('body').on('click', '.close-video-modal, .video-modal .overlay', function(event) {
           close_video_modal();
-          
       });
-      $('body').keyup(function(e) {
-          if (e.keyCode == 27) { 
-            close_video_modal();
-          }
-      });
-  }
 
 
 
