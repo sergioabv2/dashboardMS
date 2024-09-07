@@ -18,7 +18,8 @@
 html {
   box-sizing: border-box;
   font-size: 62.5%;
- transform: scale(1.55) translate(18%, 18%);
+ /*transform: scale(1.55) translate(18%, 18%);*/
+   transform: scale(.75) translate(-18%, -18%);
 }
 
 
@@ -644,29 +645,10 @@ body {
       </div>
       
       
+    <iframe width="530" height="300" src="https://www.youtube.com/embed/videoseries?si=O2Hei4Ehsc-VfaXF&list=PLFLLmJ16LJSysX0faq2DsSUFXjnrXLlK1&autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
       
-      <div class="schedule-stage_guide-container">
-        <div class="guide-slot"> 
-         <!--- <p style="color: black; font-size: 3rem; font-weight:900; font-family: Helvetica;">ALUMNOS</p>--->
-          
-  
      
-      <div class="guide-slot_card" ng-repeat="user in userData" ng-if="user.online == 1"> 
-        <div ng-repeat="n in [].constructor(user.blq) track by $index" class="band {{user.code}}" > </div>
-    <div class="anim-icon anim-icon-lg star">
-        <input type="checkbox" id="star{{$index}}" ng-checked="user.ready == 1" />
-        <label for="star{{$index}}"></label>
-    </div>
-    <h1>{{user.firstname}}</h1>  
-    <div class="statusText">{{user.level}}</div>   
-</div> 
-          
-          
-        </div>
-        
-        
-       
-      </div>
     </section>
     
   </div>
@@ -730,20 +712,8 @@ setInterval(updateClock, 1000);*/
 
 
  angular.module('studentsApp', [])
- .controller('Controller1', ['$http', '$scope', '$interval', function($http, $scope, $interval) {
-  $scope.userData = {};
-function obtenerDatos() {
-    $http({
-      method: 'GET',
-      url: 'https://script.google.com/macros/s/AKfycbzIra465SJypRhzRL6ihOF0dmuCCykgZF3F4PufbHR76OBkyhS7NLvAu0joiJr5VfwM/exec',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
-    }).then(function(response) {
-        $scope.userData = response.data; 
-    });
-}  
+ .controller('Controller1', ['$scope', function($scope) {
+
 
 
   $scope.banner = [
@@ -752,10 +722,7 @@ function obtenerDatos() {
     {"quote": "Mientras estés aprendiendo, no estás fallando"}
   ]
 
-   obtenerDatos();
-  $interval(obtenerDatos, 1000);
 
-   
 
 }]);
 </script>
