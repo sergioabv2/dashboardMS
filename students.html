@@ -1,147 +1,25 @@
-
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0, user-scalable=no">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>	
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-	<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.1/js/bootstrap.js"></script>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script src="https://cdn.WebRTC-Experiment.com/MediaStreamRecorder.js"></script>
 </head>
 
+
 <style>
-   .ready-btn {
-  z-index: 3;
-  position: absolute;
-  top: 470px;
-  /*width: 800px;*/
-  width: 320px;
-  height: 70px;
-  left: 28px;
   
-  background: #0F3B50;
-
-  padding: 10px;
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-
-
-
-
-@-webkit-keyframes next {
-  50%,
-  55% {
-    transform: translateY(52px);
-  }
-  to {
-    transform: translateY(50px);
-  }
-}
-@keyframes next {
-  50%,
-  55% {
-    transform: translateY(52px);
-  }
-  to {
-    transform: translateY(50px);
-  }
-}
-@-webkit-keyframes next-wrapper {
-  50% {
-    transform: translateY(3px);
-  }
-}
-@keyframes next-wrapper {
-  50% {
-    transform: translateY(3px);
-  }
-}
-#menu {
-  background: #fbfbfb;
-  font-family: "Helvetica Neue", sans-serif;
-  height: 45px;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  padding: 16px;
-  box-shadow: 0 7px 15px 0 rgba(214, 214, 214, 0.35);
-  overflow: hidden;
-  font-weight: 500;
-  font-size: 16px;
-  border-radius: 5px;
-  line-height: 1;
-  cursor: pointer;
-}
-#menu #menu-main {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-#menu #menu-main #current-option {
-  position: relative;
-}
-#menu #menu-main #current-option::before {
-  content: attr(data-next);
-  position: absolute;
-  top: -50px;
-}
-#menu #menu-main #next-option {
-  width: 12px;
-  height: 10px;
-  border: none;
-  padding: 0;
-  display: block;
-  cursor: pointer;
-  background: url("data:image/svg+xml,%3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 256 256'%3E%3Cpolygon points='225.813,48.907 128,146.72 30.187,48.907 0,79.093 128,207.093 256,79.093' fill='%23333'%3E%3C/polygon%3E%3C/svg%3E");
-  background-size: cover;
-  position: relative;
-}
-#menu #menu-main #next-option::after {
-  content: '';
-  background-image: inherit;
-  background-size: inherit;
-  width: 12px;
-  height: 10px;
-  position: absolute;
-  top: -50px;
-  left: 0;
-}
-#menu.anim {
-  pointer-events: none;
-  -webkit-animation: next-wrapper 0.6s;
-          animation: next-wrapper 0.6s;
-}
-#menu.anim #current-option {
-  -webkit-animation: next 0.6s 0.085s;
-          animation: next 0.6s 0.085s;
-}
-#menu.anim #next-option {
-  -webkit-animation: next 0.6s;
-          animation: next 0.6s;
-}
-#menu #width-fix {
-  opacity: 0;
-  pointer-events: none;
-  padding-right: 40px;
-}
-#menu #width-fix span {
-  display: block;
-}
-
-
-
-
-
-
-
+  
 .dashboard-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 15px;
-  
-  background: #0F3B50;
-}
+}  
 
 .text-orange {color: #ff8300}
   .text-golden {
@@ -151,32 +29,23 @@
   .text-blue {color: #20a2f1}
   .text-green {color: green}
 
-/*-- Dashboard panel --*/
+/*-- Dashboard panel --*/ 
 .dashboard-panel {margin: 10px 0 20px; }
-.dashboard-panel .panel-header {
-  position: relative; 
-  background: #fbfbfb; 
-  color: black; }
+.dashboard-panel .panel-header {position: relative; background: #434444; color: #FFF; border-radius: 0.15em;}
 .dashboard-panel .panel-header > * {display: block; }
-.dashboard-panel .panel-header h4 {
-  margin: 0; 
-  padding: 12px; 
-  font-size: 21px; 
-}
-.dashboard-panel .panel-header h4 i {
-  color: #4a4a4a; 
-}
+.dashboard-panel .panel-header h4 {margin: 0; padding: 6px; font-size: 18px; }
+.dashboard-panel .panel-header h4 i {color: #d8d8d8; }
 
 .dashboard-panel .panel-body {margin-top: 10px; max-height: 225px; border: 1px solid #d8d8d8; overflow-y: auto; }
  
 /*-- Datos del usuario --*/
 .profile-user-data {padding: 10px 0;}
 .profile-user-data > * {float: left;}
-.profile-user-data   .circle {
+ .profile-user-data   .circle {
     border-radius: 100% !important;
     overflow: hidden;
-    width: 100px;
-    height: 100px;
+    width: 95px;
+    height: 95px;
    margin-right: 10px;
 }
 .profile-user-data img { margin-right: 10px; max-width: 100px;}
@@ -185,53 +54,180 @@
 .profile-user-data .main-data span {font-size: 12px;}
 
 /*-- Números del usuario --*/
-.user-stats {
-  padding: -5px 5px; 
-  border-top: 3px solid #e6e6e6;
+.user-stats {padding: 20px 5px; border-top: 3px solid #e6e6e6;}
+.user-stats > * {margin: 0;}
+.user-stats .achievement-count {font-size: 20px;}
+.user-stats .achievement-count i {margin-right: 10px;  font-size: 28px;}
+.user-stats .achievement-count span {margin: 0 5px; color: #55565a; opacity: 0.6;}
+.user-stats .achievement-count span.acive {font-size: 28px; opacity: 1;}
+.user-stats .currency-count li {padding: 2px 0 2px 5px;}
+.user-stats .currency-count li span {color: #77777a; font-size: 18px;}
+.user-stats .currency-count li i {
+  width: 34px; height: 34px;
+  padding: 8px 0;
+  background: #ff8300;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 3px #ff8300, inset 0 0 0 5px rgba(255,255,255,0.4);
+  color: #FFF;
+  font-size: 19px;
+  text-align: center;
   
 }
 
-
 /*-- Últimos logros obtenidos --*/
-.user-achievements {padding: 2px 2px; /*background: #0F3B50;*/}
+.user-achievements {padding: 15px 20px 10px; background: #eff3f9;}
+.user-achievements h3 {margin: 0 0 20px 0;}
+.user-achievements ul li {width: calc(100% /6 - 5px); padding: 3px; vertical-align: middle;}
+.user-achievements ul li a {display: block; height: 54px; width: 54px; margin: auto; padding: 8px 0; border: 3px solid #77777a; border-radius: 50%; color: #a5a5a5; font-size: 12px; text-align: center;}
+.user-achievements ul li a i {font-size: 31px;}
+.user-achievements ul li a:hover,
+.user-achievements ul li a:focus {background: rgba(0,0,0,0.08)}
+.user-achievements ul li a.see-more {border: none; width: 100%; padding: 10px 0; border-radius: 0; color: #ff6b00; line-height: 0.8}
+.user-achievements ul li a.see-more > * {display: block;}
+.user-achievements ul li a.see-more span {font-size: 28px; margin-bottom: 5px;}
+.user-achievements ul li a.see-more small {display: block; margin-top: 0; font-size: 12px; text-decoration: underline;}
+.user-achievements ul li a.see-more:hover,
+.user-achievements ul li a.see-more:focus {background: rgba(0,0,0,0.05); text-decoration: none;}
 
 
+/*-- Registro de actividad --*/
+.log-list-container {margin: 0; padding: 15px;}
+.log-list-container ul {position: relative; margin: -15px 0; padding: 0; }
+.log-list-container ul:before {content: ""; display: block; position: absolute; top: 20px; bottom: 20px; left: 8px; width: 4px; background: #a5a5a5; }
+.log-list-container li {display: block; position: relative; padding: 10px 15px 10px 35px; color: #666; font-size: 12px;}
+.log-list-container li > * {display: block; }
+.log-list-container li:before { display: block; position: absolute; top: 50%; left: -5px; width: 30px; height: 30px; margin-top: -15px; padding: 7px 0; background: silver; border-radius: 50%;  font: normal normal normal 16px/1 FontAwesome; text-align: center; }
+.log-list-container li small {opacity: 0.7; }
+
+  @keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+  
+
+@keyframes ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+  }
+  40% {
+    box-shadow: 0 0 0 10px rgba(255, 0, 0, 0);
+  }
+  80% {
+    box-shadow: 0 0 0 10px rgba(255, 0, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+  }
+}
+  
+  @keyframes ringyellow {
+   0% {
+    box-shadow: 0 0 0 0 rgba(255, 165, 0, 0.7); /* Color naranja */
+  }
+  40% {
+    box-shadow: 0 0 0 10px rgba(255, 165, 0, 0); /* Color naranja */
+  }
+  80% {
+    box-shadow: 0 0 0 10px rgba(255, 165, 0, 0); /* Color naranja */
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 165, 0, 0); /* Color naranja */
+  }
+}
+
+@keyframes animateHeart {
+0% {transform: scale(1); } 
+5% {transform: scale(1.2); } 
+10% {transform: scale(1.1); } 
+15% {transform: scale(1.3); } 
+50% {transform: scale(1); } 
+100% {transform: scale(1); } 
+}
+ 
+  @keyframes load {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(360deg); }
+}
+
+  @keyframes rotate-icon {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(180deg); }
+    50.01% { transform: rotate(180deg); }
+    100% { transform: rotate(360deg); }
+}
+  
+
+.status-pending:before {
+ content: "\f021";
+  animation: load 1.5s steps(900, end) infinite;
+}
+  
+   .status-delayed:before {
+  content: "\f071"; /* Example icon for completed status */
+     animation: ringyellow 1s infinite;
+}
+  .status-completed:before {
+  content: "\f00c"; /* Example icon for completed status */
+    color: green;
+}
+
+   .status-error:before {
+  content: "\f057"; /* Example icon for completed status */
+     color: red;
+        animation: ring 1.5s infinite;
+}
+
+  .status-default:before {
+    content: "\f11d"; 
+}
+  
+  .yticon{
+    animation: pulse 1s ease-in-out infinite;
+  }
+  
+  .yticon.no-animation {
+  animation: none;
+}
 
 
 /*-- Logros --*/
-.achievement-list-panel .panel-body {padding: 10px 10px; min-height: 300px; max-height: 350px; }
-.achievement-list-panel .panel-body .list-unstyled li {padding: 0 0 10.5px; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-align:center; -ms-flex-align:center; -ms-grid-row-align:center; align-items:center; border-bottom: 1px dashed #cccccc}
-
+.achievement-list-panel .panel-body {padding: 0 10px; max-height: 570px;}
+.achievement-list-panel .panel-body .list-unstyled li {padding: 10px 0; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-align:center; -ms-flex-align:center; -ms-grid-row-align:center; align-items:center;}
+.achievement-list-panel .panel-body .list-unstyled li:not(:last-child) {border-bottom: 1px dashed #cccccc}
 .achievement-list-panel .panel-body .list-unstyled li .achievement-icon {-webkit-box-flex: 1;-ms-flex: 1 0 70px; flex: 1 0 70px; margin-right: 15px;}
-.achievement-list-panel .panel-body .list-unstyled li .achievement-icon i {display: block; height: 70px; width: 70px; padding: 11px 0; border: 3px solid #55565a; border-radius: 50%; color: #55565a; font-size: 40px; text-align: center; }
-.achievement-list-panel .panel-body .list-unstyled li .achievement-content {color: #55565a; }
-.achievement-list-panel .panel-body .list-unstyled li .achievement-content > * {display: block; }
+.achievement-list-panel .panel-body .list-unstyled li .achievement-icon i {display: block; height: 70px; width: 70px; padding: 11px 0; border: 3px solid #cccccc; border-radius: 50%; color: #cccccc; font-size: 40px; text-align: center;}
+.achievement-list-panel .panel-body .list-unstyled li .achievement-content {color: #55565a;}
+.achievement-list-panel .panel-body .list-unstyled li .achievement-content > * {display: block;}
 .achievement-list-panel .panel-body .list-unstyled li .achievement-content strong {font-size: 15px;}
-.achievement-list-panel .panel-body .list-unstyled li .achievement-content p {margin: 0; font-size: 14px; }
+.achievement-list-panel .panel-body .list-unstyled li .achievement-content p {margin: 0; font-size: 14px;}
 .achievement-list-panel .panel-body .list-unstyled li .achievement-actions {margin-left: 15px;}
 .achievement-list-panel .panel-body .list-unstyled li .achievement-actions a {display: block; color: #55565a; font-size: 18px; white-space: nowrap; }
 .achievement-list-panel .panel-body .list-unstyled li .achievement-actions a i {font-size: 21px !important;}
 
+.achievement-list-panel .panel-body .list-unstyled li.completed .achievement-icon i {position: relative; border-color: #ff9e16; color: #ff9e16}
+.achievement-list-panel .panel-body .list-unstyled li.completed .achievement-icon i:after {content: "\f00c"; display: block; position: absolute; top: 0px; right: 0px; width: 18px; height: 18px; padding: 3px 0; background: #ff9e16; border-radius: 50%; color: #FFF; font: normal normal normal 13px/1 FontAwesome; text-align: center;}
+.achievement-list-panel .panel-body .list-unstyled li.completed .achievement-content strong {color: #ff9e16}
+.achievement-list-panel .panel-body .list-unstyled li.completed .achievement-actions a {font-weight: bold; color: #ff9e16}
 
 
+/*-- Tienda --*/
+.store-header {margin-bottom: 15px; padding: 3px 15px; border-bottom: 5px solid #ff9e16;}
+.store-header i {margin-right: 10px;}
 
+.store-list-panel .panel-body {max-height: 420px;}
+.store-list-panel .panel-body .list-unstyled li {padding: 10px 0; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-align:center; -ms-flex-align:center; -ms-grid-row-align:center; align-items:center;}
+.store-list-panel .panel-body .list-unstyled li > * {}
+.store-list-panel .panel-body .list-unstyled li .prize-thumbnail {-webkit-box-flex: 0;-ms-flex: 0 0 90px; flex: 0 0 90px; margin-right: 15px;}
+.store-list-panel .panel-body .list-unstyled li .prize-thumbnail div {width: 100%; padding-top: 70%; background: center center no-repeat; background-size: cover}
+.store-list-panel .panel-body .list-unstyled li .prize-description {-webkit-box-flex: 1;-ms-flex: 1 0 auto; flex: 1 0 auto; margin-right: 15px;}
+.store-list-panel .panel-body .list-unstyled li .prize-description > * {display: block; width: 100%;}
+.store-list-panel .panel-body .list-unstyled li .prize-description small i {height: 18px; width: 18px; padding: 4px 0; background: rgba(0,0,0,0.7); border-radius: 50%; color: #FFF; text-align: center;}
+.store-list-panel .panel-body .list-unstyled li .prize-actions {padding: 10px 0 10px 20px}
+.store-list-panel .panel-body .list-unstyled li .prize-actions .btn {padding: 7px 18px; border-radius: 0; background: #dddddd; text-transform: uppercase; border: none;}
+.store-list-panel .panel-body .list-unstyled li .prize-actions .btn:hover,
+.store-list-panel .panel-body .list-unstyled li .prize-actions .btn:focus {background: #ff9e16; color: #FFF;}
 
-.achievement-list-panel .panel-body .list-unstyled li.completed .achievement-icon i {position: relative; border-color: #5db85b; color: #5db85b}
-.achievement-list-panel .panel-body .list-unstyled li.completed .achievement-icon i:after {content: "\f00c"; display: block; position: absolute; top: 0px; right: 0px; width: 18px; height: 18px; padding: 3px 0; background: #5db85b; border-radius: 50%; color: #FFF; font: normal normal normal 13px/1 FontAwesome; text-align: center;}
-.achievement-list-panel .panel-body .list-unstyled li.completed .achievement-content strong {color: #5db85b}
-.achievement-list-panel .panel-body .list-unstyled li.completed .achievement-content p {color: #5db85b}
-.achievement-list-panel .panel-body .list-unstyled li.completed .achievement-actions a {font-weight: bold; color: #5db85b}
-
-
-
-
-
-
-
-.achievement-list-panel .panel-body .list-unstyled li.current .achievement-icon i {position: relative; border-color: #fbfbfb; color: #fbfbfb}
-.achievement-list-panel .panel-body .list-unstyled li.current .achievement-content strong {color: #fbfbfb}
-.achievement-list-panel .panel-body .list-unstyled li.current .achievement-content p {color: #fbfbfb}
-.achievement-list-panel .panel-body .list-unstyled li.current .achievement-actions a {font-weight: bold; color: #fbfbfb}
 
 .progress{
   height: 8px; width: 90%; 
@@ -240,13 +236,171 @@
   margin-bottom: -25px;
 }
 
-
 .progress .progress-bar {
   background-color: #FF8095;
   box-shadow: 0px 0px 30px #FF2AA6;
 }
 
 
+.documents {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(98px, 1fr));
+  grid-auto-rows: 214px;
+  grid-gap: 12px;
+  height: auto;
+  background-color: #FFF;
+}
+
+.document {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 15px 0 0;
+  flex-direction: column;
+}
+.document__img {
+  width: 105px;
+  height: 136px;
+
+  background-size: cover;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.document__img:hover {
+  transform: translateY(-4px);
+}
+.document__title {
+  margin: 8px 0 2px;
+  color: #777;
+}
+.document__date {
+  font-size: 10px;
+}
+
+
+/*.doc-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: #fff;
+  margin-bottom: 20px;
+  -webkit-column-break-inside: avoid;
+}*/
+
+
+
+
+.showbox {
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.loader {
+  position: relative;
+  margin: 0px auto;
+  width: 100px;
+}
+.loader:before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+
+.circular {
+  -webkit-animation: rotate 2s linear infinite;
+          animation: rotate 2s linear infinite;
+  height: 100%;
+  transform-origin: center center;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.path {
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  -webkit-animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+          animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+  stroke-linecap: round;
+}
+
+@-webkit-keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
+}
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
+}
+@-webkit-keyframes color {
+  100%, 0% {
+    stroke: #d62d20;
+  }
+  40% {
+    stroke: #0057e7;
+  }
+  66% {
+    stroke: #008744;
+  }
+  80%, 90% {
+    stroke: #ffa700;
+  }
+}
+@keyframes color {
+  100%, 0% {
+    stroke: #d62d20;
+  }
+  40% {
+    stroke: #0057e7;
+  }
+  66% {
+    stroke: #008744;
+  }
+  80%, 90% {
+    stroke: #ffa700;
+  }
+}
+  
+  
+  
 .profile-pic {
   width: 100px;
   height: 100px;
@@ -257,421 +411,650 @@
   -o-object-fit: cover;
      object-fit: cover;
 }
-
-
-.btn {
-	background-color: transparent;
-	border: none;
-	cursor: pointer;
-	font-size: 13px;
-	letter-spacing: .05em;
-	outline: none;
-	padding: 5px 10px 1px 10px;
-	text-transform: uppercase;
-	user-select: none;
-	-moz-user-select: none;
-}
-
-
-
-
-
-
-.modal-container {
+   
+.p-image {
+  top: 95px;
+  left: 20px;
   position: absolute;
-  display: table;
-  height: 80%;
-  width: 90%;
-  top: 15%;
-  left: 5%;
-  transform: scale(0);
-  z-index: 6;
-}
-
-/*.modal-container {
-  position: fixed;
-  display: table;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  transform: scale(0);
-  z-index: -6;
-  overflow-y: auto;
-}*/
-
-.modal-container.one {
-  transform: scaleY(0.01) scaleX(0);
-  animation: unfoldIn 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-}
-.modal-container.one .modal-background .modal {
-  transform: scale(0);
-  animation: zoomIn 0.5s 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-}
-.modal-container.one.out {
-  transform: scale(1);
-  animation: unfoldOut 1s 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-}
-.modal-container.one.out .modal-background .modal {
-  animation: zoomOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-}
-
-.modal-container .modal-background {
-  display: table-cell;
-  background: rgba(0, 0, 0, 0.8);
-  text-align: center;
-  vertical-align: middle;
-}
-.modal-container .modal-background .modal {
-  /*width: 90%;*/
-  width: 95%;
-  display: inline-block;
-  border-radius: 3px;
-  font-weight: 300;
-  position: relative;
+  color: #666666;
+  transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
 }
 
 
-
-
-@keyframes unfoldIn {
-  0% {
-    transform:scaleY(.005) scaleX(0);
-  }
-  50% {
-    transform:scaleY(.005) scaleX(1);
-  }
-  100% {
-    transform:scaleY(1) scaleX(1);
-  }
-}
-
-@keyframes unfoldOut {
-  0% {
-    transform:scaleY(1) scaleX(1);
-  }
-  50% {
-    transform:scaleY(.005) scaleX(1);
-  }
-  100% {
-    transform:scaleY(.005) scaleX(0);
-  }
-}
-
-@keyframes zoomIn {
-  0% {
-    transform:scale(0);
-  }
-  100% {
-    transform:scale(1);
-  }
-}
-
-@keyframes zoomOut {
-  0% {
-    transform:scale(1);
-  }
-  100% {
-    transform:scale(0);
-  }
-}
-
-
-
- #drive{
-    height: 400px;
-    width: 380px;
+  
+  .modal-container {
+    position: fixed;
+    display: table;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    transform: scale(0);
+    z-index: 1;
   }
 
-
-  .card-container {
-    height: 385px;
-    width: 300px;
-    padding: 40px;
-    margin-left: 20%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    background-color: #fff;
+  .modal-container.four {
+    z-index: 0;
+    transform: scale(1);
   }
 
+  .modal-container.four .modal-background .modal {
+    animation: blowUpModal 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  }
+  .modal-container.four + body {
+    z-index: 1;
+    animation: blowUpContent 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  }
+  .modal-container.four.out .modal-background .modal {
+    animation: blowUpModalTwo 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  }
+  .modal-container.four.out + body {
+    animation: blowUpContentTwo 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  }
 
+  .modal-container .modal-background {
+    display: table-cell;
+    background: rgba(0, 0, 0, 0.8);
+    text-align: center;
+    vertical-align: middle;
+  }
+  .modal-container .modal-background .modal {
+    padding: 50px;
+    display: inline-block;
+    border-radius: 3px;
+    font-weight: 300;
+    position: relative;
+  }
 
-  @keyframes skeleton-loading {
+  @keyframes blowUpContent {
     0% {
-      background-color: #f0f0f0;
+      transform: scale(1);
+      opacity: 1;
+    }
+    99.9% {
+      transform: scale(2);
+      opacity: 0;
     }
     100% {
-      background-color: #e0e0e0;
+      transform: scale(0);
+    }
+  }
+  @keyframes blowUpContentTwo {
+    0% {
+      transform: scale(2);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  @keyframes blowUpModal {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  @keyframes blowUpModalTwo {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(0);
+      opacity: 0;
+    }
+  }
+  
+  
+  
+@media screen and (min-width:576px){
+   .drive{
+    height: 480px;
+    width: 140%;
+    margin-left: -20%;
+    margin-top: 30px;
+  }
+   
+}
+  @media screen and (min-width:700px){
+   .drive{
+    height: 480px;
+    width: 180%;
+    margin-left: -40%;
+    margin-top: 30px;
+  }
+   
+}
+
+
+@media screen and (max-width:575px) {
+     .drive{
+    height: 420px;
+    width: 120%;
+    margin-left: -25px;
+       
+  }
+}
+
+
+
+
+.menu-bar {
+            display: flex;
+            justify-content: space-around;
+            background-color: black;
+            padding: 10px 0;
+            list-style: none;
+            margin: 0;
+             border-radius: 10px;
+            font-weight: 550;
+  font-size: 12px;
+  box-shadow: 0px 8px 20px -8px rgba(26, 33, 43, 0.5), 0px 4px 12px 0px rgba(26, 33, 43, 0.05), 0px 1px 3px 0px rgba(26, 33, 43, 0.25), 0px 1.5px 0.5px 0px #454D57 inset, 0px -3px 1px 0px rgba(0, 0, 0, 0.5) inset;
+        }
+
+        .menu-bar li {
+            color: white;
+          transition: transform 0.2s;
+        }
+
+        .menu-bar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+        }
+
+.menu-bar li:hover {
+  color: white;
+            text-decoration: none;
+    transform: scaleX(1.03) scaleY(1.06) translateZ(0);
+}
+ 
+.menu-bar li:active {
+   text-decoration: none;
+    transform: scale(0.96) translateZ(0);
+}
+
+
+ 
+
+.mic-container{
+  display: none;
+  margin-top: 20px;
+  position: absolute;
+ background: white;
+  border: 2px solid black;
+}
+
+.audio-record {
+     display: flex;
+     align-items: center;
+}
+
+.audio-record i {
+     color: gray;
+     font-size: 50px;
+     cursor: pointer;
+     padding: 1px;
+}
+.audio-record span {
+  position: absolute;
+  color: gray;
+  font-weight: 300;
+  font-size: 10px;
+  margin-left: 13px;
+  margin-top: 60px;
+}
+ .audio-record input[type=checkbox] {
+     position: absolute;
+     visibility: hidden;
+}
+.audio-record input[type=checkbox]:checked ~ label i {
+     color: #fff;
+     background: red;
+     border-radius: 100%;
+     animation: shadow-expansion 0.9s ease-in-out infinite alternate;
+}
+.audio-properties .audio_record-control {
+     width: 100%;
+     display: flex;
+     flex-flow: row nowrap;
+}
+ .audio-properties .audio_record-control .audio-overwrite {
+     flex-grow: 2;
+     font-size: 11px;
+     font-weight: regular;
+     padding-top: 6px;
+     text-align: right;
+}
+.audio-properties .audio_record-control .audio-overwrite > label {
+     padding-right: 10px;
+}
+
+
+
+ .player-bar {
+     font-size: 14px;
+     font-weight: bold;
+     width: 100%;
+     display: flex;
+     flex-flow: row nowrap;
+     margin: 10px 0;
+}
+ @keyframes shadow-expansion {
+     from {
+         box-shadow: 0 0 0 5px red;
+    }
+     to {
+         box-shadow: 0 0 0 0 red;
+    }
+}
+ .by {
+     font-family: sans-serif;
+     position: fixed;
+     bottom: 20px;
+     text-align: center;
+     width: 100%;
+     font-size: 10px;
+}
+ .by a {
+     text-decoration: none;
+     color: #007bff;
+     transition: all 0.5s;
+}
+ .by a:hover {
+     color: #0062cc;
+}
+
+ #clicks {
+     border-radius: 50%;
+     background-color: red;
+     width: 20px;
+     height: 15px;
+     position: absolute;
+     display: none;
+}
+#record-audio {
+   position: absolute;
+   margin-top: 10px; /* Ajusta según sea necesario */
+}
+#delete-audio {
+   position: absolute;
+  display: none;
+  right: 10px;
+   margin-top:50px; 
+}
+ .save {
+     position: relative;
+     left: 0px;
+     top: -20px;
+     z-index: 100;
+}
+
+
+
+
+
+  
+  #modal-container2 {
+    font-family: Helvetica, sans-serif;
+    position: fixed;
+    display: table;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    transform: scale(0);
+    z-index: 1;
+  }
+
+  #modal-container2.four {
+    z-index: 0;
+    transform: scale(1);
+  }
+
+  #modal-container2.four .modal-background .modal-msg {
+    animation: blowUpModal 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  }
+  #modal-container2.four + body {
+    z-index: 1;
+    animation: blowUpContent 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  }
+  #modal-container2.four.out .modal-background .modal-msg {
+    animation: blowUpModalTwo 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  }
+  #modal-container2.four.out + body {
+    animation: blowUpContentTwo 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  }
+
+  #modal-container2 .modal-background {
+    display: table-cell;
+    background: rgba(0, 0, 0, 0.8);
+    text-align: center;
+    vertical-align: middle;
+  }
+  #modal-container2 .modal-background .modal-msg {
+    padding: 10px;
+    width: 75%;
+    display: inline-block;
+    border-radius: 3px;
+    background: transparent;
+    font-weight: 300;
+    position: relative;
+    max-width: 430px;
+  }
+
+
+
+  @keyframes blowUpContent {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    99.9% {
+      transform: scale(2);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+  @keyframes blowUpContentTwo {
+    0% {
+      transform: scale(2);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  @keyframes blowUpModal {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  @keyframes blowUpModalTwo {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(0);
+      opacity: 0;
     }
   }
 
-  .stripe {
+  .modal-hidden .modal-background {
+    background: transparent;
+  }
+
+.close-video-modal {
+    display: block;
     position: absolute;
-    margin-left: -10px;
-    width: 240px;
-    height: 43px;
-    background-color: #f0f0f0;
-    animation: skeleton-loading 1s infinite alternate;
-   
-  }
-  
-  .title {
-    position: absolute;
-    margin-left: 150px;
-    width: 70px;
-    height: 15px;
-    background-color: #f0f0f0;
-    animation: skeleton-loading 1s infinite alternate;
-    margin-top: 47px;
-  }
-  
-    .author {
-    position: absolute;
-    margin-left: 55px;
-    width: 120px;
-    height: 30px;
-    background-color: #f0f0f0;
-    animation: skeleton-loading 1s infinite alternate;
-    margin-top: -15px;
-  }
+    left: 0;
+    top: -40px;
 
-  
-   .stripe:nth-child(1) {
-    top: 110px;
-  }
-
-  .stripe:nth-child(2) {
-    top: 180px;
-  }
-
-  .stripe:nth-child(3) {
-    top: 250px;
-  }
-
-  .stripe:nth-child(4) {
-    top: 320px;
-  }
-
-.bpm{
-  font-family:'Titillium Web', sans-serif;
-  font-size: 35px;
-  font-weight: 500;
-  position: absolute;
-  top: 60px;
-  margin-left: 5px;
-  
-}
-
-.left-hand{
-  font-size: 45px;
-  position: absolute;
-  margin-top: -83px;
-  margin-left: -120px;
-  transform: scale(0.6)
-}
-
-.right-hand{
-  font-size: 45px;
-  position: absolute;
-  margin-top: -80px;
-  margin-left: 160px;
-  transform: scale(0.6)
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
 }
 
 
 
 
-
-@keyframes light-animation {
-  0% {
-    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
-  }
-  100% {
-    box-shadow: 0 0 0 4px rgba(255, 0, 0, 0.5);
-  }
-}
-
-.selected { 
-  animation: pulse 1s infinite;  
-}
-
-
-.hand-selected { 
-  animation: pulse-hand 1s infinite;  
-}
-
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    box-shadow: 0 0 0 4px rgba(155, 210, 110, 0.5);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(255, 110, 110, 0.5);
-  }
-}
-
-
-@keyframes pulse-hand {
-  0% {
-    transform: scale(.6);
-    box-shadow: 0 0 0 4px rgba(155, 210, 110, 0.5);
-  }
-  50% {
-    transform: scale(.7);
-  }
-  100% {
-    transform: scale(.6);
-    box-shadow: 0 0 0 0 rgba(255, 110, 110, 0.5);
-  }
-}
-
-
-
-
-
-
-
-
-.swiper{
-  width: 600px;
-
-  margin-top: 50px;
-}
-
-.card{
-  position: relative;
-  background: #fff;
-  border-radius: 20px;
-  margin: 20px 0;
-	height: 350px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-}
-
-.card::before{
-  content: "";
-  position: absolute;
-  height: 130px;
-  width: 100%;
-  background: #7d2ae8;
-  border-radius: 20px 20px 0 0;
-}
-
-.card .card-content{
+ .multimedia {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between; /* Distribuye los ítems equitativamente */
   align-items: center;
-  padding: 30px;
-  position: relative;
-  z-index: 100;
+  width: calc(100% - .1em);
+  padding: 0.5em 0.5em 0.5em 0.5em;
+  margin: 0 0 1px 0;
+  font: inherit;
+  line-height: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: currentColor;
+  background-color: rgba(127, 127, 127, 0.2);
+  border: 0;
+  border-radius: 0.25em;
+  cursor: default;
+  z-index: 1;
+  outline-color: currentColor;
 }
 
-section .card .image{
-  height: 140px;
-  width: 140px;
-  border-radius: 50%;
-  padding: 3px;
-  background: #7d2ae8;
+ .metronome { 
+   position: relative;
+   display: block;
+  width: calc(100% - .5em);
+  padding: 0.5em 0.5em 0.5em 0.5em;
+   background: white;
+  margin-left: 30px;
+   margin-top: -85px;
+   transform: scale(0.8);
+  font: inherit;
+  line-height: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: black;
+  border-radius: 0.25em;
+  cursor: default;
+  z-index: 10;
+  outline-color: white;
 }
 
-section .card .image img{
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 3px solid #fff;
-}
-
-.card .media-icons{
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.card .media-icons i{
-  color: #fff;
-  opacity: 0.6;
-  margin-top: 10px;
-  transition: all 0.3s ease;
-  cursor: pointer;
+#stop{
+  display:none;
 }
 
 
 
-.card .media-icons i:hover{
-  opacity: 1;
+
+
+
+
+
+
+
+#dotTarget{
+  display:flex;
+  margin: auto;
 }
 
-.card .name-profession{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 10px;
-  color: ;
+.beat{
+  width:20px;
+  height:30px;
+  background:#7d7d7d;
+  border-radius:2px;
+  margin:0px 5px;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.beat:hover{
+  background-color:#57cc65;
+}
+
+.active{
+  background:#57cc65;
+}
+
+.on-temp{
+  background:#bfcc57;
+  transform:scale(1, 1.5);
+}
+
+.box{
+  padding:40px;
+}
+
+.beat-count{
+  text-align:center;
+  width:25px;
+  border:none;
+  background:none;
+  font-size:24px;
+}
+
+.header-btn{
+  font-size:24px;
+  border:none;
+  padding:5px 10px;
+  margin:10px 10px 30px 10px;
+  background:#ffffff29;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.button-active{
+  background:white;
+}
+
+#digitalDisplayContainer{
+  display:none;
+}
+
+.sign-svg{
+  fill:#000000; 
+  transform:translate(-480.000000px, -192.000000px);
 } 
 
-.name-profession .name{
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.name-profession .profession{
-  font-size:15px;
-  font-weight: 500;
+ul{
+   list-style:none;
 }
 
 
 
-.card .button{
+.input-section {
+  z-index: 2;
+  position: relative;
   width: 100%;
-  display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
+  max-width: 80vw;
+  height: 40px;
+  margin: 10px auto 0;
+  overflow: hidden;
 }
 
-.card .button button{
-  background: #7d2ae8;
-  outline: none;
-  border: none;
-  color: #fff;
-  padding: 8px 22px;
-  border-radius: 20px;
-  font-size: 14px;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.button button:hover{
-  background: #6616d0;
-}
-
-.swiper-pagination{
+.input-section .thin-fill {
   position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: transparent;
+  border-radius: 1px;
+  z-index: -2;
 }
 
-.swiper-pagination-bullet{
-  height: 7px;
-  width: 26px;
-  border-radius: 25px;
-  background: #7d2ae8;
+.input-section .thick-fill {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  background: orange;
+  border-radius: 1px;
+  border: 2px solid white;
+  z-index: -1;
+  height: 15px;
+  width: 29.6%; /* When input value is 147 (default) */
 }
 
-.swiper-button-next, .swiper-button-prev{
-  opacity: 0.7;
-  color: #7d2ae8;
-  transition: all 0.3s ease;
+.tempoSlider {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  background: transparent;
+  border: none;
+  width: 100%;
+  height: 100%;
+  margin: 0;
 }
-.swiper-button-next:hover, .swiper-button-prev:hover{
-  opacity: 1;
-  color: #7d2ae8;
+
+.tempoSlider:focus {
+  outline: none;
 }
+
+.tempoSlider::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 15px;
+  cursor: pointer;
+  background: transparent;
+}
+
+.tempoSlider::-webkit-slider-thumb {
+  height: 25px;
+  width: 25px;
+  border-radius: 2px;
+  background: #2d303b;
+  border: 1px solid white;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -5px;
+  
+}
+
+.tempoSlider::-moz-range-track {
+  width: 100%;
+  height: 15px;
+  cursor: pointer;
+  background: transparent;
+}
+
+.tempoSlider::-moz-range-thumb {
+  height: 30px;
+  width: 32px;
+  border-radius: 2px;
+  border: 1px solid white;
+  background: #0ec3cc;
+  cursor: pointer;
+  -moz-appearance: none;
+  margin-top: -11px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+.tempoSlider::-ms-track {
+  width: 100%;
+  height: 15px;
+  cursor: pointer;
+  background: transparent;
+}
+
+.tempoSlider::-ms-thumb {
+  height: 30px;
+  width: 32px;
+  border-radius: 2px;
+  border: 1px solid white;
+  background: #0ec3cc;
+  cursor: pointer;
+  -ms-appearance: none;
+  margin-top: -1px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+.tempoSlider::-ms-tooltip {
+  display: none;
+}
+
+
+.main-btn{
+  border: white;
+  background: transparent;
+  border-radius: 50%; /* Esto hace que el contorno sea circular */
+  cursor: pointer;
+  font-size: 20px;
+  float: right;
+  margin-right: 20px;
+}
+
+
 
 
 
@@ -691,155 +1074,6 @@ section .card .image img{
     z-index: 3000;
 }
 .video-modal {
-	overflow: hidden;
-	position: fixed;
-	opacity: 0.0;
-
-  -webkit-transform: translate(500%,0%);
-  transform: translate(500%,0%);
-
-  -webkit-transition: -webkit-transform 0s linear 0s;
-  transition: transform 0s linear 0s;
-
-
-  /* using flexbox for vertical centering */
-
-  /* Flexbox display */
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-
-  /* Vertical alignment */
-  -webkit-box-align: center;
-  -moz-box-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  align-items: center;
-
-  -webkit-transform-style: preserve-3d;
-  -moz-transform-style: preserve-3d;
-  transform-style: preserve-3d;
-}
-.video-modal .overlay {
-  z-index: 0;
-  background: rgba(118,181,197,0.82);
-  opacity: 0.0;
-
-  -webkit-transition: opacity 0.2s ease-out 0.05s;
-  transition: opacity 0.2s ease-out 0.05s;
-}
-
-
-.video-modal-content {
-	position: relative;
-	top: auto;
-	right: auto;
-	bottom: auto;
-	left: auto;
-	z-index: 1;
-  
-	margin: 0 auto;
-
-	overflow-y: visible;
-
-	background: #000;
-  
-  width: calc(100% - 2em);
-  height: 0;
-  padding-top: calc((100% - 2em) * 0.5625); /* 16:9 calc */
-}
-
-/* Scaling to fit within the current Viewport size:
-   When viewport aspect ratio is greater than 16:9
-   work off the height instead of the width for calc */
- @media (min-aspect-ratio: 16/9) {
-  .video-modal-content {
-    width: 0;
-    height: calc(100vh - 10em);
-    padding-top: 0;
-    padding-left: calc((100vh - 10em) * 1.7778); /* 16:9 calc */
-  }
-}
-
-/* Mobile Layout Tweaks - side margins reduced */
-@media (max-width: 640px) {
-	.video-modal-content {
-		width: calc(100% - 1em);
-    padding-top: calc((100% - 1em) * 0.5625); /* 16:9 calc */
-	}
-}
-
-/* modal close button */
-.close-video-modal {
-	display: block;
-    position: absolute;
-    left: 0;
-    top: -40px;
-
-    text-decoration: none;
-    font-size: 20px;
-    font-weight: bold;
-    color: #fff;
-}
-
-/* set the iframe element to stretch to fit its parent element */
-iframe#youtube {
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	z-index: 1;
-
-	background: #000;
-	box-shadow: 0px 2px 16px rgba(0,0,0,0.5);
-}
-
-
-iframe#quiz {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1;
-
-  background: #000;
-  box-shadow: 0px 2px 16px rgba(0,0,0,0.5);
-}
-
-/* show the modal: 
-   add class to the body to reveal */
-.show-video-modal .video-modal {
-	opacity: 1.0;
-
-	transform: translate(0%,0%);
-	-webkit-transform: translate(0%,0%);
-}
-.show-video-modal .video-modal .overlay {
-	opacity: 1.0;
-}
-.show-video-modal .video-modal-content {
-	transform: translate(0%,0%);
-	-webkit-transform: translate(0%,0%);
-}
-
-
-
-
-
-
-
-.quiz-modal,
-.quiz-modal .overlay2 {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 3000;
-}
-.quiz-modal {
   overflow: hidden;
   position: fixed;
   opacity: 0.0;
@@ -869,9 +1103,10 @@ iframe#quiz {
   -moz-transform-style: preserve-3d;
   transform-style: preserve-3d;
 }
-.quiz-modal .overlay2 {
+.video-modal .overlay {
   z-index: 0;
-  background: rgba(226,135,67,0.82);
+  background: rgba(13,1,61,0.82); /* overlay color */
+
   opacity: 0.0;
 
   -webkit-transition: opacity 0.2s ease-out 0.05s;
@@ -879,7 +1114,7 @@ iframe#quiz {
 }
 
 
-.quiz-modal-content {
+.video-modal-content {
   position: relative;
   top: auto;
   right: auto;
@@ -893,16 +1128,16 @@ iframe#quiz {
 
   background: #000;
   
-  width: calc(100% - 2em);
+  width: calc(100% - 12em);
   height: 0;
-  padding-top: calc((100% - 2em) * 0.5625); /* 16:9 calc */
+  padding-top: calc((100% - 12em) * 0.5625); /* 16:9 calc */
 }
 
 /* Scaling to fit within the current Viewport size:
    When viewport aspect ratio is greater than 16:9
    work off the height instead of the width for calc */
  @media (min-aspect-ratio: 16/9) {
-  .quiz-modal-content {
+  .video-modal-content {
     width: 0;
     height: calc(100vh - 10em);
     padding-top: 0;
@@ -912,14 +1147,14 @@ iframe#quiz {
 
 /* Mobile Layout Tweaks - side margins reduced */
 @media (max-width: 640px) {
-  .quiz-modal-content {
+  .video-modal-content {
     width: calc(100% - 1em);
     padding-top: calc((100% - 1em) * 0.5625); /* 16:9 calc */
   }
 }
 
 /* modal close button */
-.close-quiz-modal {
+.close-video-modal {
   display: block;
     position: absolute;
     left: 0;
@@ -932,7 +1167,7 @@ iframe#quiz {
 }
 
 /* set the iframe element to stretch to fit its parent element */
-iframe#quiz {
+iframe#youtube {
   position: absolute;
   top: 0;
   right: 0;
@@ -940,206 +1175,542 @@ iframe#quiz {
   left: 0;
   z-index: 1;
 
-  background: #000;
+  background: white;
   box-shadow: 0px 2px 16px rgba(0,0,0,0.5);
 }
 
 /* show the modal: 
    add class to the body to reveal */
-.show-quiz-modal .quiz-modal {
+.show-video-modal .video-modal {
   opacity: 1.0;
 
   transform: translate(0%,0%);
   -webkit-transform: translate(0%,0%);
 }
-.show-quiz-modal .quiz-modal .overlay2 {
+.show-video-modal .video-modal .overlay {
   opacity: 1.0;
 }
-.show-quiz-modal .video-quiz-content {
+.show-video-modal .video-modal-content {
   transform: translate(0%,0%);
   -webkit-transform: translate(0%,0%);
 }
 
+
+
+
+
+
+.uploader {
+  text-align: center;
+  display: block;
+  clear: both;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 600px;
+}
+.uploader label {
+  float: left;
+  clear: both;
+  width: 100%;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  background: #fff;
+  border-radius: 7px;
+  border: 3px solid #eee;
+  transition: all 0.2s ease;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.uploader label:hover {
+  border-color: #454cad;
+}
+.uploader label.hover {
+  border: 3px solid #454cad;
+  box-shadow: inset 0 0 0 6px #eee;
+}
+.uploader label.hover #start i.fa {
+  transform: scale(0.8);
+  opacity: 0.3;
+}
+.uploader #start {
+  float: left;
+  clear: both;
+  width: 100%;
+}
+.uploader #start.hidden {
+  display: none;
+}
+.uploader #start i.fa {
+  font-size: 50px;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease-in-out;
+}
+.uploader #response {
+  float: left;
+  clear: both;
+  width: 100%;
+}
+.uploader #response.hidden {
+  display: none;
+}
+.uploader #response #messages {
+  margin-bottom: 0.5rem;
+}
+.uploader #file-image {
+  display: inline;
+  margin: 0 auto 0.5rem auto;
+  width: auto;
+  height: auto;
+  max-width: 180px;
+}
+.uploader #file-image.hidden {
+  display: none;
+}
+.uploader #notimage {
+  display: block;
+  float: left;
+  clear: both;
+  width: 100%;
+}
+.uploader #notimage.hidden {
+  display: none;
+}
+.uploader progress,
+.uploader .progress {
+  display: inline;
+  clear: both;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 180px;
+  height: 8px;
+  border: 0;
+  border-radius: 4px;
+  background-color: #eee;
+  overflow: hidden;
+}
+.uploader .progress[value]::-webkit-progress-bar {
+  border-radius: 4px;
+  background-color: #eee;
+}
+.uploader .progress[value]::-webkit-progress-value {
+  background: linear-gradient(to right, #393f90 0%, #454cad 50%);
+  border-radius: 4px;
+}
+.uploader .progress[value]::-moz-progress-bar {
+  background: linear-gradient(to right, #393f90 0%, #454cad 50%);
+  border-radius: 4px;
+}
+.uploader input[type=file] {
+  display: none;
+}
+.uploader div {
+  margin: 0 0 0.5rem 0;
+  color: #5f6982;
+}
+.uploader .btn {
+  display: inline-block;
+  margin: 0.5rem 0.5rem 1rem 0.5rem;
+  clear: both;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  text-transform: initial;
+  border: none;
+  border-radius: 0.2rem;
+  outline: none;
+  padding: 0 1rem;
+  height: 36px;
+  line-height: 36px;
+  color: #fff;
+  transition: all 0.2s ease-in-out;
+  box-sizing: border-box;
+  background: #454cad;
+  border-color: #454cad;
+  cursor: pointer;
+}
+
+ .nav-pills .nav-link.active {
+    background-color: black;
+    color: white;
+}
+
+
+	
+
+.close-video-modal2 {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: -40px;
+
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+}
+
+
+.video-modal2,
+.video-modal2 .overlay2 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 4000;
+}
+.video-modal2 {
+  overflow: hidden;
+  position: fixed;
+  opacity: 0.0;
+
+  -webkit-transform: translate(500%,0%);
+  transform: translate(500%,0%);
+
+  -webkit-transition: -webkit-transform 0s linear 0s;
+  transition: transform 0s linear 0s;
+
+
+  /* using flexbox for vertical centering */
+
+  /* Flexbox display */
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+
+  /* Vertical alignment */
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+.video-modal2 .overlay2 {
+  z-index: 0;
+  background: rgba(20, 20, 18, 0.82); /* overlay color */
+
+  opacity: 0.0;
+
+  -webkit-transition: opacity 0.2s ease-out 0.05s;
+  transition: opacity 0.2s ease-out 0.05s;
+}
+
+
+.video-modal-content2 {
+  position: relative;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  left: auto;
+  z-index: 1;
+  
+  margin: 0 auto;
+
+  overflow-y: visible;
+
+  background: #000;
+  
+  width: calc(100% - 12em);
+  height: 500px;
+  padding-top: calc((100% - 12em) * 0.5625); /* 16:9 calc */
+}
+
+/* Scaling to fit within the current Viewport size:
+   When viewport aspect ratio is greater than 16:9
+   work off the height instead of the width for calc */
+ @media (min-aspect-ratio: 16/9) {
+  .video-modal-content2 {
+    width: 0;
+    height: calc(100vh - 10em);
+    padding-top: 0;
+    padding-left: calc((100vh - 10em) * 1.7778); /* 16:9 calc */
+  }
+}
+
+/* Mobile Layout Tweaks - side margins reduced */
+@media (max-width: 640px) {
+  .video-modal-content2 {
+    width: calc(100% - 4em);
+    padding-top: calc((100% - 1em) * 0.5625); /* 16:9 calc */
+  }
+}
+
+/* modal close button */
+.close-video-modal2 {
+  display: block;
+    position: absolute;
+    left: 0;
+    top: -40px;
+
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* set the iframe element to stretch to fit its parent element */
+#youtube3 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+
+  background: white;
+  box-shadow: 0px 2px 16px rgba(0,0,0,0.5);
+}
+
+/* show the modal: 
+   add class to the body to reveal */
+.show-video-modal2 .video-modal2 {
+  opacity: 1.0;
+
+  transform: translate(0%,0%);
+  -webkit-transform: translate(0%,0%);
+}
+.show-video-modal2 .video-modal2 .overlay2 {
+  opacity: 1.0;
+}
+.show-video-modal2 .video-modal-content2 {
+  transform: translate(0%,0%);
+  -webkit-transform: translate(0%,0%);
+}
 
 </style>
 
-<div ng-app="studentsApp" ng-controller="Controller1">
 
- <section class="userSelect" ng-hide="showUserInterface">
-<div class="swiper mySwiper container" >
-      <div class="swiper-wrapper content">
+<div ng-app="studentsApp" ng-controller="Controller1" >
 
-        <div class="swiper-slide card" ng-repeat="user in filteredStudents">
-          <div class="card-content">
-            <div class="image">
-              <img ng-src={{user.photo}} alt="" class="card-img">
-            </div>
-
-
-            <div class="name-profession">
-              <span class="name">{{user.nameshort}}</span>
-              <span class="profession">{{user.level}}</span> <span style="font-size: 13px;">{{user.block}} </span>
-            </div>
-            
-
-            <div class="button">
-              <button class="aboutMe" ng-click="login(user); startTimer()">Iniciar sesión</button>
-            </div>
-          </div>
-        </div>
-        
-        
-          <div class="swiper-slide card">
-          <div class="card-content">
-            <div class="image">
-              <img src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" alt="" class="card-img">
-            </div>
-            <div class="name-profession">
-              <span class="name">Seleccionar usuario</span>
-              <span class="profession"></span> 
-            </div>
-        
-<select ng-model="selectedStudent" ng-options="student as student.name for student in userData">
-  <option ></option>
- 
-  </select>
-              <div class="button">
-              <button class="aboutMe" ng-click="login(selectedStudent); startTimer()">Iniciar sesión</button>
-            </div>
-            </div>
-          </div>
-    
- 
+<div class="dashboard-container">
+  <div class="showbox" ng-if="!userDataLoaded">
+      <div class="loader">
+        <svg class="circular" viewbox="25 25 50 50">
+          <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"></circle>
+        </svg>
       </div>
     </div>
 
-      <div class="swiper-pagination"></div>
-  </section>
-  
-  
-  
- <section class="userInterface" ng-show="showUserInterface"> 
- <div class="ready-btn" >   
-
-</div>
-
-
-<div class="dashboard-container">
-  <!-- Profile Data -->
-  <div>
-    <div class="row">
+    <div class="row" ng-if="userDataLoaded">
       <div class="col-sm-5">
         <div class="profile-user-data clearfix">
-		<div class="circle">
-          <img class="profile-pic" ng-src={{student.photo}} >
-		</div>
-       
-
-
-		<div class="main-data" >
-            <h4 style="font-size: 19px; color: white;">{{student.name}}</h4>
-            
-            <div class="pull-left achievement-count" ng-if="student.plan === 'Premium - $1300'" style="color: white; font-size: 12px;"> PLAN PREMIUM
+          <div class="circle">
+              <img class="profile-pic" src={{picture}}>
+          </div>
+          <div class="p-image" style="cursor: pointer;">
+            <i class="fa fa-camera upload-button"></i>
+            <input class="file-upload" type="file" style="display: none;" accept="image/*"/>
+          </div>
+          <div class="main-data" >
+            <h4 style="font-size: 19px;">{{userData.name}}</h4>
+            <div class="pull-left achievement-count" ng-if="userData.plan === 'Premium - $1300'" style="color: #77777a; font-size: 12px;"> PLAN PREMIUM
             <i class="ri-vip-crown-fill text-golden"></i>  </div>
-        <div class="pull-left achievement-count" ng-if="student.plan === 'Pro - $700'" style="color: white; font-size: 12px;"> PLAN PRO
+        <div class="pull-left achievement-count" ng-if="userData.plan === 'Pro - $700'" style="color: #77777a; font-size: 12px;"> PLAN PRO
             <i class="ri-verified-badge-fill text-blue"></i>  </div>
-       <div class="pull-left achievement-count" ng-if="student.plan === 'Estudiante - $350'" style="color: white; font-size: 12px;"> PLAN ESTUDIANTE
-            <i class="ri-graduation-cap-fill"></i>  </div>
-       
+       <div class="pull-left achievement-count" ng-if="userData.plan === 'Estudiante - $350'" style="color: #77777a; font-size: 12px;"> PLAN ESTUDIANTE
+            <i class="ri-graduation-cap-fill"></i>  </div> 
+        
           <br>
-          <div style="margin-top: 1px; color: white;">    {{student.level}}  </div>
-             <div style="font-size: 11px; color: white;">Bloque: <span>{{student.blq}}</span> - Lección: <span>{{student.lsn}} </span> </div>
+          <div style="margin-top: 1px">    {{userLevel}}  </div>
+             <div style="font-size: 11px">Bloque: <span>{{userData.blq}}</span> - Lección: <span>{{userData.lsn}} </span> </div>
 
         <div class="progress">
-          <div class="progress-bar" style="background-color: {{student.color}};" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{width: student.progress + '%'}" ng-init="startAnimation()"></div>
+          <div class="progress-bar" style="background-color: {{userData.color}};" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{width: userData.progress + '%'}" ng-init="startAnimation()"></div>
         </div>
 
           </div> 
-		
-   
         </div>
-        <div class="user-stats clearfix">
-          
-  <iframe id="metronome-iframe" src="https://embed.metronome.app/" style="border-width:0;" width="390" height="400" frameborder="0" scrolling="no"></iframe>         
-          
-          
-        </div>
-        <div class="user-achievements">
-        </div>
-
-      </div>
-      <div class="col-sm-7">
-       <div class="dashboard-panel achievement-list-panel" >
-          <div class="panel-header">
-            <h4><i class="fa fa-solid fa-clock-o"></i> {{getFormattedTime()}}
-              <div style="float: right;" >{{data[student.lvl].level}}</div> </h4>   
-          </div>
-          <div class="panel-body">
-       <ul class="list-unstyled" ng-repeat="lesson in data[student.lvl].lessons">
-              <li ng-class="{ 'current': lesson.id === student.id, 'completed': lesson.id < student.id }">
-            <!--    <div class="achievement-icon js-trigger-video-modal" onclick="toggle_video_modal(this)" data-youtube-id="{{lesson.video}}"><i class="fa {{lesson.icon}}" ></i></div> -->
- <div ng-if="lesson.media == 'video'" class="achievement-icon js-trigger-video-modal" onclick="toggle_video_modal(this)" data-youtube-id="{{lesson.video}}"><i class="fa fa-youtube-play" ></i></div>
-                
- <div ng-if="lesson.media == 'quiz'" class="achievement-icon js-trigger-quiz-modal" onclick="toggle_quiz_modal()" url="{{lesson.url}}"><i class="fa fa-question" ></i></div>               
-
-<div ng-if="lesson.media == 'practice'" class="achievement-icon" ng-click="showModal('modal2')"><i class="fa fa-file-pdf-o" ></i></div>
-                
- <div ng-if="lesson.media == 'pdf'" class="achievement-icon" ng-click="showModal('modal1')"><i class="fa fa-cogs" ></i></div>
-                
-                <div class="achievement-content">
-                  <strong>{{lesson.type}}</strong>
-                  <p>{{lesson.name}}</p>
-                  <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</p>
-                </div>
-                <div class="achievement-actions">
-             <a href=""><i class="fa fa-fw fa-star"></i></a> 
-                </div>
-              </li>  
-            </ul>  
-              
+        
+      
        
-            
-<div id="modal1" class="modal-container">
-  <div class="modal-background" ng-click="hideModal('modal1')">
-    <div class="modal">  
-<div class="card-container">
-   <div class="stripe selected"></div>
-  <div class="stripe selected"></div>
-  <div class="stripe"></div>
-  <div class="stripe"></div>
-   <div class="title"></div>
-   <div class="author"></div>
-   <div class="bpm">{{student.name}}</div>
-  <div class="left-hand "><img src="https://i.ibb.co/qnkR3ff/1.png" /></div>
-  <div class="right-hand"><img src="https://i.ibb.co/HdctPqd/image.png" /></div>
-</div>
-    </div>
-  </div>
-</div>      
-            
  
-<div id="modal2" class="modal-container">
-  <div class="modal-background" ng-click="hideModal('modal2')">
-    <div class="modal"> 
-     
-     <iframe id="drive" src="https://drive.google.com/file/d/1kxLyedr3tlxEG-rE0RGlRC2gFL2H05o1/preview" frameborder="0"></iframe>
+        
+        <div class="dashboard-panel registry-log-panel"  ng-if="userData.status != 'INACTIVO'">
+          <div class="panel-header">
+            <h4><i class="fa fa-fw fa-clock-o"></i> Registro de actividad</h4>
+          
+          </div>
+          <div class="panel-body log-list-container" style="max-height: 180px;"> 
+             <ul class="list-unstyled log-list">
+             <li ng-repeat="entry in history | filter:filterByLevel" ng-class="{'status-pending': entry.status === 'En revisión', 'status-delayed': entry.status === 'Límite de entrega: ' && stringToDate(entry.limitdate) < today, 'status-completed': entry.status === 'Evaluada', 'status-error': entry.status === 'A corrección', 'status-default': entry.status === 'Límite de entrega: '  && stringToDate(entry.limitdate) >= today}">
+                <button style="float:right; margin-right: -15px; margin-top: 7px; font-size: 11px; " ng-click="showModal(entry)" ng-if="entry.status !== 'En revisión' && entry.status !== 'Evaluada'" class="btn btn-dark btn-sm">Entregar </button>
+               <div style="float:right; margin-right: -9px; margin-top: 8px;" ng-if="entry.status == 'En revisión'"> Entregada </div>
+                <div style="float:right; margin-right: -15px;" ng-if="entry.status == 'Evaluada' && entry.quote"><i class="ri-award-fill" style="font-size: 25px; color: orange;"></i>  </div>
+               <div ng-if="entry.status == 'Límite de entrega: '" data-youtube-id="{{entry.video}}" 
+class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: red; cursor: pointer;"> <i class="ri-youtube-fill yticon" style="float:right; margin-right: 10px; font-size: 26px;"></i></div>
+                <div ng-if="entry.status === 'A corrección'" data-youtube-id="{{entry.video}}" 
+class="js-trigger-video-modal2" onclick="toggle_video_modal3(this)" style="color: gray; cursor: pointer;"> <i class="ri-chat-quote-line yticon" style="float:right; margin-right: 10px; font-size: 26px;"></i></div>
+                        <span style="font-size: 13px;">{{entry.name}}</span>
+               <small style="font-size: 11px; margin-top: 2px;">{{entry.status}} <span ng-if="entry.status == 'Límite de entrega: '"> {{dateToString(entry.limitdate)}}</span></small>
+           
+               <small ng-if="entry.status == 'Límite de entrega: ' && stringToDate(entry.limitdate) < today" style="font-size: 9px; margin-top: 2px; position:absolute;">Entrega atrasada, envía un avance</small>
+                    </li>
+            </ul>
+           
+          </div> 
+        </div>
+         
+      </div>
+      <div class="col-sm-7" >
+        <div class="dashboard-panel achievement-list-panel" ng-if="userData.status != 'INACTIVO'">
+          <div class="panel-header">
+          <h4><i class="fa fa-fw fa-book"></i> Manuales</h4>
+          </div>
+       <div class="panel-body" >
+ 
+           <iframe width="500px" height="450px" ng-src="https://embed.metronome.app/" frameborder="0">
+        </iframe>
+         
+        </div>
+        </div>
+      </div>
+    </div>
+ </div> 
+
+
+  
+  
+  
+  
+  
+   <div id="modal-container2" class="modal-container">
+  <div class="modal-background" > 
+    <div class="modal-msg">
+      <br>    
+        <div class="mic-container" id="recorder">
+      <div class="audio-record">
+        <input type="checkbox" id="audio_record-icon" name="audio_record-icon">
+        <label for="audio_record-icon" class="player-icon audio_record-icon">
+          <i class="ri-mic-2-fill"></i>
+        </label>
+        <span id="record-text">iniciar</span>
+      </div>
+      <div class="audio-properties" style="display: none;">              
+        <div class="audio_record-control">         
+          <button class="btn btn-default player-icon save" id="save-recording" onclick="saveRecording();">
+          </button>
+        
+        </div>
+      </div>
+
+<div id="record-audio"></div>
+ <button id="delete-audio">Eliminar</button>
+  <input type="hidden" id="AudioData">
+<span id="clicks"></span>
+          
+           <div class="metronome"  >  
+    <div hidden>
+    <button class="main-btn blue flex-centered" id="tap" hidden>Tap</button> 
+              <button class="min-btn" id="beatMinus">-</button>
+              <input type="number" class="beat-count" id="beatCount" value="4" readonly>
+              <button class="min-btn" id="beatPlus">+</button>
+    </div>
+    
+     <ul id="dotTarget" style="display: none;">
+            <li class="beat"></li>
+            <li class="beat"></li>
+            <li class="beat"></li>
+            <li class="beat"></li>
+          </ul>
+          <div id='digitalDisplayContainer'>
+            <h3 id="beatFlag">1</h3><h3 id="beatNbr">/4</h3>
+          </div>
+
+     <div style="float: left">   
+       <span id="tempo-disp" style="font-size:40px;">60</span>  bpm
+     </div>
+      
+          <button class="main-btn" id="start">
+    <i class="ri-play-fill" style="font-size: 44px; color: black;"></i>
+          </button>
+      <button class="main-btn" id="stop">
+               <i class="ri-pause-fill" style="font-size: 44px; color: black;"></i>
+             </button>
+      <div class="input-section">
+    <input type="range" min="0" max="200" value="60" class="tempoSlider" step="1" oninput="temp(this.value)" id="tempo">
+    <div class="thin-fill"></div>
+    <div class="thick-fill"></div>
+  </div>   
+  </div>          
+</div>
+      
+
+        <iframe class="drive" ng-src="{{trustAsResourceUrl(selectedManualUrl)}}" frameborder="0">
+        </iframe>
+   
+      <ul class="menu-bar">
+            <li><a href="#" ng-click="hideModal()">Regresar</a></li>
+            <li><a href="#" id="toggle-recorder">Practicar</a></li>
+            <li><a href="#" ng-click="uploadAudio($index)">Entregar</a></li>
+        </ul>
+     <!--  <div class="multimedia" style="font-size: 35px;">
+ <div data-youtube-id="bwiHhgPjkR8" 
+class="js-trigger-video-modal" onclick="toggle_video_modal(this)"> <i class="ri-youtube-fill" style="float: left; margin-left: 7%;"></i></div>
+         <div ><i class="ri-mic-2-fill"></i></div>
+   <div class="pdfreveal" id="two"><i class="ri-file-pdf-2-fill" style="float: right; margin-right: 7%;"></i></div>-->
+             </div>
+      <br>
+    <!--<button ng-click="uploadAudio()" style="float: right;">Subir</button>-->
 
     </div>
   </div>
-</div>
-            
-            
-          </div>
-        </div>
-        <button class="aboutMe" ng-click="logout(); resetTimer()" style="float: right;">Regresar</button>   
-      </div>
+  
+
+
+
+
+
+
+
+
+   <div class="video-modal2">
+    <div id="video-modal-content2" class="video-modal-content2">
+       <iframe 
+          id="youtube3" 
+          width="100%" 
+          height="100%" 
+          frameborder="0" 
+          allow="autoplay" 
+          allowfullscreen 
+          src=
+        ></iframe>
+
+        <a 
+          href="#" 
+          class="close-video-modal2" 
+        >
+          <!-- X close video icon -->
+          <svg 
+            version="1.1" 
+            xmlns="http://www.w3.org/2000/svg" 
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            x="0"
+            y="0"
+            viewBox="0 0 32 32" 
+            style="enable-background:new 0 0 32 32;" 
+            xml:space="preserve" 
+            width="24" 
+            height="24" 
+          >
+            <g id="icon-x-close2">
+                <path fill="#ffffff" d="M30.3448276,31.4576271 C29.9059965,31.4572473 29.4852797,31.2855701 29.1751724,30.980339 L0.485517241,2.77694915 C-0.122171278,2.13584324 -0.104240278,1.13679247 0.52607603,0.517159487 C1.15639234,-0.102473494 2.17266813,-0.120100579 2.82482759,0.477288136 L31.5144828,28.680678 C31.9872448,29.1460053 32.1285698,29.8453523 31.8726333,30.4529866 C31.6166968,31.0606209 31.0138299,31.4570487 30.3448276,31.4576271 Z" id="Shape"></path>
+                <path fill="#ffffff" d="M1.65517241,31.4576271 C0.986170142,31.4570487 0.383303157,31.0606209 0.127366673,30.4529866 C-0.12856981,29.8453523 0.0127551942,29.1460053 0.485517241,28.680678 L29.1751724,0.477288136 C29.8273319,-0.120100579 30.8436077,-0.102473494 31.473924,0.517159487 C32.1042403,1.13679247 32.1221713,2.13584324 31.5144828,2.77694915 L2.82482759,30.980339 C2.51472031,31.2855701 2.09400353,31.4572473 1.65517241,31.4576271 Z" id="Shape"></path>
+            </g>
+          </svg>
+        </a>
     </div>
-  </div>
+    <div class="overlay2"></div>
 </div>
-   
-   
-   
-   
+
+  
+  
    <div class="video-modal">
     <div id="video-modal-content" class="video-modal-content">
        <iframe 
@@ -1178,126 +1749,28 @@ iframe#quiz {
     </div>
     <div class="overlay"></div>
 </div>
-   
-   
-   
-   
-   <div class="quiz-modal">
-    <div  class="quiz-modal-content">
-       <iframe 
-          id="quiz" 
-          width="100%" 
-          height="100%" 
-          frameborder="0" 
-          allowfullscreen 
-          src=
-        ></iframe>
+</div> 
+  
 
-        <a 
-          href="#" 
-          class="close-quiz-modal" 
-        >
-          <!-- X close video icon -->
-          <svg 
-            version="1.1" 
-            xmlns="http://www.w3.org/2000/svg" 
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            x="0"
-            y="0"
-            viewBox="0 0 32 32" 
-            style="enable-background:new 0 0 32 32;" 
-            xml:space="preserve" 
-            width="24" 
-            height="24" 
-          >
-            <g id="icon-x-close">
-                <path fill="#ffffff" d="M30.3448276,31.4576271 C29.9059965,31.4572473 29.4852797,31.2855701 29.1751724,30.980339 L0.485517241,2.77694915 C-0.122171278,2.13584324 -0.104240278,1.13679247 0.52607603,0.517159487 C1.15639234,-0.102473494 2.17266813,-0.120100579 2.82482759,0.477288136 L31.5144828,28.680678 C31.9872448,29.1460053 32.1285698,29.8453523 31.8726333,30.4529866 C31.6166968,31.0606209 31.0138299,31.4570487 30.3448276,31.4576271 Z" id="Shape"></path>
-                <path fill="#ffffff" d="M1.65517241,31.4576271 C0.986170142,31.4570487 0.383303157,31.0606209 0.127366673,30.4529866 C-0.12856981,29.8453523 0.0127551942,29.1460053 0.485517241,28.680678 L29.1751724,0.477288136 C29.8273319,-0.120100579 30.8436077,-0.102473494 31.473924,0.517159487 C32.1042403,1.13679247 32.1221713,2.13584324 31.5144828,2.77694915 L2.82482759,30.980339 C2.51472031,31.2855701 2.09400353,31.4572473 1.65517241,31.4576271 Z" id="Shape"></path>
-            </g>
-          </svg>
-        </a>
-    </div>
-    <div class="overlay2"></div>
-</div>
-   
-   
-   
-</section>  
 
   
-  
 </div>
-
-
 <script>
-  $(function () {
-  $('[data-toggle="popover"]').popover()
-})
-
-
-
-
-
-
-var app = angular.module('studentsApp', [])
-
-     
-app.controller('Controller1', ['$http', "$scope", '$interval', function($http, $scope, $interval) {
-  $scope.userData = {}; 
-  var swiperInstance = null;
-  $scope.showUserInterface = false;
-  var lastmsg = "";
-  let dataIntervalPromise;
   
-function obtenerDatos() {  
-  $http({
-    method: 'GET',
-    url: 'https://script.google.com/macros/s/AKfycbzIra465SJypRhzRL6ihOF0dmuCCykgZF3F4PufbHR76OBkyhS7NLvAu0joiJr5VfwM/exec',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    }
-  }).then(function(response) {
-      $scope.userData = response.data; 
-    $scope.filterByHour();
 
-   /* $scope.startAnimation = function() {
-        $('.progress-bar').animate({
-          width: $scope.userData.paymentFlags.dropOut + '%'
-        }, 500); 
-      };*/
-    
-     /*$scope.student = $scope.userData.find(function(user) {
-       return user.name === $scope.student.name;
-     }) || $scope.student; */
-  });
-};
+
+
+  angular.module('studentsApp', [])
+  .controller('Controller1', ['$http', '$scope', '$sce', function($http, $scope, $sce) {
+   $scope.userData = [];
+  $scope.userDataLoaded = false;
+     $scope.today = new Date()
    
-  
-  function refreshData() { 
-    $http({
-    method: 'GET',
-    url: 'https://script.google.com/macros/s/AKfycbzIra465SJypRhzRL6ihOF0dmuCCykgZF3F4PufbHR76OBkyhS7NLvAu0joiJr5VfwM/exec',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    }
-  }).then(function(response) {
-      $scope.userData = response.data; 
-    //if($scope.showUserInterface){
-      $scope.student = $scope.userData[$scope.student.row - 3]
-      $scope.waitforaudio()
-  });
-    
-  };
 
-  
-  
-   function postUpdate(status, row) {
-     var requestData = {
-    action: "update",
-    row: row,
-    status: status,
+  var requestData = { 
+    action: "getProfileData",
+    token: "U2FsdGVkX18ULyziIuuWAfHRHmp4Ti/rMrOdDTDspKrXYc64BaycSOYvQkiaOUGl"
+    //localStorage.getItem('MStoken')
   };
 
   var config = {
@@ -1306,331 +1779,254 @@ function obtenerDatos() {
     },
     followRedirects: true, 
   };
-     
-$http.post('https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7IDc7KBrYGfix6hUa4kvJ1TFpjU82NltFXezUroGgQ/exec', requestData, config)
-   };
+ 
+      
    
-
-    $scope.login = function(user) {
-      $scope.student = user
-      postUpdate("online", $scope.student.row)
-      $scope.showUserInterface = true;
-       $('.userInterface').fadeIn('slow', function() {
-        $('.userSelect').fadeOut('slow', function(){
-          $('#metronome-iframe').show();
-        });
+  $http.post('https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7IDc7KBrYGfix6hUa4kvJ1TFpjU82NltFXezUroGgQ/exec', requestData, config)
+    .then(function(response) { 
+      $scope.userData = response.data;
+      $scope.userDataLoaded = true;
+     $scope.userLevel = $scope.getLevel($scope.userData.lvl)
+    $scope.history = $scope.userData.lessons
+      $scope.startAnimation = function() {
+        $('.progress-bar').animate({
+          width: $scope.userData.progress + '%'
+        }, 500); 
+      };
+    $scope.picture = $scope.userData.photo
+  
+     angular.element(document).ready(function() {
+    angular.element(".file-upload").on('change', function() {
+      readURL(this);
+    });
+    
+    angular.element(".upload-button").on('click', function() {
+      angular.element(".file-upload").click();
+    });
       });
-	    
-      speak("Bienvenido "+$scope.student.firstname)
-      dataIntervalPromise = $interval(refreshData, 1000);
+
+         $scope.lessons = JSON.parse($scope.userData.lessons)
+    
+    })
+
+    $scope.trustAsResourceUrl = function(url) {
+        return $sce.trustAsResourceUrl(url);
     };
+
+    
+    
+    $scope.getLevel = function(lvl){
+  if(lvl == 0){
+     return "Nivel Preparatorio"
+  }else{
+    return "Nivel "+lvl.toString()
+  }
+}
+    
+    
+    
+    
+    
+    
+    
+     $scope.dateToString = function(fechaOriginal){
+  const partesFecha = fechaOriginal.split('/');
+  const fecha = new Date(partesFecha[2], partesFecha[1] - 1, partesFecha[0]);
+  const diasSemana = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+  const meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];  
+  const diaSemana = diasSemana[fecha.getDay()];
+  const dia = fecha.getDate();
+  const mes = meses[fecha.getMonth()];
+
+  return `${diaSemana} ${dia} de ${mes}`;
+}
+    
+    $scope.stringToDate = function(dateStr) {
+  const parts = dateStr.split('/');
+  var date = new Date(parts[2], parts[1] - 1, parts[0]);
+  date.setDate(date.getDate() + 1);
+  return date
+}; 
+    
+     $scope.openPaymentInfoModal = function() {
+   $('#profileModal').modal('show');
+}
+
+   $scope.filterByLevel = function(entry) {
+    return entry.index <= $scope.userData.lsn + 1;
+};
+    
+    $scope.selectedManualUrl = '';
+     $scope.selectedEntry = null;
+    
+    $scope.showModal = function(entry) {
+       $scope.selectedManualUrl = entry.pdf;
+       $scope.selectedEntry = entry;
+        document.getElementById('modal-container2').classList.add('four');
+    };
+
+    $scope.hideModal = function() {
+        const modal = document.getElementById('modal-container2');
+        modal.classList.add('out');
+        setTimeout(() => {
+            modal.classList.remove('four', 'out');
+        }, 400);
+      var metronome = document.getElementById('recorder');
+      metronome.style.display = 'none';
+    };
+    
+    
+$scope.manualFilter = function(manual, index) {
+      return index <= $scope.userData.blq - 1;
+    };
+    
+     $scope.openURL = function(lvl, index) {
+        var url = $scope.manuals[lvl][index].url;
+        window.open(url, '_blank');
+    }; 
+
+$scope.manuals = [ 
+  [
+    {'title': 'Bloque 1 - Nivel P','background': 'https://lh3.googleusercontent.com/d/12_KSNMB0Z3z9knY_8vIofHT3Xvl-JUj-',  
+    'url': 'https://drive.google.com/file/d/1bufcRACzv0QKKJDoc6RYhC1m7irb-UPa'},
+    {'title': 'Bloque 2 - Nivel P','background': 'https://lh3.googleusercontent.com/d/12_KSNMB0Z3z9knY_8vIofHT3Xvl-JUj-',  
+    'url': 'https://drive.google.com/file/d/1nxK06XODrHt2J6lScQz4JjthmPoc16Ec'}, 
+    {'title': 'Bloque 3 - Nivel P','background': 'https://lh3.googleusercontent.com/d/12_KSNMB0Z3z9knY_8vIofHT3Xvl-JUj-',  
+    'url': 'https://drive.google.com/file/d/1vYZFwqvHFg6m097Ivk4uRGAY38-EUvEu'}   
+  ],
+  [
+    {'title': 'Bloque 1 - Nivel 1','background': 'https://lh3.googleusercontent.com/d/1Uf_sUg2ELZPF8t0fcuCdH6ZZOWrwzghM',  
+    'url': 'https://drive.google.com/file/d/1Kghxri_BvRE0Ho4c2vMfrdBGp8HTmrGJ'},
+    {'title': 'Bloque 2 - Nivel 1','background': 'https://lh3.googleusercontent.com/d/1Uf_sUg2ELZPF8t0fcuCdH6ZZOWrwzghM',  
+    'url': 'https://drive.google.com/file/d/10Q34O2uDPaj5ZG7bpYpx8BGHZ4Q18ZLB'},
+    {'title': 'Bloque 3 - Nivel 1','background': 'https://lh3.googleusercontent.com/d/1Uf_sUg2ELZPF8t0fcuCdH6ZZOWrwzghM',  
+    'url': 'https://drive.google.com/file/d/1VuxMiv3W89OBAzxXaz6kzBkEyRxonnJB'}     
+  ],
+  [
+     {'title': 'Bloque 1 - Nivel 2','background': 'https://lh3.googleusercontent.com/d/1qsgmUvohMMn8LcQZLp-Zkk283MV2VmNy',  
+  'url': 'https://drive.google.com/file/d/1zs8OzO57s1b0MTavriKWjMohnLjr39-d'},
+     {'title': 'Bloque 2 - Nivel 2','background': 'https://lh3.googleusercontent.com/d/1qsgmUvohMMn8LcQZLp-Zkk283MV2VmNy',  
+  'url': 'https://drive.google.com/file/d/1zs8OzO57s1b0MTavriKWjMohnLjr39-d'}  
+  ]
+  
+];
+
+
+
+
+    
+    
+    
+    var readURL = function(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          $scope.$apply(function() {
+            $scope.picture = e.target.result;
+            $scope.uploadImage(e.target.result); // Enviar la imagen cargada al servidor
+          });
+        };
+
+        reader.readAsDataURL(input.files[0]);
+      }
+    };
+     
+    
+     $scope.uploadImage = function(data){
+       var requestData = {
+    action: "postImage",
+    token: localStorage.getItem('MStoken'),
+    blob: data
+  };
+
+  var config = {
+    headers: {
+      "Content-Type": "text/plain;charset=utf-8"
+    },
+    followRedirects: true, 
+  };
+ $http.post('https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7IDc7KBrYGfix6hUa4kvJ1TFpjU82NltFXezUroGgQ/exec', requestData, config)
+       .then(function(response) {
+ });
+     }
+    
+    
+    
+    
+     $scope.uploadAudio = function() { 
+     var base64Audio = document.getElementById("AudioData").value
+       
+     
+     if(base64Audio == ""){
+        alert("No existe grabación a enviar")
+     }else{
+       $scope.selectedEntry.status = "En revisión"
+
+
+    var requestData = {
+    action: "postAudio",
+    token: localStorage.getItem('MStoken'),
+      lesson: $scope.selectedEntry.name,
+      index: $scope.selectedEntry.index,
+    blob: base64Audio
+  };
+ 
+  var config = {
+    headers: {
+      "Content-Type": "text/plain;charset=utf-8"
+    },
+    followRedirects: true, 
+  }; 
+   $http.post('https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7IDc7KBrYGfix6hUa4kvJ1TFpjU82NltFXezUroGgQ/exec', requestData, config)
+    .then(function(response) {
+    })  
+       
+        $('#record-audio').empty(); 
+        document.getElementById("AudioData").value = "";
+        $('#delete-audio').hide();
+       alert("Actividad enviada a revisión")
+       $scope.hideModal()
+       
+     }
+   }; 
+
+
+     $scope.openURL = function(lvl, index) {
+        var url = $scope.manuals[lvl][index].url;
+        window.open(url, '_blank');
+    };
+    
+    
    
-   $scope.logout = function() {
-      $scope.showUserInterface = false;
-     postUpdate("offline", $scope.student.row)
-     $scope.student = {};
-     $('.userSelect').fadeIn('slow', function() {
-        $('.userInterface').fadeOut('slow');
-    });
-	   
-     if (angular.isDefined(dataIntervalPromise)) {
-        $interval.cancel(dataIntervalPromise);
-      }
-    };
-  
-  
-  $scope.waitforaudio = function(){
-    if($scope.student.msg){
-      if($scope.student.msg != lastmsg){
-        speak($scope.student.msg)
-        lastmsg = $scope.student.msg 
-      }
-    }
-  };
-  
-  function speak(text) {
-        var utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'spa'; 
-	  utterance.rate = 2;
-        window.speechSynthesis.speak(utterance);
-    }
-  
-  
-  
-    $scope.isReady = true;
-   $scope.postReady = function() {
-      if ($scope.isReady) {      
-        postUpdate("ready", $scope.student.row);
-      } else {
-        postUpdate("unready", $scope.student.row);
-      }
-      $scope.isReady = !$scope.isReady;
-   };
-  
-  
-  
-   $scope.getCurrentDay = function() {
-    var days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-    var now = new Date();
-    return days[now.getDay()];
-  };
+}]); 
 
-  $scope.getCurrentHour = function() {
-    var now = new Date();
-    now.setMinutes(now.getMinutes() + 15);
-    var hours = now.getHours();
-    //var formattedHours = (hours % 12) || 12;
-    return hours
-  };
+  
+</script>
+
+
+
+<script>
   
 
-  $scope.filteredStudents = [];
-  
-  $scope.filterByHour = function() {
-    $scope.filteredStudents = $scope.userData.filter(function(user) {
-      return ((user.classtime[0].split(" ")[0] === $scope.getCurrentDay() && parseInt(user.classtime[0].split(" ")[2].split(":")[0]) === $scope.getCurrentHour()) || (user.classtime[1].split(" ")[0] === $scope.getCurrentDay() && parseInt(user.classtime[1].split(" ")[2].split(":")[0]) === $scope.getCurrentHour()));
-    });
-    
-    if (swiperInstance) {
-     swiperInstance.destroy(true, true); 
+ document.getElementById('toggle-recorder').addEventListener('click', function() {
+            var metronome = document.getElementById('recorder');
+            if (metronome.style.display === 'none' || metronome.style.display === '') {
+                metronome.style.display = 'block';
+            } else {
+                metronome.style.display = 'none';
             }
-    
-    swiperInstance = new Swiper(".mySwiper", {
-    effect: "coverflow",
-  grabCursor: true,
-  centeredSlides: true,
-  slidesPerView: 2,
-  spaceBetween: 30,
-  coverflowEffect: {
-    rotate: 0,
-    stretch: 50,
-    depth: 120,
-    modifier: 2,
-    slideShadows: true
-  },
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      }
-    });
-
-  };
-  
-  
-  
-
-   
-  
-  
-   function getInitialTime() {
-        let now = new Date();
-        let minutes = now.getMinutes();
-        if(minutes >= 5 && minutes <=40){
-          return (minutes - 5) * 60 
-        }else{
-          return 0
-        }
-      }
-  
-  $scope.timer = getInitialTime();
-    let timerInterval;
-
-    $scope.startTimer = function() {
-        if (angular.isDefined(timerInterval)) return;
-        timerInterval = $interval(function() {
-            $scope.timer++;
-        }, 1000);
-    };
-
-    $scope.stopTimer = function() {
-        if (angular.isDefined(timerInterval)) {
-            $interval.cancel(timerInterval);
-            timerInterval = undefined;
-        }
-    };
-
-    $scope.resetTimer = function() {
-        $scope.stopTimer();
-        $scope.timer = getInitialTime();
-    };
-
-    $scope.$on('$destroy', function() {
-      $scope.stopTimer();
-    });
-
-
-    $scope.getFormattedTime = function() {
-        let minutes = Math.floor($scope.timer / 60);
-        let seconds = $scope.timer % 60;
-        return ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
-    };
-  
-  
-  $scope.showModal = function(modalId) {
-      document.getElementById(modalId).classList.add('one');
-    };
-
-    $scope.hideModal = function(modalId) {
-      const modal = document.getElementById(modalId);
-      modal.classList.add('out');
-      setTimeout(() => {
-        modal.classList.remove('one', 'out');
-      }, 1200);
-    };
-  
-   $scope.data = [
-        {
-          level: "Nivel Preparatorio - Bloque 1",
-          pdf: "",
-          id: 1,
-          lessons: [
-            
-            {
-              id: 8,
-              type: 'Quiz',
-              icon: 'fa-question',
-              name: 'Tema 4.2',
-              video: '',
-              points: ''
-            },
-            {
-              id: 7,
-              type: 'Teoria',
-              icon: 'fa-youtube-play',
-              name: 'Tema 4.1',
-              video: '',
-              points: ''
-            },
-            {
-              id: 6,
-              type: 'Quiz',
-              icon: 'fa-question',
-              name: 'Tema 3.2',
-              video: '',
-              points: ''
-            },
-            {
-              id: 5,
-              type: 'Teoria',
-              media: 'pdf',
-              icon: 'fa-youtube-play',
-              name: 'Tema 2.1',
-              pdf: 'https://www.youtube.com/embed/videoseries?si=O2Hei4Ehsc-VfaXF&amp;list=PLFLLmJ16LJSysX0faq2DsSUFXjnrXLlK1',
-              points: ''
-            },
-            {
-              id: 4,
-              type: 'Pieza',
-              media: 'practice',
-              name: 'Tema 2.2',
-              points: ''
-            },
-            {
-              id: 3,
-              type: 'Teoria',
-              media: 'pdf',
-              icon: 'fa-youtube-play',
-              name: 'Tema 2.1',
-              pdf: 'https://drive.google.com/file/d/1kxLyedr3tlxEG-rE0RGlRC2gFL2H05o1/preview',
-              points: ''
-            },
-            /*{
-              id: 2,
-              type: 'Quiz',
-              media: 'quiz',
-              icon: 'fa-question',
-              name: 'Tema 1.2',
-              url: 'https://www.youtube.com/embed/videoseries?;list=PLFLLmJ16LJSwFeQsI_tZCan4FBG4O7_mz',
-              points: ''
-            },*/
-		   {
-              id: 1,
-              type: 'Teoria',
-              media: 'video',
-              icon: 'fa-youtube-play',
-              name: 'Tema 1.2: Posición de Do',
-              video: 'https://www.youtube.com/embed/3wn33KNLy5M',
-              points: ''
-            },
-            {
-              id: 1,
-              type: 'Teoria',
-              media: 'video',
-              icon: 'fa-youtube-play',
-              name: 'Tema 1.1: Ritmo y métrica',
-              video: 'https://www.youtube.com/embed/Q4r5gnfAtzs',
-              points: ''
-            }
-            
-          ]
-        },
-        {
-          level: "Nivel Preparatorio - Bloque 2",
-          pdf: "",
-          id: 2,
-          lessons: [
-             {
-              id: 1,
-              type: 'Teoria',
-              media: 'video',
-              icon: 'fa-youtube-play',
-              name: 'Tema 1.1 ',
-              video: 'https://www.youtube.com/embed/videoseries?si=O2Hei4Ehsc-VfaXF&amp;list=PLFLLmJ16LJSysX0faq2DsSUFXjnrXLlK1',
-              points: ''
-            },
-            {
-              id: 2,
-              type: 'Repertorio',
-              icon: 'fa-youtube-play',
-              name: 'Pieza 3: Mountain Climbing',
-              video: '',
-              points: ''
-            }
-          ]
-        }];
-  
-  
-  obtenerDatos();
-  $interval($scope.obtenerDatos, 300000);
-    
-  
-    }]);
-
-
-
-
-
-
-
-/*
-document.addEventListener('DOMContentLoaded', function() {
-    // Obtener botones y agregar evento de clic a cada uno
-    var textToSpeechBtns = document.querySelectorAll('.text-to-speech-btn');
-    textToSpeechBtns.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            var text = this.getAttribute('data-text');        setTimeout(function() {
-                speak(text); 
-            }, 2000); 
         });
-    });
-
-    // Función para generar texto a voz
-    function speak(text) {
-        var utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'es-ES'; // Establecer el idioma a español de España
-        window.speechSynthesis.speak(utterance);
-    }
-});
-*/
-
-
-
 
 
 function toggle_video_modal(element) {
      var url = element.getAttribute('data-youtube-id');
           $("#youtube").attr('src', url);        
-          $("body").addClass("show-video-modal noscroll");   
+          $("body").addClass("show-video-modal noscroll");  
+  var icon = element.querySelector('.yticon');
+    if (icon) {
+        icon.style.animation = 'none';
+    }
 }
 
       // Close and Reset the Video Modal
@@ -1644,41 +2040,694 @@ function toggle_video_modal(element) {
       $('body').on('click', '.close-video-modal, .video-modal .overlay', function(event) {
           close_video_modal();
       });
+ 
+
+function toggle_video_modal2(element) {
+    var htmlContent = element.getAttribute('data-youtube-id');
+    var iframe = document.getElementById('youtube');
+    
+     const regex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
+ if(regex.test(htmlContent)){
+  $("#youtube").attr('src', htmlContent);  
+ }else{
+    iframe.contentWindow.document.open();
+    iframe.contentWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+    
+<style>
+  body {
+background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAG0lEQVQYV2PcvHnzf19fX0YGPACvJEzfqCIGAC55BAqBlVXsAAAAAElFTkSuQmCC) repeat;
+}
+
+.quoteWell {
+  margin-top: 10%;
+}
+footer{
+  float: right;
+  bottom: 0;
+}
+
+ @media screen and (min-width:375px){
+   .quoteWell{
+    margin-top: 70px;
+  }   
+}
+
+   @media screen and (min-width:480px){
+   .quoteWell{
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 90px;
+  }   
+}
+
+ @media screen and (min-width:700px){
+   .quoteWell{
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-top: 180px;
+  }   
+}
+
+
+
+</style>
+
+
+      <div class="well quoteWell">
+        <blockquote>
+          <p class="quote lead">${htmlContent}.</p>
+          <footer><cite class="author" title="author">Profesor Daniel</cite></footer>
+        </blockquote>
+
+      </div>
+
+
+        </html>
+    `);
+    iframe.contentWindow.document.close();
+ }
+  
+    var icon = element.querySelector('.yticon');
+    if (icon) {
+        icon.style.animation = 'none';
+    }
+    document.body.classList.add("show-video-modal", "noscroll");
+}
+  
+  
+  
+  
+  
+
+
+ function captureUserMedia(mediaConstraints, successCallback, errorCallback) {
+    navigator.mediaDevices.getUserMedia(mediaConstraints).then(successCallback).catch(errorCallback);
+  }
+
+  var mediaConstraints = {
+    audio: true
+  };
+  document.querySelector('#save-recording').onclick = function () {
+      this.disabled = true;
+      mediaRecorder.save();
+      // alert('Drop WebM file on Chrome or Firefox. Both can play entire file. VLC player or other players may not work.');
+  };
+  //Parto con la registrazione audio
+  function startRecording(idx) {
+    
+    $('#start-recording').disabled = true;
+    audiosContainer = document.getElementById('audios-container');
+    //document.getElementById("clicks").innerHTML = "Recording Started";
+
+    var f = document.getElementById('clicks');
+    setInterval(function () {
+        f.style.display = (f.style.display == 'none' ? '' : 'none');
+    }, 1000);
+
+    captureUserMedia(mediaConstraints, onMediaSuccess, onMediaError);
+  };
+  //Stoppo la registrazione audio
+  function stopRecording() {
+      $('#stop-recording').disabled = true;
+   
+      //document.getElementById("clicks").innerHTML = "Recording Stopped";
+ 
+      var f = document.getElementById('clicks');
+      setInterval(function () {
+          f.style.display = (f.style.display == 'none' ? '' : 'none');
+      }, 1000);
+    mediaRecorder.stop();
+    mediaRecorder.stream.stop();
+   
+   
+    $('.start-recording').disabled = false;
+  };
+
+  //Falvo Il file
+  function saveRecording() {
+      mediaRecorder.save();
+  };
+
+  var mediaRecorder;
+
+  function onMediaSuccess(stream) {
+    mediaRecorder = new MediaStreamRecorder(stream);
+    mediaRecorder.stream = stream;
+    mediaRecorder.mimeType = 'audio/wav';  
+    //mediaRecorder.mimeType = 'audio/webm';  
+    mediaRecorder.audioChannels = 1;
+    mediaRecorder.ondataavailable = function(blob) {
+      $('#record-audio').html("<audio controls=''><source src=" + URL.createObjectURL(blob) + "></source></audio>");
+      $('#delete-audio').show();
+      $('#delete-audio').on('click', function() {
+    $('#record-audio').empty(); 
+        document.getElementById("AudioData").value = "";
+        $('#delete-audio').hide();
+  });
+      var reader = new FileReader();
+          reader.onloadend = function() {
+            var base64Audio = reader.result.split(',')[1];
+            document.getElementById("AudioData").value = base64Audio;
+          };
+          reader.readAsDataURL(blob);
+    };
+ 
+    var timeInterval = 360 * 1000;
+
+    mediaRecorder.start(timeInterval);
+
+    $('#stop-recording').disabled = false;
+  }
+
+  function onMediaError(e) {
+    console.error('media error', e);
+  }
+
+  function bytesToSize(bytes) {
+    var k = 1000;
+    var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    if (bytes === 0) return '0 Bytes';
+    var i = parseInt(Math.floor(Math.log(bytes) / Math.log(k)), 10);
+    return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
+  }
+
+  function getTimeLength(milliseconds) {
+    var data = new Date(milliseconds);
+    return data.getUTCHours() + " hours, " + data.getUTCMinutes() + " minutes and " + data.getUTCSeconds() + " second(s)";
+  }
+
+  window.onbeforeunload = function() {
+    $('#start-recording').disabled = false;
+  };
+
+
+$(document).on('click','input[name="audio_record-icon"]',function(){
+  var checked = $('#audio_record-icon').prop('checked');
+  var recordText = document.getElementById('record-text');
+  if(checked == true)
+    {
+        startRecording();
+      recordText.textContent = "stop";
+    }
+  else
+    {
+        stopRecording();
+        recordText.textContent = "record";
+    }
+});
+  
+  
+  
+    
+  function ekUpload(){
+  function Init() {
+
+    console.log("Upload Initialised");
+
+    var fileSelect    = document.getElementById('file-upload'),
+        fileDrag      = document.getElementById('file-drag'),
+        submitButton  = document.getElementById('submit-button');
+
+    fileSelect.addEventListener('change', fileSelectHandler, false);
+
+    // Is XHR2 available?
+    var xhr = new XMLHttpRequest();
+    if (xhr.upload) {
+      // File Drop
+      fileDrag.addEventListener('dragover', fileDragHover, false);
+      fileDrag.addEventListener('dragleave', fileDragHover, false);
+      fileDrag.addEventListener('drop', fileSelectHandler, false);
+    }
+  }
+
+  function fileDragHover(e) {
+    var fileDrag = document.getElementById('file-drag');
+
+    e.stopPropagation();
+    e.preventDefault();
+
+    fileDrag.className = (e.type === 'dragover' ? 'hover' : 'modal-body file-upload');
+  }
+
+  function fileSelectHandler(e) {
+    // Fetch FileList object
+    var files = e.target.files || e.dataTransfer.files;
+
+    // Cancel event and hover styling
+    fileDragHover(e);
+
+    // Process all File objects
+    for (var i = 0, f; f = files[i]; i++) {
+      parseFile(f);
+      uploadFile(f);
+    }
+  }
+
+  // Output
+  function output(msg) {
+    // Response
+    var m = document.getElementById('messages');
+    m.innerHTML = msg;
+  }
+
+  function parseFile(file) {
+
+    console.log(file.name);
+    output(
+      '<strong>' + encodeURI(file.name) + '</strong>'
+    );
+    
+    // var fileType = file.type;
+    // console.log(fileType);
+    var imageName = file.name;
+
+    var isGood = (/\.(?=gif|jpg|png|jpeg)/gi).test(imageName);
+    if (isGood) {
+      document.getElementById('start2').classList.add("hidden");
+      document.getElementById('response').classList.remove("hidden");
+      document.getElementById('notimage').classList.add("hidden");
+      // Thumbnail Preview
+      document.getElementById('file-image').classList.remove("hidden");
+      document.getElementById('file-image').src = URL.createObjectURL(file);
+    }
+    else {
+      document.getElementById('file-image').classList.add("hidden");
+      document.getElementById('notimage').classList.remove("hidden");
+      document.getElementById('start2').classList.remove("hidden");
+      document.getElementById('response').classList.add("hidden");
+      document.getElementById("file-upload-form").reset();
+    }
+  }
+
+
+  // Check for the various File API support.
+  if (window.File && window.FileList && window.FileReader) {
+    Init();
+  } else {
+    document.getElementById('file-drag').style.display = 'none';
+  }
+}
+ekUpload();
+ 
+
+const slider = document.querySelector(".tempoSlider");
+const sliderMax = slider.getAttribute("max");
+const sliderThickFill = document.querySelector(".thick-fill");
+const currentLeads = document.getElementById("tempo-disp");
+
+
+function handleChange() {
+  const leads = this.value;
+  currentLeads.textContent = leads;
+  const sliderLineWidth = leads / sliderMax * 100;
+   var hue = 70 - (this.value / 200 * 70);
+  sliderThickFill.style.backgroundColor = 'hsl(' + hue + ', 100%, 50%)';
+  sliderThickFill.style.width = sliderLineWidth + "%";
+}
+
+slider.addEventListener("input", handleChange);
 
 
 
 
 
+var audioCtx = new (window.AudioContext || window.webkitAudioContext)(),
+    SubAudioCtx = new (window.AudioContext || window.webkitAudioContext)(),
+    volume = audioCtx.createGain(),
+    subvolume = SubAudioCtx.createGain(),
+    noteFlag = 0,
+    curtime = 0.0,
+    timer,
+    delta = 0;
 
-function toggle_quiz_modal() {
-      $(".js-trigger-quiz-modal").on("click", function(e){
-           
-          e.preventDefault();
-          var id = $(this).attr('url');
-          var src = id
 
-          $("#quiz").attr('src', src);
-          
-          $("body").addClass("show-quiz-modal noscroll");
-      
-      });
+// Elements INIT
+var tempo = 60000 / (document.getElementById('tempo').value),
+    
+    tempo_rge = document.getElementById('tempo'),
+    tempo_disp = document.getElementById('tempo-disp'),
+    firstBeating = document.getElementById('checkBox'),
+    plus = document.getElementById('plus'),
+    minus = document.getElementById('minus'),
+    extraPlus = document.getElementById('extraPlus'),
+    extraMinus = document.getElementById('extraMinus'),
+    beatPlus = document.getElementById('beatPlus'),
+    beatMinus = document.getElementById('beatMinus'),
+    start = document.getElementById('start'),
+    stop = document.getElementById('stop'),
+    close = document.getElementById('icon-x-close'), 
+    tap = document.getElementById('tap'),
+    beatFlag = document.getElementById('beatFlag'),
+    beatNbr = document.getElementById('beatNbr'),
+    beatCount = document.getElementById('beatCount'),
+    digitalDisplayContainer = document.getElementById('digitalDisplayContainer'),  
+    dotTarget = document.getElementById('dotTarget'),
+    dotsDisplay = document.getElementById('dotsDisplay'),    
+    digitalDisplay = document.getElementById('digitalDisplay'),
+    bothDisplay = document.getElementById('bothDisplay'),
+    beatDots = document.getElementsByClassName('beat'),
+    semiquaver = document.getElementById('semiquaver');
 
-      // Close and Reset the Video Modal
-      function close_quiz_modal() {
+
+function temp(v){
+  tempo_disp.innerHTML = v;  
+}
+
+function vol(l){
+  volume.gain.setValueAtTime(l, audioCtx.currentTime);
+}
+
+function schedule(){
+  while(curtime < audioCtx.currentTime + 0.1){
+    if(noteFlag >= beatCount.value){
+      noteFlag = 0;
+    }
+    playNote(curtime); 
+
+    
+    console.log(curtime);
+    console.log(curtime);
+    
+    updateTime();
+
+    var child = document.querySelectorAll('#dotTarget li');      
+    
+    if(noteFlag === 0){
+      child[noteFlag].className += " on-temp";
+      child[child.length - 1].classList.remove("on-temp");
+    }
+    else{
+      child[noteFlag].className += " on-temp";
+      child[noteFlag - 1].classList.remove("on-temp");
+    }
+    beatFlag.innerHTML = noteFlag+1;
+    noteFlag++;
+  }
+  timer = window.setTimeout(schedule, 0.1);
+}
+
+function updateTime(){
+  curtime += 60.0 / parseInt(tempo_rge.value, 10);
+}
+
+function playNote(t){
+  var note = audioCtx.createOscillator();
+  note.connect(volume);
+  volume.connect(audioCtx.destination);
+  
+  note.type = 'sine';
+  
+
+ /* 
+var now = audioCtx.currentTime;
+var attackTime = .1;
+var releaseTime = 0.01;
+
+volume.gain.setValueAtTime(0, now);
+volume.gain.linearRampToValueAtTime(2, now + attackTime);
+volume.gain.linearRampToValueAtTime(0, now + attackTime + releaseTime);*/
+
+note.frequency.setValueAtTime(2100, audioCtx.currentTime);  
+
+/*  if(firstBeating.checked){
+    if(noteFlag == 0){
+      note.frequency.setValueAtTime(1600, audioCtx.currentTime);    
+    }
+    else{
+      for(var i=0; i < beatDots.length; i++){    
+        if(beatDots[noteFlag].className == "beat active"){
+            note.frequency.setValueAtTime(800, audioCtx.currentTime);
+           }
+        else{
+           note.frequency.setValueAtTime(400, audioCtx.currentTime);       
+        }
+      } 
+    }
+  }  
+  else{
+      for(var i=0; i < beatDots.length; i++){    
+        if(beatDots[noteFlag].className == "beat active"){
+          note.frequency.setValueAtTime(800, audioCtx.currentTime);
+        }
+        else{
+          note.frequency.setValueAtTime(400, audioCtx.currentTime);       
+        }
+      } 
+    }*/
+  
+  note.start(t);
+  note.stop(t + 0.04);  
+}
+
+function playSubNote(nt){
+  var subnote = SubAudioCtx.createOscillator();
+  
+  subvolume.connect(SubAudioCtx.destination);
+  subvolume.gain.setValueAtTime(0.2, SubAudioCtx.currentTime);   
+  
+  subnote.connect(subvolume);
+  subnote.type = 'sine';
+  subnote.frequency.setValueAtTime(400, SubAudioCtx.currentTime);  
+  
+  subnote.start(nt);
+  subnote.stop(nt + 0.04); 
+}
+
+function clickDots(){
+  for(u = 0; u < beatDots.length; u++){
+    beatDots[u].addEventListener('click', function(){
+      if(this.className === "beat active"){
+         this.className = "beat";
+      }
+      else{
+        this.className += " active";     
+      }
+    });
+  }  
+}
+clickDots()
+
+start.addEventListener('click', function(){
+  curtime = audioCtx.currentTime;
+  schedule(); 
+  this.style.display = "none";
+  stop.style.display = "block";
+});
+
+stop.addEventListener('click', function(){
+  window.clearInterval(timer);
+  noteFlag = 0;
+  beatFlag.innerHTML = 1;
+  for(u = 0; u < beatDots.length; u++){
+    beatDots[u].classList.remove("on-temp");
+  }
+
+  this.style.display = "none";
+  start.style.display = "block";
+});
+ 
+close.addEventListener('click', function(){
+  window.clearInterval(timer);
+  noteFlag = 0;
+  beatFlag.innerHTML = 1;
+  for(u = 0; u < beatDots.length; u++){
+    beatDots[u].classList.remove("on-temp");
+  }
+  stop.style.display = "none";
+  start.style.display = "block";
+
+});
+
+tap.addEventListener('click', function(){
+  var d = new Date();
+  var temp = d.getTime();
+  
+  var tap_temp = Math.ceil(60000 / (temp - delta));
+  
+  tempo_disp.innerHTML = tap_temp; 
+  tempo_rge.value = tap_temp;
+  delta = temp;
+  
+  if(tap_temp > 240){
+    tempo_disp.innerHTML = 240;
+    tempo_rge.value = 240;
+  } 
+});
+
+plus.addEventListener('click', function(){
+    tempo_rge.value +++ 1;
+    tempo_disp.innerHTML = tempo_rge.value;
+});
+
+extraPlus.addEventListener('click', function(){
+    tempo_rge.value = tempo_rge.value +++ 5;
+    tempo_disp.innerHTML = tempo_rge.value;
+});
+
+beatPlus.addEventListener('click', function(){
+    beatCount.value = beatCount.value +++ 1;
+    if( beatCount.value > 12){
+      beatCount.value = 12;
+    }
+    beatNbr.innerHTML =  "/"+beatCount.value;
+    var i = 0,
+    target = document.getElementById('dotTarget');
+    target.innerHTML = "";
+    while(i < beatCount.value){
+      var dot = document.createElement("li");
+      dot.className = "beat";  
+      target.append(dot);  
+      i++;
+    }
+    clickDots()
+});
+
+minus.addEventListener('click', function(){
+    tempo_rge.value --- 1;
+    tempo_disp.innerHTML = tempo_rge.value;
+});
+
+extraMinus.addEventListener('click', function(){
+    tempo_rge.value = tempo_rge.value --- 5;
+    tempo_disp.innerHTML = tempo_rge.value;
+});
+
+beatMinus.addEventListener('click', function(){
+    beatCount.value = beatCount.value --- 1;
+    if( beatCount.value < 1){
+      beatCount.value = 1;
+    }
+    beatNbr.innerHTML =  "/"+beatCount.value;
+    var i = 0,
+    target = document.getElementById('dotTarget');
+    target.innerHTML = "";
+    while(i < beatCount.value){
+      var dot = document.createElement("li");
+      dot.className = "beat";  
+      target.append(dot);  
+      i++;
+    }
+    clickDots();
+});
+
+
+dotsDisplay.addEventListener('click', function(){
+    dotsDisplay.className = 'header-btn button-active';
+    if(digitalDisplay.className == 'header-btn button-active' || bothDisplay.className == 'header-btn button-active'){
+      digitalDisplay.classList.remove('button-active');
+      bothDisplay.classList.remove('button-active');
+    }
+    dotTarget.style.display = 'flex';
+    digitalDisplayContainer.style.display = 'none';
+});
+
+
+
+digitalDisplay.addEventListener('click', function(){
+    digitalDisplay.className = 'header-btn button-active';
+    if(dotsDisplay.className == 'header-btn button-active' || bothDisplay.className == 'header-btn button-active'){
+      dotsDisplay.classList.remove('button-active');
+      bothDisplay.classList.remove('button-active');
+    }
+    digitalDisplayContainer.style.display = 'flex';
+    dotTarget.style.display = 'none';
+});
+
+bothDisplay.addEventListener('click', function(){
+    bothDisplay.className = 'header-btn button-active';
+    if(dotsDisplay.className == 'header-btn button-active' || digitalDisplay.className == 'header-btn button-active'){
+      dotsDisplay.classList.remove('button-active');
+      digitalDisplay.classList.remove('button-active');
+    }
+    dotTarget.style.display = 'flex';
+    digitalDisplayContainer.style.display = 'flex';
+});
+
+
+
+
+  
+function toggle_video_modal3(element) {
+    var htmlContent = element.getAttribute('data-youtube-id');
+    var iframe = document.getElementById('youtube3');
+    
+     const regex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
+ if(regex.test(htmlContent)){
+  $("#youtube3").attr('src', htmlContent);  
+ }else{
+    iframe.contentWindow.document.open();
+    iframe.contentWindow.document.write(`
+     <!DOCTYPE html>
+<html>
+<style>
+  body {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAG0lEQVQYV2PcvHnzf19fX0YGPACvJEzfqCIGAC55BAqBlVXsAAAAAElFTkSuQmCC) repeat;
+  }
+
+  .quoteWell {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .image-container {
+    width: 100%;
+    height: 400px; /* Ajusta esta altura según sea necesario */
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+
+  .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* O puedes usar 'contain' para mantener las proporciones */
+  }
+
+  footer {
+    float: right;
+    bottom: 0px;
+  }
+
+ 
+</style>
+
+<body>
+  <div class="well quoteWell">
+  <div class="image-container">
+    <img src="https://lh3.googleusercontent.com/d/1XUmajl32spGBZe5b6vYR8lkWgkyx5Fhv">
+    </div>
+    <blockquote>
+      <p class="quote lead">${htmlContent}.</p>
+      <footer><cite class="author" title="author">Profesor Daniel</cite>
+      </footer>
+    </blockquote>
+  </div>
+</body>
+</html>
+
+    `);
+    iframe.contentWindow.document.close();
+ }
+  
+    var icon = element.querySelector('.yticon');
+    if (icon) {
+        icon.style.animation = 'none';
+    }
+    document.body.classList.add("show-video-modal2", "noscroll");
+}
+
+
+ function close_video_modal2() {
         
         event.preventDefault();
-        $("body").removeClass("show-quiz-modal noscroll");
-        $("#quiz").attr('src', '');
+        $("body").removeClass("show-video-modal2 noscroll");
+        $("#youtube3").attr('src', '');
         
       }
-      $('body').on('click', '.close-quiz-modal, .quiz-modal .overlay2', function(event) {
-          close_quiz_modal();
-          
+      $('body').on('click', '.close-video-modal2, .video-modal2 .overlay2', function(event) {
+          close_video_modal2();
       });
-      $('body').keyup(function(e) {
-          if (e.keyCode == 27) { 
-            close_quiz_modal();
-          }
-      });
-  }
+
+
 </script>
