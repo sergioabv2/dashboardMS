@@ -11,7 +11,7 @@
 
 <style>
   
-  body {
+   body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
   
@@ -162,6 +162,11 @@
  content: "\f021";
   animation: load 1.5s steps(900, end) infinite;
 }
+  
+
+  
+
+
   
    .status-delayed:before {
   content: "\f071"; /* Example icon for completed status */
@@ -420,7 +425,12 @@
   transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
 }
 
-
+  
+  
+   .drive{
+    height: 400px;
+    width: 100%;
+  }
   
   .modal-container {
     position: fixed;
@@ -509,40 +519,166 @@
   }
   
   
+ 
   
-@media screen and (min-width:576px){
-   .drive{
-    height: 480px;
-    width: 140%;
-    margin-left: -20%;
-    margin-top: 30px;
-  }
-   
+ .badges{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(98px, 1fr));
+  grid-gap: 12px;
+  height: auto;
 }
-  @media screen and (min-width:700px){
-   .drive{
-    height: 480px;
-    width: 180%;
-    margin-left: -40%;
-    margin-top: 30px;
-  }
-   
+  
+
+.badge2 {
+  margin-top: 10px;
+   margin-bottom: 10px;
+  margin-right: 10%;
+   margin-left: 20%;
+  width: 69px;
+  height: 69px;
+  border: 2px solid white;
+  border-radius: 50%;
+  box-sizing: border-box;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+  
+  .badge2::after {
+     content: attr(data-badge-name);
+     font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      position: absolute;
+      top: 80%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 13px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    .badge2:hover::after {
+      opacity: 1;
+    }
+
+
+    .badge2:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.1);
+    }
+  
+  
+  
+
+.badge-orange {
+  background: orange;
+  box-shadow: 0 0 0 4px orange;
+}
+
+.badge-green {
+  background: #2EBC74;
+  box-shadow: 0 0 0 4px #2EBC74;
+}
+
+.badge-turquoise {
+  background: #2FBAAC;
+  box-shadow: 0 0 0 4px #2FBAAC;
 }
 
 
-@media screen and (max-width:575px) {
-     .drive{
-    height: 420px;
-    width: 120%;
-    margin-left: -25px;
-       
-  }
+.badge-olive {
+  background: #b4cc2f;
+  box-shadow: 0 0 0 4px #b4cc2f;
+}
+
+.badge-red {
+  background: #cc492f;
+  box-shadow: 0 0 0 4px #cc492f;
+}
+
+.badge-blue {
+  background: #2f84cc;
+  box-shadow: 0 0 0 4px #2f84cc;
+}
+
+.badge-magenta {
+  background: #cc2f54;
+  box-shadow: 0 0 0 4px #cc2f54;
+}
+  
+  .badge-black {
+  background: black;
+  box-shadow: 0 0 0 4px black;
+}
+  
+  .badge-inactive {
+  background: rgba(211, 211, 211, 0.5); /* Color gris tenue con transparencia */
+  box-shadow: 0 0 0 4px rgba(211, 211, 211, 0.5);
+}
+  
+ 
+
+.dashicons:before {
+  position: relative;
+  top: 13px;
+  left: 1px;
+  font-size: 40px;
+  color: white;
+}
+
+.dashicons-networking:before {
+  top: 11px;
+  left: 0;
+}
+  
+
+  .circular-progress {
+
+  width: 69px;
+  height: 69px;
+  border-radius: 50%;
+  box-sizing: border-box;
+
+   transform: scale(1.34) translate(-2.2%, -45.4%);
+}
+.circular-progress svg {
+  transform: rotate(270deg);
+}
+.circular-progress circle {
+  stroke-width: 5;
+  fill: none;
+  stroke-linecap: round;
+}
+.circular-progress circle:nth-of-type(1) {
+ stroke: #dee2e6;
+}
+.circular-progress circle:nth-of-type(2) {
+ 
+  stroke-dasharray: 251.4285714286;
+}
+.circular-progress .pct {
+  font-size: 8px;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-30%, 380%);
+  font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+  
+   .badge2:hover .circular-progress circle:nth-of-type(2){
+    stroke: #dee2e6;
 }
 
 
+  
+  
+  
 
-
-.menu-bar {
+  .menu-bar {
             display: flex;
             justify-content: space-around;
             background-color: black;
@@ -551,7 +687,6 @@
             margin: 0;
              border-radius: 10px;
             font-weight: 550;
-  font-size: 12px;
   box-shadow: 0px 8px 20px -8px rgba(26, 33, 43, 0.5), 0px 4px 12px 0px rgba(26, 33, 43, 0.05), 0px 1px 3px 0px rgba(26, 33, 43, 0.25), 0px 1.5px 0.5px 0px #454D57 inset, 0px -3px 1px 0px rgba(0, 0, 0, 0.5) inset;
         }
 
@@ -571,21 +706,55 @@
             text-decoration: none;
     transform: scaleX(1.03) scaleY(1.06) translateZ(0);
 }
- 
+
 .menu-bar li:active {
+   color: white;
    text-decoration: none;
     transform: scale(0.96) translateZ(0);
 }
 
+    .menu-bar2 {
+            display: flex;
+            justify-content: space-around;
+            background-color: black;
+            padding: 10px 0;
+            list-style: none;
+            margin: 0;
+      margin-top: 7px;
+             border-radius: 10px;
+            font-weight: 550;
+  box-shadow: 0px 8px 20px -8px rgba(26, 33, 43, 0.5), 0px 4px 12px 0px rgba(26, 33, 43, 0.05), 0px 1px 3px 0px rgba(26, 33, 43, 0.25), 0px 1.5px 0.5px 0px #454D57 inset, 0px -3px 1px 0px rgba(0, 0, 0, 0.5) inset;
+        }
 
- 
+        .menu-bar2 li {
+            color: white;
+          transition: transform 0.2s;
+        }
+
+        .menu-bar2 a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+        }
+
+.menu-bar2 li:hover {
+  color: white;
+            text-decoration: none;
+    transform: scaleX(1.03) scaleY(1.06) translateZ(0);
+}
+
+.menu-bar2 li:active {
+   color: white;
+   text-decoration: none;
+    transform: scale(0.96) translateZ(0); 
+}
 
 .mic-container{
   display: none;
-  margin-top: 20px;
+  margin-top: 350px;
   position: absolute;
- background: white;
-  border: 2px solid black;
+ background: transparent;
+
 }
 
 .audio-record {
@@ -603,9 +772,9 @@
   position: absolute;
   color: gray;
   font-weight: 300;
-  font-size: 10px;
+  font-size: 14px;
   margin-left: 13px;
-  margin-top: 60px;
+  margin-top: 160px;
 }
  .audio-record input[type=checkbox] {
      position: absolute;
@@ -613,9 +782,9 @@
 }
 .audio-record input[type=checkbox]:checked ~ label i {
      color: #fff;
-     background: red;
+     background: black;
      border-radius: 100%;
-     animation: shadow-expansion 0.9s ease-in-out infinite alternate;
+     animation: shadow-expansion 1.5s infinite;
 }
 .audio-properties .audio_record-control {
      width: 100%;
@@ -643,13 +812,42 @@
      flex-flow: row nowrap;
      margin: 10px 0;
 }
+
+ 
+#recorder2 {
+  position: relative;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 3rem; 
+  background: red;
+  border: 1px solid #f9f9fa33;
+  cursor: pointer;
+  box-shadow: 0 1px 4px 0 rgba(12, 12, 13, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.15);
+  transition: 0.2s ease;
+  animation: shadow-expansion 1.5s infinite;
+}
+#recorder2 #record {
+  width: 60%;
+  height: 60%;
+  top: 20%;
+  left: 20%;
+  position: absolute;
+  transition: inherit;
+}
+
  @keyframes shadow-expansion {
-     from {
-         box-shadow: 0 0 0 5px red;
-    }
-     to {
-         box-shadow: 0 0 0 0 red;
-    }
+    0% {
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+  }
+  40% {
+    box-shadow: 0 0 0 20px rgba(255, 0, 0, 0);
+  }
+  80% {
+    box-shadow: 0 0 0 20px rgba(255, 0, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+  }
 }
  .by {
      font-family: sans-serif;
@@ -668,30 +866,21 @@
      color: #0062cc;
 }
 
- #clicks {
-     border-radius: 50%;
-     background-color: red;
-     width: 20px;
-     height: 15px;
-     position: absolute;
-     display: none;
-}
+
 #record-audio {
-   position: absolute;
-   margin-top: 10px; /* Ajusta según sea necesario */
+  position: relative;
+    margin: 45px auto 0;
 }
-#delete-audio {
-   position: absolute;
-  display: none;
-  right: 10px;
-   margin-top:50px; 
-}
+
+
+
  .save {
      position: relative;
      left: 0px;
      top: -20px;
      z-index: 100;
 }
+
 
 
 
@@ -808,41 +997,20 @@
 
 
 
-
- .multimedia {
-  display: flex;
-  justify-content: space-between; /* Distribuye los ítems equitativamente */
-  align-items: center;
-  width: calc(100% - .1em);
-  padding: 0.5em 0.5em 0.5em 0.5em;
-  margin: 0 0 1px 0;
-  font: inherit;
-  line-height: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: currentColor;
-  background-color: rgba(127, 127, 127, 0.2);
-  border: 0;
-  border-radius: 0.25em;
-  cursor: default;
-  z-index: 1;
-  outline-color: currentColor;
-}
-
  .metronome { 
-   position: relative;
+   position: absolute;
    display: block;
   width: calc(100% - .5em);
-  padding: 0.5em 0.5em 0.5em 0.5em;
-   background: white;
-  margin-left: 30px;
-   margin-top: -85px;
-   transform: scale(0.8);
+  padding: 0.5em 0.01em 0.2em 1em;   
+  margin-left: -50px;
+   transform: scale(0.7);
   font: inherit;
   line-height: 1;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: black;
+   background: black;
+   opacity: .75;
+  color: white;
   border-radius: 0.25em;
   cursor: default;
   z-index: 10;
@@ -1200,288 +1368,221 @@ iframe#youtube {
 
 
 
-.uploader {
-  text-align: center;
-  display: block;
-  clear: both;
-  margin: 0 auto;
-  width: 100%;
-  max-width: 600px;
-}
-.uploader label {
-  float: left;
-  clear: both;
-  width: 100%;
-  padding: 2rem 1.5rem;
-  text-align: center;
-  background: #fff;
-  border-radius: 7px;
-  border: 3px solid #eee;
-  transition: all 0.2s ease;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-}
-.uploader label:hover {
-  border-color: #454cad;
-}
-.uploader label.hover {
-  border: 3px solid #454cad;
-  box-shadow: inset 0 0 0 6px #eee;
-}
-.uploader label.hover #start i.fa {
-  transform: scale(0.8);
-  opacity: 0.3;
-}
-.uploader #start {
-  float: left;
-  clear: both;
-  width: 100%;
-}
-.uploader #start.hidden {
-  display: none;
-}
-.uploader #start i.fa {
-  font-size: 50px;
-  margin-bottom: 1rem;
-  transition: all 0.2s ease-in-out;
-}
-.uploader #response {
-  float: left;
-  clear: both;
-  width: 100%;
-}
-.uploader #response.hidden {
-  display: none;
-}
-.uploader #response #messages {
-  margin-bottom: 0.5rem;
-}
-.uploader #file-image {
-  display: inline;
-  margin: 0 auto 0.5rem auto;
-  width: auto;
-  height: auto;
-  max-width: 180px;
-}
-.uploader #file-image.hidden {
-  display: none;
-}
-.uploader #notimage {
-  display: block;
-  float: left;
-  clear: both;
-  width: 100%;
-}
-.uploader #notimage.hidden {
-  display: none;
-}
-.uploader progress,
-.uploader .progress {
-  display: inline;
-  clear: both;
-  margin: 0 auto;
-  width: 100%;
-  max-width: 180px;
-  height: 8px;
-  border: 0;
-  border-radius: 4px;
-  background-color: #eee;
-  overflow: hidden;
-}
-.uploader .progress[value]::-webkit-progress-bar {
-  border-radius: 4px;
-  background-color: #eee;
-}
-.uploader .progress[value]::-webkit-progress-value {
-  background: linear-gradient(to right, #393f90 0%, #454cad 50%);
-  border-radius: 4px;
-}
-.uploader .progress[value]::-moz-progress-bar {
-  background: linear-gradient(to right, #393f90 0%, #454cad 50%);
-  border-radius: 4px;
-}
-.uploader input[type=file] {
-  display: none;
-}
-.uploader div {
-  margin: 0 0 0.5rem 0;
-  color: #5f6982;
-}
-.uploader .btn {
-  display: inline-block;
-  margin: 0.5rem 0.5rem 1rem 0.5rem;
-  clear: both;
-  font-family: inherit;
-  font-weight: 700;
-  font-size: 14px;
-  text-decoration: none;
-  text-transform: initial;
-  border: none;
-  border-radius: 0.2rem;
-  outline: none;
-  padding: 0 1rem;
-  height: 36px;
-  line-height: 36px;
-  color: #fff;
-  transition: all 0.2s ease-in-out;
-  box-sizing: border-box;
-  background: #454cad;
-  border-color: #454cad;
-  cursor: pointer;
-}
-
- .nav-pills .nav-link.active {
-    background-color: black;
-    color: white;
-}
 
 
-	
-
-.close-video-modal2 {
-    display: block;
-    position: absolute;
-    left: 0;
-    top: -40px;
-
-    text-decoration: none;
-    font-size: 20px;
-    font-weight: bold;
-    color: #fff;
-}
 
 
-.video-modal2,
-.video-modal2 .overlay2 {
-    position: absolute;
+
+  .rotate-content {
+    font: 400 14px/20px "Helvetica Neue",Helvetica,Arial,sans-serif;
+    position: fixed;
+    height: 100%;
+    width: 100%;
     top: 0;
-    right: 0;
-    bottom: 0;
     left: 0;
-    z-index: 4000;
-}
-.video-modal2 {
-  overflow: hidden;
-  position: fixed;
-  opacity: 0.0;
-
-  -webkit-transform: translate(500%,0%);
-  transform: translate(500%,0%);
-
-  -webkit-transition: -webkit-transform 0s linear 0s;
-  transition: transform 0s linear 0s;
-
-
-  /* using flexbox for vertical centering */
-
-  /* Flexbox display */
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-
-  /* Vertical alignment */
-  -webkit-box-align: center;
-  -moz-box-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  align-items: center;
-
-  -webkit-transform-style: preserve-3d;
-  -moz-transform-style: preserve-3d;
-  transform-style: preserve-3d;
-}
-.video-modal2 .overlay2 {
-  z-index: 0;
-  background: rgba(20, 20, 18, 0.82); /* overlay color */
-
-  opacity: 0.0;
-
-  -webkit-transition: opacity 0.2s ease-out 0.05s;
-  transition: opacity 0.2s ease-out 0.05s;
-}
-
-
-.video-modal-content2 {
-  position: relative;
-  top: auto;
-  right: auto;
-  bottom: auto;
-  left: auto;
-  z-index: 1;
-  
-  margin: 0 auto;
-
-  overflow-y: visible;
-
-  background: #000;
-  
-  width: calc(100% - 12em);
-  height: 500px;
-  padding-top: calc((100% - 12em) * 0.5625); /* 16:9 calc */
-}
-
-/* Scaling to fit within the current Viewport size:
-   When viewport aspect ratio is greater than 16:9
-   work off the height instead of the width for calc */
- @media (min-aspect-ratio: 16/9) {
-  .video-modal-content2 {
-    width: 0;
-    height: calc(100vh - 10em);
-    padding-top: 0;
-    padding-left: calc((100vh - 10em) * 1.7778); /* 16:9 calc */
+    background-color: #555;
+    opacity: .9;
+    z-index: 15;
+    pointer-events: none;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    pointer-events: auto;
   }
-}
-
-/* Mobile Layout Tweaks - side margins reduced */
-@media (max-width: 640px) {
-  .video-modal-content2 {
-    width: calc(100% - 4em);
-    padding-top: calc((100% - 1em) * 0.5625); /* 16:9 calc */
+  .rotate-box {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
-}
-
-/* modal close button */
-.close-video-modal2 {
-  display: block;
-    position: absolute;
-    left: 0;
-    top: -40px;
-
-    text-decoration: none;
+  .rotate-device-img {
+    background-image: url(https://lh3.googleusercontent.com/d/1SQciyThzVKgk5S5mZI8o_BzGYOap5EnV);
+    background-position: 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 30%;
+    padding-bottom: 25.5%;
+  }
+  .rotate-text {
+    color: #f1f1f1;
+    text-align: center;
+  }
+  .rotate-title {
     font-size: 20px;
-    font-weight: bold;
-    color: #fff;
+    margin-bottom: 10px;
+    margin-top: 30px;
+  }
+  .rotate-subtitle {
+    font-size: 14px;
+  }
+
+
+
+
+#full-screen-btn{
+    position: absolute;
+            justify-content: space-around;
+            background-color: black;
+            color: white; 
+  text-decoration: none;
+            padding: 10px 20px;
+  margin-top: 90px;
+             border-radius: 10px;
+            font-weight: 550;
+  box-shadow: 0px 8px 20px -8px rgba(26, 33, 43, 0.5), 0px 4px 12px 0px rgba(26, 33, 43, 0.05), 0px 1px 3px 0px rgba(26, 33, 43, 0.25), 0px 1.5px 0.5px 0px #454D57 inset, 0px -3px 1px 0px rgba(0, 0, 0, 0.5) inset;
+  }
+
+
+@media screen and (min-width:576px){
+   .drive{
+    height: 480px;
+    width: 140%;
+    margin-left: -20%;
+    margin-top: -50px;
+  }
+   .metronome { 
+     margin-top: -50px;
+     margin-left: -130px;
+  }
+  .menu-bar{
+    position: absolute; 
+    margin-top: -400px;
+     margin-left: -65px;
+  }
+  #full-screen-btn{
+  margin-left: 120px;
+  margin-top: 35px;
+}
+  .menu-bar2{ /* menu2 */
+     position: absolute; 
+    margin-top: -400px;
+     margin-left: -65px;
+  }
+  .mic-container{
+    margin-top: -20px;
+    margin-left: 380px;
+  }
+.mic-container span{
+ margin-top: 55px;
+    margin-left: -15px;
+  }
+  #record-audio{
+    margin-top: 75px;
+    margin-left: -465px;
+  }
+  
+}
+  
+   @media screen and (min-width:700px){
+   .drive{
+    height: 480px;
+    width: 180%;
+    margin-left: -40%;
+  }
+      .metronome { 
+     margin-left: -200px;
+  }
+  .menu-bar{
+     margin-left: -135px;
+  }
+     .menu-bar2{
+     margin-left: -135px;
+  }
+     .mic-container{
+    margin-left: 450px;
+  }
+
+      #full-screen-btn{
+  margin-left: 50px;
+}
+      #record-audio{
+    margin-left: -535px;
+  }
+     #lsnContainer{
+       height: 285px !important;
+       max-height: 285px !important;
+     }
+     
+     .profile-user-data{
+       margin-top: 20px;
+     }
+     
+     .p-image{
+       margin-top: 20px;
+     }
+     
+     .achievement-list-panel{
+       margin-top: 50px;
+     }
+   
+}
+  
+    @media screen and (min-width:850px){
+   .drive{
+    width: 300%;
+    margin-left: -100%;
+  }
+       .metronome { 
+     margin-left: -250px;
+  }
+  .menu-bar{
+     margin-left: -190px;
+  } 
+      .menu-bar2{
+     margin-left: -190px;
+  }
+ #full-screen-btn{
+  margin-left: -10px;
+}
+        .mic-container{
+    margin-left: 500px;
+  }
+       #record-audio{
+    margin-left: -590px;
+  } 
+   
+}
+  
+      @media screen and (min-width:1050px){
+   .drive{
+     margin-top: 15px;
+    width: 400%;
+     height: 840px;
+    margin-left: -150%;
+  }
+          .metronome { 
+     margin-top: 20px;
+  }
+         .menu-bar{ 
+     margin-top: -755px;
+  }
+        .menu-bar2{
+     margin-top: -755px;
+  }
+        
+    #full-screen-btn{
+  visibility: hidden !important;
+}
+           .mic-container{
+             margin-top: 55px;
+    margin-left: 520px;
+  }
+#record-audio{
+    margin-top: 145px;
+    margin-left: -590px;
+  } 
 }
 
-/* set the iframe element to stretch to fit its parent element */
-#youtube3 {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1;
-
-  background: white;
-  box-shadow: 0px 2px 16px rgba(0,0,0,0.5);
-}
-
-/* show the modal: 
-   add class to the body to reveal */
-.show-video-modal2 .video-modal2 {
-  opacity: 1.0;
-
-  transform: translate(0%,0%);
-  -webkit-transform: translate(0%,0%);
-}
-.show-video-modal2 .video-modal2 .overlay2 {
-  opacity: 1.0;
-}
-.show-video-modal2 .video-modal-content2 {
-  transform: translate(0%,0%);
-  -webkit-transform: translate(0%,0%);
+  
+@media screen and (max-width:575px) {
+     .drive{
+    height: 420px;
+    width: 120%;
+    margin-left: -25px;
+       
+  }
 }
 
 </style>
