@@ -996,233 +996,55 @@
 }
 
 
+      .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+      padding-top: 60px;
+    }
 
- .metronome { 
-   position: absolute;
-   display: block;
-  width: calc(100% - .5em);
-  padding: 0.5em 0.01em 0.2em 1em;   
-  margin-left: -50px;
-   transform: scale(0.7);
-  font: inherit;
-  line-height: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-   background: black;
-   opacity: .75;
-  color: white;
-  border-radius: 0.25em;
-  cursor: default;
-  z-index: 10;
-  outline-color: white;
-}
+    .modal-content {
+      background-color: #fefefe;
+      margin: 5% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 300px;
+    }
 
-#stop{
-  display:none;
-}
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
 
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
 
-
-
-
-
-
-
-
-
-#dotTarget{
-  display:flex;
-  margin: auto;
-}
-
-.beat{
-  width:20px;
-  height:30px;
-  background:#7d7d7d;
-  border-radius:2px;
-  margin:0px 5px;
-  cursor:pointer;
-  transition:.25s;
-}
-
-.beat:hover{
-  background-color:#57cc65;
-}
-
-.active{
-  background:#57cc65;
-}
-
-.on-temp{
-  background:#bfcc57;
-  transform:scale(1, 1.5);
-}
-
-.box{
-  padding:40px;
-}
-
-.beat-count{
-  text-align:center;
-  width:25px;
-  border:none;
-  background:none;
-  font-size:24px;
-}
-
-.header-btn{
-  font-size:24px;
-  border:none;
-  padding:5px 10px;
-  margin:10px 10px 30px 10px;
-  background:#ffffff29;
-  cursor:pointer;
-  transition:.3s;
-}
-
-.button-active{
-  background:white;
-}
-
-#digitalDisplayContainer{
-  display:none;
-}
-
-.sign-svg{
-  fill:#000000; 
-  transform:translate(-480.000000px, -192.000000px);
-} 
-
-ul{
-   list-style:none;
-}
-
-
-
-.input-section {
-  z-index: 2;
-  position: relative;
-  width: 100%;
-  max-width: 80vw;
-  height: 40px;
-  margin: 10px auto 0;
-  overflow: hidden;
-}
-
-.input-section .thin-fill {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: transparent;
-  border-radius: 1px;
-  z-index: -2;
-}
-
-.input-section .thick-fill {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 0;
-  background: orange;
-  border-radius: 1px;
-  border: 2px solid white;
-  z-index: -1;
-  height: 15px;
-  width: 29.6%; /* When input value is 147 (default) */
-}
-
-.tempoSlider {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  background: transparent;
-  border: none;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-}
-
-.tempoSlider:focus {
-  outline: none;
-}
-
-.tempoSlider::-webkit-slider-runnable-track {
-  width: 100%;
-  height: 15px;
-  cursor: pointer;
-  background: transparent;
-}
-
-.tempoSlider::-webkit-slider-thumb {
-  height: 25px;
-  width: 25px;
-  border-radius: 2px;
-  background: #2d303b;
-  border: 1px solid white;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  -webkit-appearance: none;
-  margin-top: -5px;
-  
-}
-
-.tempoSlider::-moz-range-track {
-  width: 100%;
-  height: 15px;
-  cursor: pointer;
-  background: transparent;
-}
-
-.tempoSlider::-moz-range-thumb {
-  height: 30px;
-  width: 32px;
-  border-radius: 2px;
-  border: 1px solid white;
-  background: #0ec3cc;
-  cursor: pointer;
-  -moz-appearance: none;
-  margin-top: -11px;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
-}
-
-.tempoSlider::-ms-track {
-  width: 100%;
-  height: 15px;
-  cursor: pointer;
-  background: transparent;
-}
-
-.tempoSlider::-ms-thumb {
-  height: 30px;
-  width: 32px;
-  border-radius: 2px;
-  border: 1px solid white;
-  background: #0ec3cc;
-  cursor: pointer;
-  -ms-appearance: none;
-  margin-top: -1px;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
-}
-
-.tempoSlider::-ms-tooltip {
-  display: none;
-}
-
-
-.main-btn{
-  border: white;
-  background: transparent;
-  border-radius: 50%; /* Esto hace que el contorno sea circular */
-  cursor: pointer;
-  font-size: 20px;
-  float: right;
-  margin-right: 20px;
-}
-
-
+    .add-to-btn {
+      background-color: #E02D44;
+      color: white;
+      border: none;
+      outline: none;
+      font-weight: bold;
+      width: 100%;
+      height: 50px;
+    }
+ 
+#myModal {
+    display: block; 
+  }
 
 
 
