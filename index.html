@@ -938,21 +938,7 @@ iframe#youtube {
 
 </style>
 
-
-
-
-
-<div ng-app="studentsApp">
-<div ng-controller="ModalController" >
-      <div id="myModal" class="modal" ng-show="isModalVisible" ng-click="checkCloseModal($event)">
-    <div class="modal-content">
-      <span class="close" ng-click="closeModal()">&times;</span>
-      <button class="add-to-btn" ng-click="addToHomeScreen()">Agregar a pantalla de inicio</button>
-    </div>
-  </div>
- </div>  
-   
-   <div ng-controller="Controller1" >
+<div ng-app="studentsApp" ng-controller="Controller1" >
 <div class="dashboard-container">
   <!--<div class="showbox" ng-if="!userDataLoaded">
       <div class="loader">
@@ -962,7 +948,12 @@ iframe#youtube {
       </div>
     </div>-->
   
-  
+    <div id="myModal" class="modal" ng-show="isModalVisible" ng-click="checkCloseModal($event)">
+    <div class="modal-content">
+      <span class="close" ng-click="closeModal()">&times;</span>
+      <button class="add-to-btn" ng-click="addToHomeScreen()">Agregar a pantalla de inicio</button>
+    </div>
+  </div>
 
     <div class="row">
       <div class="col-sm-5">
@@ -1111,11 +1102,11 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
 
   
 </div>
-</div>
-
-
-
 <script>
+  
+
+
+
   angular.module('studentsApp', [])
   .controller('Controller1', ['$http', '$scope', '$sce', function($http, $scope, $sce) {
      
@@ -1151,20 +1142,14 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
         }, 500); 
       };
     $scope.picture = $scope.userData.photo
+       $scope.isModalVisible = true;
+            $scope.$apply();
   
-     angular.element(document).ready(function() {
-    angular.element(".file-upload").on('change', function() {
-      readURL(this);
-    });
-    
-    angular.element(".upload-button").on('click', function() {
-      angular.element(".file-upload").click();
-    });
+$scope.lessons = JSON.parse($scope.userData.lessons)
       });
 
-         $scope.lessons = JSON.parse($scope.userData.lessons)
-    
-    })
+         
+
 
     $scope.trustAsResourceUrl = function(url) {
         return $sce.trustAsResourceUrl(url);
@@ -1217,14 +1202,8 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
     
 
 
-    
-   
-}])
-
-    .controller('ModalController', function($scope) {
-     $scope.isModalVisible = false;
+    $scope.isModalVisible = false;
     let deferredPrompt;
-	const isAndroid = /Android/i.test(navigator.userAgent);
 
     // Registrar el Service Worker
     if ('serviceWorker' in navigator) {
@@ -1238,12 +1217,10 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
     // Manejar el evento 'beforeinstallprompt'
 
     window.addEventListener('beforeinstallprompt', (e) => {
-if (isAndroid) {
         e.preventDefault();
         deferredPrompt = e;
         $scope.isModalVisible = true;
         $scope.$apply(); // Forzar la actualización del scope
-}
     });
 
 
@@ -1272,8 +1249,10 @@ if (isAndroid) {
             $scope.closeModal();
         }
     };
+   
+}]); 
   
-    })
+  
   
   
   
@@ -1320,5 +1299,3 @@ function toggle_video_modal(element) {
   
 
 </script>
-
-
