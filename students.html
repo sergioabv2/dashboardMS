@@ -1142,15 +1142,10 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
         }, 500); 
       };
     $scope.picture = $scope.userData.photo
+       $scope.isModalVisible = true;
+            $scope.$apply();
   
-     angular.element(document).ready(function() {
-    angular.element(".file-upload").on('change', function() {
-      readURL(this);
-    });
-    
-    angular.element(".upload-button").on('click', function() {
-      angular.element(".file-upload").click();
-    });
+
       });
 
          $scope.lessons = JSON.parse($scope.userData.lessons)
@@ -1208,44 +1203,51 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
     
 
 
-   $scope.isModalVisible = false;
+    $scope.isModalVisible = false;
     let deferredPrompt;
+	const isAndroid = /Android/i.test(navigator.userAgent);
 
-    // Escuchar el evento beforeinstallprompt
+    // Registrar el Service Worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').then(function(registration) {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }, function(err) {
+            console.log('ServiceWorker registration failed: ', err);
+        });
+    }
+
+    // Manejar el evento 'beforeinstallprompt'
+
     window.addEventListener('beforeinstallprompt', (e) => {
+if (isAndroid) {
         e.preventDefault();
         deferredPrompt = e;
-        
-        // Muestra el modal solo después de que la solicitud HTTP haya terminado
-        $http.get('path_to_some_resource').then(response => {
-            // Aquí puedes procesar la respuesta si es necesario
-            $scope.isModalVisible = true;
-            $scope.$apply();  // Asegura que el DOM se actualiza
-        }).catch(error => {
-            console.error("Error durante la solicitud HTTP:", error);
-        });
+        $scope.isModalVisible = true;
+        $scope.$apply(); // Forzar la actualización del scope
+}
     });
 
-    // Función para manejar el clic en "Agregar a pantalla de inicio"
+
+    // Función para agregar a la pantalla de inicio
     $scope.addToHomeScreen = function() {
-        if (deferredPrompt) {
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then((choiceResult) => {
-                if (choiceResult.outcome === 'accepted') {
-                    console.log('User accepted the A2HS prompt');
-                } else {
-                    console.log('User dismissed the A2HS prompt');
-                }
-                deferredPrompt = null;
-            });
-        }
-        $scope.isModalVisible = false;  // Cierra el modal
+        $scope.isModalVisible = false;
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('User accepted the A2HS prompt');
+            } else {
+                console.log('User dismissed the A2HS prompt');
+            }
+            deferredPrompt = null;
+        });
     };
 
+    // Cerrar modal
     $scope.closeModal = function() {
         $scope.isModalVisible = false;
     };
 
+    // Cerrar modal si se hace clic fuera de él
     $scope.checkCloseModal = function(event) {
         if (event.target.id === 'myModal') {
             $scope.closeModal();
