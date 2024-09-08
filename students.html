@@ -966,14 +966,6 @@ iframe#youtube {
 
 
 <div ng-app="studentsApp" ng-controller="Controller1" >
-  
-    <div id="myModal" class="modal" ng-show="isModalVisible" ng-click="checkCloseModal($event)">
-    <div class="modal-content">
-      <span class="close" ng-click="closeModal()">&times;</span>
-      <button class="add-to-btn" ng-click="addToHomeScreen()">Agregar a pantalla de inicio</button>
-    </div>
-  </div>
-
 <div class="dashboard-container">
   <div class="showbox" ng-if="!userDataLoaded">
       <div class="loader">
@@ -982,8 +974,17 @@ iframe#youtube {
         </svg>
       </div>
     </div>
+   
 
     <div class="row" ng-if="userDataLoaded">
+
+       <div id="myModal" class="modal" ng-show="isModalVisible" ng-click="checkCloseModal($event)">
+    <div class="modal-content">
+      <span class="close" ng-click="closeModal()">&times;</span>
+      <button class="add-to-btn" ng-click="addToHomeScreen()">Agregar a pantalla de inicio</button>
+    </div>
+  </div>
+       
       <div class="col-sm-5">
         <div class="profile-user-data clearfix">
           <div class="circle">
