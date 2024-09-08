@@ -1504,10 +1504,7 @@ iframe#youtube {
           <div class="circle">
               <img class="profile-pic" src={{picture}}>
           </div>
-          <div class="p-image" style="cursor: pointer;">
-            <i class="fa fa-camera upload-button"></i>
-            <input class="file-upload" type="file" style="display: none;" accept="image/*"/>
-          </div>
+
           <div class="main-data" >
             <h4 style="font-size: 19px;">{{userData.name}}</h4>
             <div class="pull-left achievement-count" ng-if="userData.plan === 'Premium - $1300'" style="color: #77777a; font-size: 12px;"> PLAN PREMIUM
@@ -1561,7 +1558,7 @@ class="js-trigger-video-modal2" onclick="toggle_video_modal3(this)" style="color
       <div class="col-sm-7" >
         <div class="dashboard-panel achievement-list-panel" ng-if="userData.status != 'INACTIVO'">
           <div class="panel-header">
-          <h4><i class="fa fa-fw fa-book"></i> Manuales</h4>
+          <h4><i class="fa fa-fw fa-book"></i> Metrónomo</h4>
           </div>
        <div class="panel-body" >
  
@@ -1912,48 +1909,6 @@ $scope.manuals = [
 ];
 
 
-
-
-    
-    
-    
-    var readURL = function(input) {
-      if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function(e) {
-          $scope.$apply(function() {
-            $scope.picture = e.target.result;
-            $scope.uploadImage(e.target.result); // Enviar la imagen cargada al servidor
-          });
-        };
-
-        reader.readAsDataURL(input.files[0]);
-      }
-    };
-     
-    
-     $scope.uploadImage = function(data){
-       var requestData = {
-    action: "postImage",
-    token: localStorage.getItem('MStoken'),
-    blob: data
-  };
-
-  var config = {
-    headers: {
-      "Content-Type": "text/plain;charset=utf-8"
-    },
-    followRedirects: true, 
-  };
- $http.post('https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7IDc7KBrYGfix6hUa4kvJ1TFpjU82NltFXezUroGgQ/exec', requestData, config)
-       .then(function(response) {
- });
-     }
-    
-    
-    
-    
      $scope.uploadAudio = function() { 
      var base64Audio = document.getElementById("AudioData").value
        
@@ -1992,11 +1947,54 @@ $scope.manuals = [
    }; 
 
 
-     $scope.openURL = function(lvl, index) {
-        var url = $scope.manuals[lvl][index].url;
-        window.open(url, '_blank');
-    };
     
+  $scope.isModalVisible = false;
+    let deferredPrompt;
+
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').then(function(registration) {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }, function(err) {
+            console.log('ServiceWorker registration failed: ', err);
+        });
+    }
+
+    // Manejar el evento 'beforeinstallprompt'
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        $scope.isModalVisible = true;
+        $scope.$apply(); // Forzar la actualización del scope
+    });
+
+
+    // Función para agregar a la pantalla de inicio
+    $scope.addToHomeScreen = function() {
+        $scope.isModalVisible = false;
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('User accepted the A2HS prompt');
+            } else {
+                console.log('User dismissed the A2HS prompt');
+            }
+            deferredPrompt = null;
+        });
+    };
+
+    // Cerrar modal
+    $scope.closeModal = function() {
+        $scope.isModalVisible = false;
+    };
+
+    // Cerrar modal si se hace clic fuera de él
+    $scope.checkCloseModal = function(event) {
+        if (event.target.id === 'myModal') {
+            $scope.closeModal();
+        }
+    };
+
     
    
 }]); 
