@@ -936,11 +936,485 @@ iframe#youtube {
   
  
 
+.strong-shadow {
+  color: white;
+  text-shadow: 1px 2px 3px black, 0px 8px 13px black, 0px 18px 23px black!important;  
+}
+
+.strong-white {
+  color: white;
+  text-shadow: 1px 2px 3px silver, 0px 8px 13px silver, 0px 18px 23px silver!important;  
+}
+
+
+.intro-section {
+  background-image: url(https://lh3.googleusercontent.com/d/1XBWyFeO4wVvB8jgYlGjywplnTQjiJJnw);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 75px 95px;
+  min-height: 100vh;
+  height: 100vh;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  color: #ffffff; }
+  @media (max-width: 991px) {
+    .intro-section {
+      padding-left: 50px;
+      padding-rigth: 50px; } }
+  @media (max-width: 767px) {
+    .intro-section {
+      padding: 28px; } }
+  @media (max-width: 575px) {
+    .intro-section {
+      min-height: auto; display:none;}    
+}
+
+
+.brand-wrapper .logo {
+  height: 35px; }
+
+@media (min-width: 767px) {
+  .brand-wrapper {
+    margin-top: -35px; } }
+
+.intro-content-wrapper {
+  width: 410px;
+  max-width: 100%;
+  margin-left: -50px;
+  margin-top: 250px;
+  margin-bottom: auto; }
+  .intro-content-wrapper .intro-title {
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 17px; }
+  .intro-content-wrapper .intro-text {
+    font-size: 19px;
+    line-height: 1.37; }
+  .intro-content-wrapper .btn-read-more {
+    background-color: #fff;
+    padding: 7px 30px;
+    border-radius: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000; }
+    .intro-content-wrapper .btn-read-more:hover {
+      background-color: transparent;
+      border: 1px solid #fff;
+      color: #fff; }
+
+
+.intro-section-footer .footer-nav a {
+  font-size: 20px;
+  font-weight: bold;
+  color: inherit; }
+  @media (max-width: 767px) {
+    .intro-section-footer .footer-nav a {
+      font-size: 14px; } }
+  .intro-section-footer .footer-nav a + a {
+    margin-left: 30px; }
+
+.form-section {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center; }
+  @media (max-width: 767px) {
+    .form-section {
+      padding: 35px; } }
+
+.login-wrapper {
+  width: 300px;
+  max-width: 100%; }
+  @media (max-width: 575px) {
+    .login-wrapper {
+      width: 100%; } }
+  .login-wrapper .form-control {
+    border: 0;
+    border-bottom: 1px solid #e7e7e7;
+    border-radius: 0;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 15px 10px;
+    margin-bottom: 7px; }
+    .login-wrapper .form-control::-webkit-input-placeholder {
+      color: #b0adad; }
+    .login-wrapper .form-control::-moz-placeholder {
+      color: #b0adad; }
+    .login-wrapper .form-control:-ms-input-placeholder {
+      color: #b0adad; }
+    .login-wrapper .form-control::-ms-input-placeholder {
+      color: #b0adad; }
+    .login-wrapper .form-control::placeholder {
+      color: #b0adad; }
+
+.login-title {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 30px; }
+
+.login-btn {
+  padding: 13px 30px;
+  background-color: #000;
+  border-radius: 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff; 
+  }
+  .login-btn:hover {
+    border: 1px solid #000;
+    background-color: transparent;
+    color: #000; }
+
+.forgot-password-link {
+  font-size: 14px;
+  color: #080808;
+  text-decoration: underline; }
+
+.social-login-title {
+  font-size: 15px;
+  color: #919aa3;
+  display: -webkit-box;
+  display: flex;
+  margin-bottom: 23px; }
+  .social-login-title::before, .social-login-title::after {
+    content: "";
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f4f4f4), to(#f4f4f4));
+    background-image: linear-gradient(#f4f4f4, #f4f4f4);
+    -webkit-box-flex: 1;
+            flex-grow: 1;
+    background-size: calc(100% - 20px) 1px;
+    background-repeat: no-repeat; }
+  .social-login-title::before {
+    background-position: center left; }
+  .social-login-title::after {
+    background-position: center right; }
+
+.social-login-links {
+  text-align: center;
+  margin-bottom: 32px; }
+
+.social-login-link img {
+  width: 40px;
+  height: 40px;
+  -o-object-fit: contain;
+     object-fit: contain; }
+
+.social-login-link + .socia-login-link {
+  margin-left: 16px; }
+
+.login-wrapper-footer-text {
+  font-size: 14px;
+  text-align: center; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+.flex-flex {
+    display: flex;
+}
+.align-center {
+  align-items: center; 
+}
+.center-center {
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-direction--column {
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+
+.padding-top--64 {
+  padding-top: 64px;
+}
+.padding-top--24 {
+  padding-top: 24px;
+}
+
+.padding-bottom--24 {
+  padding-bottom: 24px;
+}
+.padding-horizontal--48 {
+  padding: 48px;
+}
+ 
+/* @media (max-width: 575px) {
+    .padding-horizontal--48 {
+  padding: 1px;
+} }*/
+.padding-bottom--15 {
+  padding-bottom: 15px;
+}
+
+
+.flex-justifyContent--center {
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+
+
+
+.footer-link span {
+  margin-top: 140px;
+    font-size: 14px;
+    text-align: center;
+}
+.listing a {
+    color: #697386;
+    font-weight: 600;
+    margin: 0 10px;
+}
+
+
+
+
+ .login-container {
+            text-align: center;
+            max-width: 400px;
+   height: 60vh; 
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+     
+   
+        }
+
+.logo-img {
+    max-width: 130px; 
+    height: auto; 
+    display: block; 
+  border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+        .login-btn, .back-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+.login-btn-icon{
+  margin-right: 5px; 
+  margin-top: -7px;
+  font-size: 22px;
+  float: left;
+}
+     
+       .login-btn-email, .g_id_signin {
+    /*width: 83%;*/
+    height: 40px;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #3c4043;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    margin-top: 12px;
+}
+
+.login-btn-email:hover {
+    background-color: #f7f8f8;
+}
+
+.login-btn-email:focus {
+    outline: none;
+    box-shadow: 0 0 3px 2px rgba(66, 133, 244, 0.3);
+}
+      
+
+        .signup-link {
+
+           margin-top: 10px;
+
+        }
+
+        .signup-link a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+      #whatsapp-login {
+            margin-top: 30px;
+            display: none;
+        }
+
+        #maillogin, #signupform {
+            margin-top: 20px;
+            display: none;
+        }
+
+        #login-options {
+            display: block;
+        }
+
+        .back-btn {
+            background-color: #f2f2f2;
+            color: #555;
+        }
+
+        .back-btn:hover {
+            background-color: #e0e0e0;
+        }
+
+
+
+.accordionContainer {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+}
+
+
+.accordionWrap {
+  margin: 0 auto;
+  padding: 0;
+  overflow-y: auto;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 5px 5px 0 5px;
+  border-left: none;
+  border-right: none;
+  height: 340px;
+}
+
+.accordion-block {
+  list-style: none;
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 10px 15px 10px 25px;
+  border: 1px solid #CCC;
+  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.5);
+  margin-bottom: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
+  border-radius: 3px;
+}
 
 </style>
 
 <div ng-app="studentsApp" ng-controller="Controller1" >
-<div class="dashboard-container">
+  
+   <div id="myModal" class="modal" ng-show="isModalVisible" ng-click="checkCloseModal($event)">
+    <div class="modal-content">
+      <span class="close" ng-click="closeModal()">&times;</span>
+      <button class="add-to-btn" ng-click="addToHomeScreen()">Agregar a pantalla de inicio</button>
+    </div>
+  </div>
+  
+ 
+<div class="container-fluid" id="loginContainer">
+      <div class="row">
+        <div class="col-sm-6 col-md-7 intro-section">
+          <div class="brand-wrapper strong-shadow" style="margin-left: -40px;">
+            <h1>Mozart Academy</h1>
+          </div>
+          <div class="intro-content-wrapper">
+        
+            <h1 class="intro-title strong-shadow">Bienvenido al mundo del Piano!</h1>
+            <p class="intro-text strong-shadow">En Mozart Academy, te ofrecemos clases adaptadas a tus necesidades y horarios, ya seas principiante o avanzado.</p>
+     
+          </div>
+        </div>
+        
+        
+        
+        
+         <div class="col-sm-6 col-md-5 box-root padding-top--24 flex-flex flex-direction--column" style="flex-grow: 1; z-index: 9; ">
+       
+   
+          
+        <div class="formbg-outer" >
+          <div class="formbg">
+      
+              <div class="login-container d-flex flex-column justify-content-between min-vh-100">
+                
+              
+                 
+       <div id="login-options">
+           <img src="https://lh3.googleusercontent.com/d/1EIVHue1UhcSP-82ftLN01xyi_yp7s0de"  class="logo-img my-3">
+    <h4 class="mt-3" >Inicia sesión</h4>
+        
+
+    <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
+      
+      
+   <div class="buttons-container" >     
+   <button class="login-btn login-btn-email" onclick="showWhatsappLogin()"><i class="ri-login-box-fill login-btn-icon" style=" color: black;"></i> <span >Acceder</span></button>
+   
+         </div>
+    </div>
+
+  
+</div>
+                
+       <section id="whatsapp-login" style="display: none;">
+ 
+  <div  class="accordionContainer">
+  <ul id="notebook_ul" class="accordionWrap">
+    <li class="accordion-block" ng-repeat="student in students | filter:query | orderBy: orderList" id="active" ng-style="{'background-image': 'linear-gradient(90deg, ' + student.color + ' 10px, transparent 11px)'}">
+  
+      <div ng-click="selectUser(student)">
+      {{student.name}}<br>
+     {{student.schedule}}<br>
+      </div>
+
+    </li>
+  </ul>
+   
+    <select ng-model="orderList">
+    <option value="name">Nombre</option>
+    <option value="schedule">Horario</option>
+    <option value="status">Status</option>
+  </select>
+      <input type="text" id="query" ng-model="query"/>
+</div>
+</div>
+ 
+    <button class="back-btn" onclick="showLoginOptions()" style="position: absolute; bottom: 0; width: 150px; margin-top: 20px;">Atrás</button>
+</section>
+              
+    </div>
+          </div>
+
+        </div>
+      </div>   
+      </div>
+
+
+  
+  
+<div class="dashboard-container" style="display: none" id="dashContainer">
   <!--<div class="showbox" ng-if="!userDataLoaded">
       <div class="loader">
         <svg class="circular" viewbox="25 25 50 50">
@@ -949,12 +1423,7 @@ iframe#youtube {
       </div>
     </div>-->
   
-    <div id="myModal" class="modal" ng-show="isModalVisible" ng-click="checkCloseModal($event)">
-    <div class="modal-content">
-      <span class="close" ng-click="closeModal()">&times;</span>
-      <button class="add-to-btn" ng-click="addToHomeScreen()">Agregar a pantalla de inicio</button>
-    </div>
-  </div>
+   
 
     <div class="row">
       <div class="col-sm-5">
@@ -1019,15 +1488,15 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
           </div>
        <div class="panel-body" >
  
-           <iframe width="520px" height="450px" ng-src="https://embed.metronome.app/" frameborder="0">
+           <iframe width="520px" height="450px" src="" id="metronom" frameborder="0">
         </iframe>
-         
+          
         </div>
         </div>
       </div>
     </div>
  </div> 
-
+    </div>  
 
   
   
@@ -1112,10 +1581,10 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
   .controller('Controller1', ['$http', '$scope', '$sce', '$timeout', function($http, $scope, $sce, $timeout) {
      
    $scope.userData = [];
-  $scope.userDataLoaded = false;
+ // $scope.userDataLoaded = false;
      $scope.today = new Date()
    
-
+/*
   var requestData = { 
     action: "getProfileData",
     token: "U2FsdGVkX18ULyziIuuWAfHRHmp4Ti/rMrOdDTDspKrXYc64BaycSOYvQkiaOUGl"
@@ -1144,14 +1613,13 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
       };
     $scope.picture = $scope.userData.photo
 $scope.lessons = JSON.parse($scope.userData.lessons)
-
-    })
-
+    })*/
 
 
+ 
        $scope.isModalVisible = false;
     let deferredPrompt;
-	const isAndroid = /Android/i.test(navigator.userAgent);
+
 
     // Registrar el Service Worker
     if ('serviceWorker' in navigator) {
@@ -1198,6 +1666,37 @@ $scope.lessons = JSON.parse($scope.userData.lessons)
         }
     };
     
+    
+    
+    
+    $scope.students = [];
+
+  $http({
+    method: 'GET',
+    url: 'https://script.google.com/macros/s/AKfycbzIra465SJypRhzRL6ihOF0dmuCCykgZF3F4PufbHR76OBkyhS7NLvAu0joiJr5VfwM/exec',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
+  }).then(function(response) {
+    $scope.students = response.data;
+  });
+    
+    $scope.selectUser = function(user){
+       document.getElementById('loginContainer').style.display = 'none'; 
+            document.getElementById('dashContainer').style.display = 'block';
+ $("#metronom").attr('src', 'https://embed.metronome.app/'); 
+       $scope.userData = user
+       $scope.userLevel = $scope.getLevel($scope.userData.lvl)
+    $scope.history = $scope.userData.lessons
+      $scope.startAnimation = function() {
+        $('.progress-bar').animate({
+          width: $scope.userData.progress + '%'
+        }, 500); 
+      };
+    $scope.picture = $scope.userData.photo
+$scope.lessons = JSON.parse($scope.userData.lessons)
+    } 
 
     $scope.trustAsResourceUrl = function(url) {
         return $sce.trustAsResourceUrl(url);
@@ -1297,6 +1796,21 @@ function toggle_video_modal(element) {
             modal.classList.remove('four', 'out');
         }, 400);
     }
+
+
+
+
+	  function showWhatsappLogin() {
+    document.getElementById('login-options').style.display = 'none';
+    document.getElementById('whatsapp-login').style.display = 'block';
+}
+
+
+
+        function showLoginOptions() {
+           document.getElementById('whatsapp-login').style.display = 'none'; 
+            document.getElementById('login-options').style.display = 'block';
+        }
   
 
 </script>
