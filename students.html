@@ -1139,7 +1139,6 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
 
     // Función para agregar a la pantalla de inicio
     $scope.addToHomeScreen = function() {
-        $scope.isModalVisible = false;
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
             if (choiceResult.outcome === 'accepted') {
