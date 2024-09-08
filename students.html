@@ -938,16 +938,6 @@ iframe#youtube {
 
 </style>
 
-
- <div id="myModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>Add to Home Screen</h2>
-      <button class="add-to-btn">Add to home screen</button>
-    </div>
-  </div>
-
-
 <div ng-app="studentsApp" ng-controller="Controller1" >
 <div class="dashboard-container">
   <!--<div class="showbox" ng-if="!userDataLoaded">
@@ -958,7 +948,12 @@ iframe#youtube {
       </div>
     </div>-->
   
-  
+    <div id="myModal" class="modal" ng-show="isModalVisible" ng-click="checkCloseModal($event)">
+    <div class="modal-content">
+      <span class="close" ng-click="closeModal()">&times;</span>
+      <button class="add-to-btn" ng-click="addToHomeScreen()">Agregar a pantalla de inicio</button>
+    </div>
+  </div>
 
     <div class="row">
       <div class="col-sm-5">
@@ -1213,7 +1208,44 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
     
 
 
-    
+      $scope.isModalVisible = false;
+    let deferredPrompt;
+
+    // Escuchar el evento beforeinstallprompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();  // Prevenir el comportamiento por defecto
+        deferredPrompt = e;  // Guardar el evento para usarlo más tarde
+        $scope.isModalVisible = true;  // Mostrar el modal
+        $scope.$apply();  // Aplicar cambios en el scope
+    });
+
+    // Función para manejar el clic en "Agregar a pantalla de inicio"
+    $scope.addToHomeScreen = function() {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();  // Disparar el prompt
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the A2HS prompt');
+                } else {
+                    console.log('User dismissed the A2HS prompt');
+                }
+                deferredPrompt = null;  // Resetear el deferredPrompt
+            });
+        }
+        $scope.isModalVisible = false;  // Cerrar el modal
+    };
+
+    // Función para cerrar el modal manualmente
+    $scope.closeModal = function() {
+        $scope.isModalVisible = false;
+    };
+
+    // Función para cerrar el modal si se hace clic fuera de él
+    $scope.checkCloseModal = function(event) {
+        if (event.target.id === 'myModal') {
+            $scope.closeModal();
+        }
+    };
    
 }]); 
   
@@ -1263,50 +1295,4 @@ function toggle_video_modal(element) {
     }
   
 
-</script>
-
-<script type="text/javascript">
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('/sw.js').then(function(registration) {
-        console.log('ServiceWorker registration successful with scope: ', registration.scope);
-      }, function(err) {
-        console.log('ServiceWorker registration failed: ', err);
-      });
-    });
-  }
-
-  let deferredPrompt;
-  var modal = document.getElementById("myModal");
-  var btn = document.querySelector('.add-to-btn');
-  var span = document.querySelector(".close");
-
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    modal.style.display = "block";
-
-    btn.addEventListener('click', () => {
-      modal.style.display = "none";
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-          console.log('User accepted the A2HS prompt');
-        } else {
-          console.log('User dismissed the A2HS prompt');
-        }
-        deferredPrompt = null;
-      });
-    });
-  });
-
-  span.onclick = function() {
-    modal.style.display = "none";
-  }
-
-  window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-    }
-  }
 </script>
