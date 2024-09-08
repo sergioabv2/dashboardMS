@@ -1108,7 +1108,7 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
 
 
   angular.module('studentsApp', [])
-  .controller('Controller1', ['$http', '$scope', '$sce', function($http, $scope, $sce) {
+  .controller('Controller1', ['$http', '$scope', '$sce', '$timeout', function($http, $scope, $sce, $timeout) {
      
    $scope.userData = [];
   $scope.userDataLoaded = false;
@@ -1144,58 +1144,54 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
     $scope.picture = $scope.userData.photo
 $scope.lessons = JSON.parse($scope.userData.lessons)
     
-    
-    $scope.isModalVisible = false;
+    $scope.isModalVisible = true; // Muestra el modal
+        $scope.$apply();
+      });
+
+         
+$scope.isModalVisible = false;
     let deferredPrompt;
 
-    // Registrar el Service Worker
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js').then(function(registration) {
-            console.log('ServiceWorker registration successful with scope: ', registration.scope);
-        }, function(err) {
-            console.log('ServiceWorker registration failed: ', err);
-        });
-    }
-
-    // Manejar el evento 'beforeinstallprompt'
-
+    // Escuchar el evento beforeinstallprompt
     window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        $scope.isModalVisible = true;
-        $scope.$apply(); // Forzar la actualización del scope
+        e.preventDefault(); // Evita que el prompt se muestre automáticamente
+        deferredPrompt = e; // Guarda el evento para que pueda ser disparado más tarde
+        $scope.isModalVisible = true; // Muestra el modal
+        $scope.$apply(); // Asegúrate de que los cambios sean visibles en el DOM
     });
 
-
-    // Función para agregar a la pantalla de inicio
     $scope.addToHomeScreen = function() {
-        $scope.isModalVisible = false;
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-                console.log('User accepted the A2HS prompt');
-            } else {
-                console.log('User dismissed the A2HS prompt');
-            }
-            deferredPrompt = null;
-        });
+        if (deferredPrompt) {
+            deferredPrompt.prompt(); // Muestra el prompt al usuario
+
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the A2HS prompt');
+                } else {
+                    console.log('User dismissed the A2HS prompt');
+                }
+                deferredPrompt = null; // Resetea el deferredPrompt después de su uso
+            }).catch((err) => {
+                console.error('Error while prompting A2HS:', err);
+            });
+        } else {
+            console.warn('No deferredPrompt available');
+        }
+        $scope.isModalVisible = false; // Cierra el modal
     };
 
-    // Cerrar modal
     $scope.closeModal = function() {
         $scope.isModalVisible = false;
     };
 
-    // Cerrar modal si se hace clic fuera de él
-    $scope.checkCloseModal = function(event) {
-        if (event.target.id === 'myModal') {
-            $scope.closeModal();
-        }
+    // Usar $applyAsync para evitar conflictos de ciclo $digest
+    $scope.showModal = function() {
+        $scope.$applyAsync(function() {
+            $scope.isModalVisible = true;
+        });
     };
-      });
 
-         
-
+    
 
     $scope.trustAsResourceUrl = function(url) {
         return $sce.trustAsResourceUrl(url);
