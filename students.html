@@ -246,52 +246,6 @@
 }
 
 
-.documents {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(98px, 1fr));
-  grid-auto-rows: 214px;
-  grid-gap: 12px;
-  height: auto;
-  background-color: #FFF;
-}
-
-.document {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 15px 0 0;
-  flex-direction: column;
-}
-.document__img {
-  width: 105px;
-  height: 136px;
-
-  background-size: cover;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-.document__img:hover {
-  transform: translateY(-4px);
-}
-.document__title {
-  margin: 8px 0 2px;
-  color: #777;
-}
-.document__date {
-  font-size: 10px;
-}
-
-
-/*.doc-container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  background-color: #fff;
-  margin-bottom: 20px;
-  -webkit-column-break-inside: avoid;
-}*/
-
 
 
 
@@ -520,160 +474,6 @@
   
  
   
- .badges{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(98px, 1fr));
-  grid-gap: 12px;
-  height: auto;
-}
-  
-
-.badge2 {
-  margin-top: 10px;
-   margin-bottom: 10px;
-  margin-right: 10%;
-   margin-left: 20%;
-  width: 69px;
-  height: 69px;
-  border: 2px solid white;
-  border-radius: 50%;
-  box-sizing: border-box;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-  
-  .badge2::after {
-     content: attr(data-badge-name);
-     font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      position: absolute;
-      top: 80%;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.75);
-      color: #fff;
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 13px;
-      white-space: nowrap;
-      opacity: 0;
-      transition: opacity 0.3s;
-      pointer-events: none;
-    }
-
-    .badge2:hover::after {
-      opacity: 1;
-    }
-
-
-    .badge2:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.1);
-    }
-  
-  
-  
-
-.badge-orange {
-  background: orange;
-  box-shadow: 0 0 0 4px orange;
-}
-
-.badge-green {
-  background: #2EBC74;
-  box-shadow: 0 0 0 4px #2EBC74;
-}
-
-.badge-turquoise {
-  background: #2FBAAC;
-  box-shadow: 0 0 0 4px #2FBAAC;
-}
-
-
-.badge-olive {
-  background: #b4cc2f;
-  box-shadow: 0 0 0 4px #b4cc2f;
-}
-
-.badge-red {
-  background: #cc492f;
-  box-shadow: 0 0 0 4px #cc492f;
-}
-
-.badge-blue {
-  background: #2f84cc;
-  box-shadow: 0 0 0 4px #2f84cc;
-}
-
-.badge-magenta {
-  background: #cc2f54;
-  box-shadow: 0 0 0 4px #cc2f54;
-}
-  
-  .badge-black {
-  background: black;
-  box-shadow: 0 0 0 4px black;
-}
-  
-  .badge-inactive {
-  background: rgba(211, 211, 211, 0.5); /* Color gris tenue con transparencia */
-  box-shadow: 0 0 0 4px rgba(211, 211, 211, 0.5);
-}
-  
- 
-
-.dashicons:before {
-  position: relative;
-  top: 13px;
-  left: 1px;
-  font-size: 40px;
-  color: white;
-}
-
-.dashicons-networking:before {
-  top: 11px;
-  left: 0;
-}
-  
-
-  .circular-progress {
-
-  width: 69px;
-  height: 69px;
-  border-radius: 50%;
-  box-sizing: border-box;
-
-   transform: scale(1.34) translate(-2.2%, -45.4%);
-}
-.circular-progress svg {
-  transform: rotate(270deg);
-}
-.circular-progress circle {
-  stroke-width: 5;
-  fill: none;
-  stroke-linecap: round;
-}
-.circular-progress circle:nth-of-type(1) {
- stroke: #dee2e6;
-}
-.circular-progress circle:nth-of-type(2) {
- 
-  stroke-dasharray: 251.4285714286;
-}
-.circular-progress .pct {
-  font-size: 8px;
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-30%, 380%);
-  font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-  
-   .badge2:hover .circular-progress circle:nth-of-type(2){
-    stroke: #dee2e6;
-}
-
-
-  
   
   
 
@@ -712,95 +512,6 @@
     transform: scale(0.96) translateZ(0);
 }
 
-    .menu-bar2 {
-            display: flex;
-            justify-content: space-around;
-            background-color: black;
-            padding: 10px 0;
-            list-style: none;
-            margin: 0;
-      margin-top: 7px;
-             border-radius: 10px;
-            font-weight: 550;
-  box-shadow: 0px 8px 20px -8px rgba(26, 33, 43, 0.5), 0px 4px 12px 0px rgba(26, 33, 43, 0.05), 0px 1px 3px 0px rgba(26, 33, 43, 0.25), 0px 1.5px 0.5px 0px #454D57 inset, 0px -3px 1px 0px rgba(0, 0, 0, 0.5) inset;
-        }
-
-        .menu-bar2 li {
-            color: white;
-          transition: transform 0.2s;
-        }
-
-        .menu-bar2 a {
-            color: white;
-            text-decoration: none;
-            padding: 10px 20px;
-        }
-
-.menu-bar2 li:hover {
-  color: white;
-            text-decoration: none;
-    transform: scaleX(1.03) scaleY(1.06) translateZ(0);
-}
-
-.menu-bar2 li:active {
-   color: white;
-   text-decoration: none;
-    transform: scale(0.96) translateZ(0); 
-}
-
-.mic-container{
-  display: none;
-  margin-top: 350px;
-  position: absolute;
- background: transparent;
-
-}
-
-.audio-record {
-     display: flex;
-     align-items: center;
-}
-
-.audio-record i {
-     color: gray;
-     font-size: 50px;
-     cursor: pointer;
-     padding: 1px;
-}
-.audio-record span {
-  position: absolute;
-  color: gray;
-  font-weight: 300;
-  font-size: 14px;
-  margin-left: 13px;
-  margin-top: 160px;
-}
- .audio-record input[type=checkbox] {
-     position: absolute;
-     visibility: hidden;
-}
-.audio-record input[type=checkbox]:checked ~ label i {
-     color: #fff;
-     background: black;
-     border-radius: 100%;
-     animation: shadow-expansion 1.5s infinite;
-}
-.audio-properties .audio_record-control {
-     width: 100%;
-     display: flex;
-     flex-flow: row nowrap;
-}
- .audio-properties .audio_record-control .audio-overwrite {
-     flex-grow: 2;
-     font-size: 11px;
-     font-weight: regular;
-     padding-top: 6px;
-     text-align: right;
-}
-.audio-properties .audio_record-control .audio-overwrite > label {
-     padding-right: 10px;
-}
-
 
 
  .player-bar {
@@ -813,74 +524,6 @@
 }
 
  
-#recorder2 {
-  position: relative;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 3rem; 
-  background: red;
-  border: 1px solid #f9f9fa33;
-  cursor: pointer;
-  box-shadow: 0 1px 4px 0 rgba(12, 12, 13, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.15);
-  transition: 0.2s ease;
-  animation: shadow-expansion 1.5s infinite;
-}
-#recorder2 #record {
-  width: 60%;
-  height: 60%;
-  top: 20%;
-  left: 20%;
-  position: absolute;
-  transition: inherit;
-}
-
- @keyframes shadow-expansion {
-    0% {
-    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
-  }
-  40% {
-    box-shadow: 0 0 0 20px rgba(255, 0, 0, 0);
-  }
-  80% {
-    box-shadow: 0 0 0 20px rgba(255, 0, 0, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
-  }
-}
- .by {
-     font-family: sans-serif;
-     position: fixed;
-     bottom: 20px;
-     text-align: center;
-     width: 100%;
-     font-size: 10px;
-}
- .by a {
-     text-decoration: none;
-     color: #007bff;
-     transition: all 0.5s;
-}
- .by a:hover {
-     color: #0062cc;
-}
-
-
-#record-audio {
-  position: relative;
-    margin: 45px auto 0;
-}
-
-
-
- .save {
-     position: relative;
-     left: 0px;
-     top: -20px;
-     z-index: 100;
-}
-
-
 
 
 
@@ -1194,53 +837,6 @@ iframe#youtube {
 
 
 
-  .rotate-content {
-    font: 400 14px/20px "Helvetica Neue",Helvetica,Arial,sans-serif;
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    background-color: #555;
-    opacity: .9;
-    z-index: 15;
-    pointer-events: none;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    pointer-events: auto;
-  }
-  .rotate-box {
-    width: 80%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .rotate-device-img {
-    background-image: url(https://lh3.googleusercontent.com/d/1SQciyThzVKgk5S5mZI8o_BzGYOap5EnV);
-    background-position: 50%;
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 30%;
-    padding-bottom: 25.5%;
-  }
-  .rotate-text {
-    color: #f1f1f1;
-    text-align: center;
-  }
-  .rotate-title {
-    font-size: 20px;
-    margin-bottom: 10px;
-    margin-top: 30px;
-  }
-  .rotate-subtitle {
-    font-size: 14px;
-  }
-
-
-
 
 #full-screen-btn{
     position: absolute;
@@ -1370,6 +966,13 @@ iframe#youtube {
 
 
 <div ng-app="studentsApp" ng-controller="Controller1" >
+  
+    <div id="myModal" class="modal" ng-show="isModalVisible" ng-click="checkCloseModal($event)">
+    <div class="modal-content">
+      <span class="close" ng-click="closeModal()">&times;</span>
+      <button class="add-to-btn" ng-click="addToHomeScreen()">Agregar a pantalla de inicio</button>
+    </div>
+  </div>
 
 <div class="dashboard-container">
   <div class="showbox" ng-if="!userDataLoaded">
@@ -1419,13 +1022,12 @@ iframe#youtube {
           <div class="panel-body log-list-container" style="max-height: 220px;"> 
              <ul class="list-unstyled log-list">
              <li ng-repeat="entry in history | filter:filterByLevel" ng-class="{'status-pending': entry.status === 'En revisión', 'status-delayed': entry.status === 'Límite de entrega: ' && stringToDate(entry.limitdate) < today, 'status-completed': entry.status === 'Evaluada', 'status-error': entry.status === 'A corrección', 'status-default': entry.status === 'Límite de entrega: '  && stringToDate(entry.limitdate) >= today}">
-                <button style="float:right; margin-right: -15px; margin-top: 7px; font-size: 11px; " ng-click="showModal(entry)" ng-if="entry.status !== 'En revisión' && entry.status !== 'Evaluada'" class="btn btn-dark btn-sm">Entregar </button>
+                <button style="float:right; margin-right: -15px; margin-top: 7px; font-size: 11px; " data-pdf-url="{{entry.pdf}}" onclick="showModal(this)" ng-click="selectEntry(entry)" ng-if="entry.status !== 'En revisión' && entry.status !== 'Evaluada'" class="btn btn-dark btn-sm">Abrir </button>
                <div style="float:right; margin-right: -9px; margin-top: 8px;" ng-if="entry.status == 'En revisión'"> Entregada </div>
                 <div style="float:right; margin-right: -15px;" ng-if="entry.status == 'Evaluada' && entry.quote"><i class="ri-award-fill" style="font-size: 25px; color: orange;"></i>  </div>
                <div ng-if="entry.status == 'Límite de entrega: '" data-youtube-id="{{entry.video}}" 
 class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: red; cursor: pointer;"> <i class="ri-youtube-fill yticon" style="float:right; margin-right: 10px; font-size: 26px;"></i></div>
-                <div ng-if="entry.status === 'A corrección'" data-youtube-id="{{entry.video}}" 
-class="js-trigger-video-modal2" onclick="toggle_video_modal3(this)" style="color: gray; cursor: pointer;"> <i class="ri-chat-quote-line yticon" style="float:right; margin-right: 10px; font-size: 26px;"></i></div>
+              
                         <span style="font-size: 13px;">{{entry.name}}</span>
                <small style="font-size: 11px; margin-top: 2px;">{{entry.status}} <span ng-if="entry.status == 'Límite de entrega: '"> {{dateToString(entry.limitdate)}}</span></small>
            
@@ -1465,11 +1067,11 @@ class="js-trigger-video-modal2" onclick="toggle_video_modal3(this)" style="color
       <br>    
 
 
-        <iframe class="drive" ng-src="{{trustAsResourceUrl(selectedManualUrl)}}" frameborder="0">
+         <iframe class="drive" id="drivemodal" src="" frameborder="0">
         </iframe>
    
       <ul class="menu-bar">
-            <li><a href="#" ng-click="hideModal()">Regresar</a></li>
+            <li><a href="#" onclick="hideModal()">Regresar</a></li>
         </ul>
 
              </div>
@@ -1483,49 +1085,6 @@ class="js-trigger-video-modal2" onclick="toggle_video_modal3(this)" style="color
 
 
 
-
-
-
-   <div class="video-modal2">
-    <div id="video-modal-content2" class="video-modal-content2">
-       <iframe 
-          id="youtube3" 
-          width="100%" 
-          height="100%" 
-          frameborder="0" 
-          allow="autoplay" 
-          allowfullscreen 
-          src=
-        ></iframe>
-
-        <a 
-          href="#" 
-          class="close-video-modal2" 
-        >
-          <!-- X close video icon -->
-          <svg 
-            version="1.1" 
-            xmlns="http://www.w3.org/2000/svg" 
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            x="0"
-            y="0"
-            viewBox="0 0 32 32" 
-            style="enable-background:new 0 0 32 32;" 
-            xml:space="preserve" 
-            width="24" 
-            height="24" 
-          >
-            <g id="icon-x-close2">
-                <path fill="#ffffff" d="M30.3448276,31.4576271 C29.9059965,31.4572473 29.4852797,31.2855701 29.1751724,30.980339 L0.485517241,2.77694915 C-0.122171278,2.13584324 -0.104240278,1.13679247 0.52607603,0.517159487 C1.15639234,-0.102473494 2.17266813,-0.120100579 2.82482759,0.477288136 L31.5144828,28.680678 C31.9872448,29.1460053 32.1285698,29.8453523 31.8726333,30.4529866 C31.6166968,31.0606209 31.0138299,31.4570487 30.3448276,31.4576271 Z" id="Shape"></path>
-                <path fill="#ffffff" d="M1.65517241,31.4576271 C0.986170142,31.4570487 0.383303157,31.0606209 0.127366673,30.4529866 C-0.12856981,29.8453523 0.0127551942,29.1460053 0.485517241,28.680678 L29.1751724,0.477288136 C29.8273319,-0.120100579 30.8436077,-0.102473494 31.473924,0.517159487 C32.1042403,1.13679247 32.1221713,2.13584324 31.5144828,2.77694915 L2.82482759,30.980339 C2.51472031,31.2855701 2.09400353,31.4572473 1.65517241,31.4576271 Z" id="Shape"></path>
-            </g>
-          </svg>
-        </a>
-    </div>
-    <div class="overlay2"></div>
-</div>
-
-  
   
    <div class="video-modal">
     <div id="video-modal-content" class="video-modal-content">
@@ -1615,7 +1174,7 @@ class="js-trigger-video-modal2" onclick="toggle_video_modal3(this)" style="color
             deferredPrompt = null;
         });
     };
-
+ 
     // Cerrar modal
     $scope.closeModal = function() {
         $scope.isModalVisible = false;
@@ -1690,6 +1249,10 @@ class="js-trigger-video-modal2" onclick="toggle_video_modal3(this)" style="color
   }
 }
     
+      $scope.selectedEntry = null;
+    $scope.selectEntry = function(entry) {
+       $scope.selectedEntry = entry;
+    };
     
     
     
@@ -1715,130 +1278,24 @@ class="js-trigger-video-modal2" onclick="toggle_video_modal3(this)" style="color
   return date
 }; 
     
-     $scope.openPaymentInfoModal = function() {
-   $('#profileModal').modal('show');
-}
+  
 
    $scope.filterByLevel = function(entry) {
     return entry.index <= $scope.userData.lsn + 1;
 };
     
-    $scope.selectedManualUrl = '';
-     $scope.selectedEntry = null;
-    
-    $scope.showModal = function(entry) {
-       $scope.selectedManualUrl = entry.pdf;
-       $scope.selectedEntry = entry;
-        document.getElementById('modal-container2').classList.add('four');
-    };
-
-    $scope.hideModal = function() {
-        const modal = document.getElementById('modal-container2');
-        modal.classList.add('out');
-        setTimeout(() => {
-            modal.classList.remove('four', 'out');
-        }, 400);
-      var metronome = document.getElementById('recorder');
-      metronome.style.display = 'none';
-    };
-    
-    
-$scope.manualFilter = function(manual, index) {
-      return index <= $scope.userData.blq - 1;
-    };
-    
-     $scope.openURL = function(lvl, index) {
-        var url = $scope.manuals[lvl][index].url;
-        window.open(url, '_blank');
-    }; 
-
-$scope.manuals = [ 
-  [
-    {'title': 'Bloque 1 - Nivel P','background': 'https://lh3.googleusercontent.com/d/12_KSNMB0Z3z9knY_8vIofHT3Xvl-JUj-',  
-    'url': 'https://drive.google.com/file/d/1bufcRACzv0QKKJDoc6RYhC1m7irb-UPa'},
-    {'title': 'Bloque 2 - Nivel P','background': 'https://lh3.googleusercontent.com/d/12_KSNMB0Z3z9knY_8vIofHT3Xvl-JUj-',  
-    'url': 'https://drive.google.com/file/d/1nxK06XODrHt2J6lScQz4JjthmPoc16Ec'}, 
-    {'title': 'Bloque 3 - Nivel P','background': 'https://lh3.googleusercontent.com/d/12_KSNMB0Z3z9knY_8vIofHT3Xvl-JUj-',  
-    'url': 'https://drive.google.com/file/d/1vYZFwqvHFg6m097Ivk4uRGAY38-EUvEu'}   
-  ],
-  [
-    {'title': 'Bloque 1 - Nivel 1','background': 'https://lh3.googleusercontent.com/d/1Uf_sUg2ELZPF8t0fcuCdH6ZZOWrwzghM',  
-    'url': 'https://drive.google.com/file/d/1Kghxri_BvRE0Ho4c2vMfrdBGp8HTmrGJ'},
-    {'title': 'Bloque 2 - Nivel 1','background': 'https://lh3.googleusercontent.com/d/1Uf_sUg2ELZPF8t0fcuCdH6ZZOWrwzghM',  
-    'url': 'https://drive.google.com/file/d/10Q34O2uDPaj5ZG7bpYpx8BGHZ4Q18ZLB'},
-    {'title': 'Bloque 3 - Nivel 1','background': 'https://lh3.googleusercontent.com/d/1Uf_sUg2ELZPF8t0fcuCdH6ZZOWrwzghM',  
-    'url': 'https://drive.google.com/file/d/1VuxMiv3W89OBAzxXaz6kzBkEyRxonnJB'}     
-  ],
-  [
-     {'title': 'Bloque 1 - Nivel 2','background': 'https://lh3.googleusercontent.com/d/1qsgmUvohMMn8LcQZLp-Zkk283MV2VmNy',  
-  'url': 'https://drive.google.com/file/d/1zs8OzO57s1b0MTavriKWjMohnLjr39-d'},
-     {'title': 'Bloque 2 - Nivel 2','background': 'https://lh3.googleusercontent.com/d/1qsgmUvohMMn8LcQZLp-Zkk283MV2VmNy',  
-  'url': 'https://drive.google.com/file/d/1zs8OzO57s1b0MTavriKWjMohnLjr39-d'}  
-  ]
-  
-];
-
-
-     $scope.uploadAudio = function() { 
-     var base64Audio = document.getElementById("AudioData").value
-       
-     
-     if(base64Audio == ""){
-        alert("No existe grabación a enviar")
-     }else{
-       $scope.selectedEntry.status = "En revisión"
-
-
-    var requestData = {
-    action: "postAudio",
-    token: localStorage.getItem('MStoken'),
-      lesson: $scope.selectedEntry.name,
-      index: $scope.selectedEntry.index,
-    blob: base64Audio
-  };
- 
-  var config = {
-    headers: {
-      "Content-Type": "text/plain;charset=utf-8"
-    },
-    followRedirects: true, 
-  }; 
-   $http.post('https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7IDc7KBrYGfix6hUa4kvJ1TFpjU82NltFXezUroGgQ/exec', requestData, config)
-    .then(function(response) {
-    })  
-       
-        $('#record-audio').empty(); 
-        document.getElementById("AudioData").value = "";
-        $('#delete-audio').hide();
-       alert("Actividad enviada a revisión")
-       $scope.hideModal()
-       
-     }
-   }; 
 
 
     
    
 }]); 
-
   
-</script>
-
-
-
-<script>
   
-
- document.getElementById('toggle-recorder').addEventListener('click', function() {
-            var metronome = document.getElementById('recorder');
-            if (metronome.style.display === 'none' || metronome.style.display === '') {
-                metronome.style.display = 'block';
-            } else {
-                metronome.style.display = 'none';
-            }
-        });
-
-
+  
+  
+  
+  
+  
 function toggle_video_modal(element) {
      var url = element.getAttribute('data-youtube-id');
           $("#youtube").attr('src', url);        
@@ -1862,692 +1319,23 @@ function toggle_video_modal(element) {
       });
  
 
-function toggle_video_modal2(element) {
-    var htmlContent = element.getAttribute('data-youtube-id');
-    var iframe = document.getElementById('youtube');
-    
-     const regex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
- if(regex.test(htmlContent)){
-  $("#youtube").attr('src', htmlContent);  
- }else{
-    iframe.contentWindow.document.open();
-    iframe.contentWindow.document.write(`
-        <!DOCTYPE html>
-        <html>
-    
-<style>
-  body {
-background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAG0lEQVQYV2PcvHnzf19fX0YGPACvJEzfqCIGAC55BAqBlVXsAAAAAElFTkSuQmCC) repeat;
-}
-
-.quoteWell {
-  margin-top: 10%;
-}
-footer{
-  float: right;
-  bottom: 0;
-}
-
- @media screen and (min-width:375px){
-   .quoteWell{
-    margin-top: 70px;
-  }   
-}
-
-   @media screen and (min-width:480px){
-   .quoteWell{
-    margin-left: 20%;
-    margin-right: 20%;
-    margin-top: 90px;
-  }   
-}
-
- @media screen and (min-width:700px){
-   .quoteWell{
-    margin-left: 30%;
-    margin-right: 30%;
-    margin-top: 180px;
-  }   
-}
-
-
-
-</style>
-
-
-      <div class="well quoteWell">
-        <blockquote>
-          <p class="quote lead">${htmlContent}.</p>
-          <footer><cite class="author" title="author">Profesor Daniel</cite></footer>
-        </blockquote>
-
-      </div>
-
-
-        </html>
-    `);
-    iframe.contentWindow.document.close();
- }
   
-    var icon = element.querySelector('.yticon');
-    if (icon) {
-        icon.style.animation = 'none';
-    }
-    document.body.classList.add("show-video-modal", "noscroll");
-}
-  
-  
-  
-  
-  
-
-
- function captureUserMedia(mediaConstraints, successCallback, errorCallback) {
-    navigator.mediaDevices.getUserMedia(mediaConstraints).then(successCallback).catch(errorCallback);
-  }
-
-  var mediaConstraints = {
-    audio: true
-  };
-  document.querySelector('#save-recording').onclick = function () {
-      this.disabled = true;
-      mediaRecorder.save();
-      // alert('Drop WebM file on Chrome or Firefox. Both can play entire file. VLC player or other players may not work.');
-  };
-  //Parto con la registrazione audio
-  function startRecording(idx) {
-    
-    $('#start-recording').disabled = true;
-    audiosContainer = document.getElementById('audios-container');
-    //document.getElementById("clicks").innerHTML = "Recording Started";
-
-    var f = document.getElementById('clicks');
-    setInterval(function () {
-        f.style.display = (f.style.display == 'none' ? '' : 'none');
-    }, 1000);
-
-    captureUserMedia(mediaConstraints, onMediaSuccess, onMediaError);
-  };
-  //Stoppo la registrazione audio
-  function stopRecording() {
-      $('#stop-recording').disabled = true;
-   
-      //document.getElementById("clicks").innerHTML = "Recording Stopped";
- 
-      var f = document.getElementById('clicks');
-      setInterval(function () {
-          f.style.display = (f.style.display == 'none' ? '' : 'none');
-      }, 1000);
-    mediaRecorder.stop();
-    mediaRecorder.stream.stop();
-   
-   
-    $('.start-recording').disabled = false;
-  };
-
-  //Falvo Il file
-  function saveRecording() {
-      mediaRecorder.save();
-  };
-
-  var mediaRecorder;
-
-  function onMediaSuccess(stream) {
-    mediaRecorder = new MediaStreamRecorder(stream);
-    mediaRecorder.stream = stream;
-    mediaRecorder.mimeType = 'audio/wav';  
-    //mediaRecorder.mimeType = 'audio/webm';  
-    mediaRecorder.audioChannels = 1;
-    mediaRecorder.ondataavailable = function(blob) {
-      $('#record-audio').html("<audio controls=''><source src=" + URL.createObjectURL(blob) + "></source></audio>");
-      $('#delete-audio').show();
-      $('#delete-audio').on('click', function() {
-    $('#record-audio').empty(); 
-        document.getElementById("AudioData").value = "";
-        $('#delete-audio').hide();
-  });
-      var reader = new FileReader();
-          reader.onloadend = function() {
-            var base64Audio = reader.result.split(',')[1];
-            document.getElementById("AudioData").value = base64Audio;
-          };
-          reader.readAsDataURL(blob);
+    function showModal(element) {
+       var url = element.getAttribute('data-pdf-url');
+          $("#drivemodal").attr('src', url);   
+        document.getElementById('modal-container2').classList.add('four');
     };
- 
-    var timeInterval = 360 * 1000;
 
-    mediaRecorder.start(timeInterval);
-
-    $('#stop-recording').disabled = false;
-  }
-
-  function onMediaError(e) {
-    console.error('media error', e);
-  }
-
-  function bytesToSize(bytes) {
-    var k = 1000;
-    var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-    if (bytes === 0) return '0 Bytes';
-    var i = parseInt(Math.floor(Math.log(bytes) / Math.log(k)), 10);
-    return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
-  }
-
-  function getTimeLength(milliseconds) {
-    var data = new Date(milliseconds);
-    return data.getUTCHours() + " hours, " + data.getUTCMinutes() + " minutes and " + data.getUTCSeconds() + " second(s)";
-  }
-
-  window.onbeforeunload = function() {
-    $('#start-recording').disabled = false;
-  };
-
-
-$(document).on('click','input[name="audio_record-icon"]',function(){
-  var checked = $('#audio_record-icon').prop('checked');
-  var recordText = document.getElementById('record-text');
-  if(checked == true)
-    {
-        startRecording();
-      recordText.textContent = "stop";
+    function hideModal() {
+        const modal = document.getElementById('modal-container2');
+       $("#drivemodal").attr('src', '');  
+        modal.classList.add('out');
+        setTimeout(() => {
+            modal.classList.remove('four', 'out');
+        }, 400);
     }
-  else
-    {
-        stopRecording();
-        recordText.textContent = "record";
-    }
-});
-  
-  
-  
-    
-  function ekUpload(){
-  function Init() {
-
-    console.log("Upload Initialised");
-
-    var fileSelect    = document.getElementById('file-upload'),
-        fileDrag      = document.getElementById('file-drag'),
-        submitButton  = document.getElementById('submit-button');
-
-    fileSelect.addEventListener('change', fileSelectHandler, false);
-
-    // Is XHR2 available?
-    var xhr = new XMLHttpRequest();
-    if (xhr.upload) {
-      // File Drop
-      fileDrag.addEventListener('dragover', fileDragHover, false);
-      fileDrag.addEventListener('dragleave', fileDragHover, false);
-      fileDrag.addEventListener('drop', fileSelectHandler, false);
-    }
-  }
-
-  function fileDragHover(e) {
-    var fileDrag = document.getElementById('file-drag');
-
-    e.stopPropagation();
-    e.preventDefault();
-
-    fileDrag.className = (e.type === 'dragover' ? 'hover' : 'modal-body file-upload');
-  }
-
-  function fileSelectHandler(e) {
-    // Fetch FileList object
-    var files = e.target.files || e.dataTransfer.files;
-
-    // Cancel event and hover styling
-    fileDragHover(e);
-
-    // Process all File objects
-    for (var i = 0, f; f = files[i]; i++) {
-      parseFile(f);
-      uploadFile(f);
-    }
-  }
-
-  // Output
-  function output(msg) {
-    // Response
-    var m = document.getElementById('messages');
-    m.innerHTML = msg;
-  }
-
-  function parseFile(file) {
-
-    console.log(file.name);
-    output(
-      '<strong>' + encodeURI(file.name) + '</strong>'
-    );
-    
-    // var fileType = file.type;
-    // console.log(fileType);
-    var imageName = file.name;
-
-    var isGood = (/\.(?=gif|jpg|png|jpeg)/gi).test(imageName);
-    if (isGood) {
-      document.getElementById('start2').classList.add("hidden");
-      document.getElementById('response').classList.remove("hidden");
-      document.getElementById('notimage').classList.add("hidden");
-      // Thumbnail Preview
-      document.getElementById('file-image').classList.remove("hidden");
-      document.getElementById('file-image').src = URL.createObjectURL(file);
-    }
-    else {
-      document.getElementById('file-image').classList.add("hidden");
-      document.getElementById('notimage').classList.remove("hidden");
-      document.getElementById('start2').classList.remove("hidden");
-      document.getElementById('response').classList.add("hidden");
-      document.getElementById("file-upload-form").reset();
-    }
-  }
-
-
-  // Check for the various File API support.
-  if (window.File && window.FileList && window.FileReader) {
-    Init();
-  } else {
-    document.getElementById('file-drag').style.display = 'none';
-  }
-}
-ekUpload();
- 
-
-const slider = document.querySelector(".tempoSlider");
-const sliderMax = slider.getAttribute("max");
-const sliderThickFill = document.querySelector(".thick-fill");
-const currentLeads = document.getElementById("tempo-disp");
-
-
-function handleChange() {
-  const leads = this.value;
-  currentLeads.textContent = leads;
-  const sliderLineWidth = leads / sliderMax * 100;
-   var hue = 70 - (this.value / 200 * 70);
-  sliderThickFill.style.backgroundColor = 'hsl(' + hue + ', 100%, 50%)';
-  sliderThickFill.style.width = sliderLineWidth + "%";
-}
-
-slider.addEventListener("input", handleChange);
-
-
-
-
-
-var audioCtx = new (window.AudioContext || window.webkitAudioContext)(),
-    SubAudioCtx = new (window.AudioContext || window.webkitAudioContext)(),
-    volume = audioCtx.createGain(),
-    subvolume = SubAudioCtx.createGain(),
-    noteFlag = 0,
-    curtime = 0.0,
-    timer,
-    delta = 0;
-
-
-// Elements INIT
-var tempo = 60000 / (document.getElementById('tempo').value),
-    
-    tempo_rge = document.getElementById('tempo'),
-    tempo_disp = document.getElementById('tempo-disp'),
-    firstBeating = document.getElementById('checkBox'),
-    plus = document.getElementById('plus'),
-    minus = document.getElementById('minus'),
-    extraPlus = document.getElementById('extraPlus'),
-    extraMinus = document.getElementById('extraMinus'),
-    beatPlus = document.getElementById('beatPlus'),
-    beatMinus = document.getElementById('beatMinus'),
-    start = document.getElementById('start'),
-    stop = document.getElementById('stop'),
-    close = document.getElementById('icon-x-close'), 
-    tap = document.getElementById('tap'),
-    beatFlag = document.getElementById('beatFlag'),
-    beatNbr = document.getElementById('beatNbr'),
-    beatCount = document.getElementById('beatCount'),
-    digitalDisplayContainer = document.getElementById('digitalDisplayContainer'),  
-    dotTarget = document.getElementById('dotTarget'),
-    dotsDisplay = document.getElementById('dotsDisplay'),    
-    digitalDisplay = document.getElementById('digitalDisplay'),
-    bothDisplay = document.getElementById('bothDisplay'),
-    beatDots = document.getElementsByClassName('beat'),
-    semiquaver = document.getElementById('semiquaver');
-
-
-function temp(v){
-  tempo_disp.innerHTML = v;  
-}
-
-function vol(l){
-  volume.gain.setValueAtTime(l, audioCtx.currentTime);
-}
-
-function schedule(){
-  while(curtime < audioCtx.currentTime + 0.1){
-    if(noteFlag >= beatCount.value){
-      noteFlag = 0;
-    }
-    playNote(curtime); 
-
-    
-    console.log(curtime);
-    console.log(curtime);
-    
-    updateTime();
-
-    var child = document.querySelectorAll('#dotTarget li');      
-    
-    if(noteFlag === 0){
-      child[noteFlag].className += " on-temp";
-      child[child.length - 1].classList.remove("on-temp");
-    }
-    else{
-      child[noteFlag].className += " on-temp";
-      child[noteFlag - 1].classList.remove("on-temp");
-    }
-    beatFlag.innerHTML = noteFlag+1;
-    noteFlag++;
-  }
-  timer = window.setTimeout(schedule, 0.1);
-}
-
-function updateTime(){
-  curtime += 60.0 / parseInt(tempo_rge.value, 10);
-}
-
-function playNote(t){
-  var note = audioCtx.createOscillator();
-  note.connect(volume);
-  volume.connect(audioCtx.destination);
-  
-  note.type = 'sine';
   
 
- /* 
-var now = audioCtx.currentTime;
-var attackTime = .1;
-var releaseTime = 0.01;
-
-volume.gain.setValueAtTime(0, now);
-volume.gain.linearRampToValueAtTime(2, now + attackTime);
-volume.gain.linearRampToValueAtTime(0, now + attackTime + releaseTime);*/
-
-note.frequency.setValueAtTime(2100, audioCtx.currentTime);  
-
-/*  if(firstBeating.checked){
-    if(noteFlag == 0){
-      note.frequency.setValueAtTime(1600, audioCtx.currentTime);    
-    }
-    else{
-      for(var i=0; i < beatDots.length; i++){    
-        if(beatDots[noteFlag].className == "beat active"){
-            note.frequency.setValueAtTime(800, audioCtx.currentTime);
-           }
-        else{
-           note.frequency.setValueAtTime(400, audioCtx.currentTime);       
-        }
-      } 
-    }
-  }  
-  else{
-      for(var i=0; i < beatDots.length; i++){    
-        if(beatDots[noteFlag].className == "beat active"){
-          note.frequency.setValueAtTime(800, audioCtx.currentTime);
-        }
-        else{
-          note.frequency.setValueAtTime(400, audioCtx.currentTime);       
-        }
-      } 
-    }*/
   
-  note.start(t);
-  note.stop(t + 0.04);  
-}
-
-function playSubNote(nt){
-  var subnote = SubAudioCtx.createOscillator();
-  
-  subvolume.connect(SubAudioCtx.destination);
-  subvolume.gain.setValueAtTime(0.2, SubAudioCtx.currentTime);   
-  
-  subnote.connect(subvolume);
-  subnote.type = 'sine';
-  subnote.frequency.setValueAtTime(400, SubAudioCtx.currentTime);  
-  
-  subnote.start(nt);
-  subnote.stop(nt + 0.04); 
-}
-
-function clickDots(){
-  for(u = 0; u < beatDots.length; u++){
-    beatDots[u].addEventListener('click', function(){
-      if(this.className === "beat active"){
-         this.className = "beat";
-      }
-      else{
-        this.className += " active";     
-      }
-    });
-  }  
-}
-clickDots()
-
-start.addEventListener('click', function(){
-  curtime = audioCtx.currentTime;
-  schedule(); 
-  this.style.display = "none";
-  stop.style.display = "block";
-});
-
-stop.addEventListener('click', function(){
-  window.clearInterval(timer);
-  noteFlag = 0;
-  beatFlag.innerHTML = 1;
-  for(u = 0; u < beatDots.length; u++){
-    beatDots[u].classList.remove("on-temp");
-  }
-
-  this.style.display = "none";
-  start.style.display = "block";
-});
- 
-close.addEventListener('click', function(){
-  window.clearInterval(timer);
-  noteFlag = 0;
-  beatFlag.innerHTML = 1;
-  for(u = 0; u < beatDots.length; u++){
-    beatDots[u].classList.remove("on-temp");
-  }
-  stop.style.display = "none";
-  start.style.display = "block";
-
-});
-
-tap.addEventListener('click', function(){
-  var d = new Date();
-  var temp = d.getTime();
-  
-  var tap_temp = Math.ceil(60000 / (temp - delta));
-  
-  tempo_disp.innerHTML = tap_temp; 
-  tempo_rge.value = tap_temp;
-  delta = temp;
-  
-  if(tap_temp > 240){
-    tempo_disp.innerHTML = 240;
-    tempo_rge.value = 240;
-  } 
-});
-
-plus.addEventListener('click', function(){
-    tempo_rge.value +++ 1;
-    tempo_disp.innerHTML = tempo_rge.value;
-});
-
-extraPlus.addEventListener('click', function(){
-    tempo_rge.value = tempo_rge.value +++ 5;
-    tempo_disp.innerHTML = tempo_rge.value;
-});
-
-beatPlus.addEventListener('click', function(){
-    beatCount.value = beatCount.value +++ 1;
-    if( beatCount.value > 12){
-      beatCount.value = 12;
-    }
-    beatNbr.innerHTML =  "/"+beatCount.value;
-    var i = 0,
-    target = document.getElementById('dotTarget');
-    target.innerHTML = "";
-    while(i < beatCount.value){
-      var dot = document.createElement("li");
-      dot.className = "beat";  
-      target.append(dot);  
-      i++;
-    }
-    clickDots()
-});
-
-minus.addEventListener('click', function(){
-    tempo_rge.value --- 1;
-    tempo_disp.innerHTML = tempo_rge.value;
-});
-
-extraMinus.addEventListener('click', function(){
-    tempo_rge.value = tempo_rge.value --- 5;
-    tempo_disp.innerHTML = tempo_rge.value;
-});
-
-beatMinus.addEventListener('click', function(){
-    beatCount.value = beatCount.value --- 1;
-    if( beatCount.value < 1){
-      beatCount.value = 1;
-    }
-    beatNbr.innerHTML =  "/"+beatCount.value;
-    var i = 0,
-    target = document.getElementById('dotTarget');
-    target.innerHTML = "";
-    while(i < beatCount.value){
-      var dot = document.createElement("li");
-      dot.className = "beat";  
-      target.append(dot);  
-      i++;
-    }
-    clickDots();
-});
-
-
-dotsDisplay.addEventListener('click', function(){
-    dotsDisplay.className = 'header-btn button-active';
-    if(digitalDisplay.className == 'header-btn button-active' || bothDisplay.className == 'header-btn button-active'){
-      digitalDisplay.classList.remove('button-active');
-      bothDisplay.classList.remove('button-active');
-    }
-    dotTarget.style.display = 'flex';
-    digitalDisplayContainer.style.display = 'none';
-});
-
-
-
-digitalDisplay.addEventListener('click', function(){
-    digitalDisplay.className = 'header-btn button-active';
-    if(dotsDisplay.className == 'header-btn button-active' || bothDisplay.className == 'header-btn button-active'){
-      dotsDisplay.classList.remove('button-active');
-      bothDisplay.classList.remove('button-active');
-    }
-    digitalDisplayContainer.style.display = 'flex';
-    dotTarget.style.display = 'none';
-});
-
-bothDisplay.addEventListener('click', function(){
-    bothDisplay.className = 'header-btn button-active';
-    if(dotsDisplay.className == 'header-btn button-active' || digitalDisplay.className == 'header-btn button-active'){
-      dotsDisplay.classList.remove('button-active');
-      digitalDisplay.classList.remove('button-active');
-    }
-    dotTarget.style.display = 'flex';
-    digitalDisplayContainer.style.display = 'flex';
-});
-
-
-
-
-  
-function toggle_video_modal3(element) {
-    var htmlContent = element.getAttribute('data-youtube-id');
-    var iframe = document.getElementById('youtube3');
-    
-     const regex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
- if(regex.test(htmlContent)){
-  $("#youtube3").attr('src', htmlContent);  
- }else{
-    iframe.contentWindow.document.open();
-    iframe.contentWindow.document.write(`
-     <!DOCTYPE html>
-<html>
-<style>
-  body {
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAG0lEQVQYV2PcvHnzf19fX0YGPACvJEzfqCIGAC55BAqBlVXsAAAAAElFTkSuQmCC) repeat;
-  }
-
-  .quoteWell {
-    margin-top: 20px;
-    text-align: center;
-  }
-
-  .image-container {
-    width: 100%;
-    height: 400px; /* Ajusta esta altura según sea necesario */
-    margin-bottom: 20px;
-    overflow: hidden;
-  }
-
-  .image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* O puedes usar 'contain' para mantener las proporciones */
-  }
-
-  footer {
-    float: right;
-    bottom: 0px;
-  }
-
- 
-</style>
-
-<body>
-  <div class="well quoteWell">
-  <div class="image-container">
-    <img src="https://lh3.googleusercontent.com/d/1XUmajl32spGBZe5b6vYR8lkWgkyx5Fhv">
-    </div>
-    <blockquote>
-      <p class="quote lead">${htmlContent}.</p>
-      <footer><cite class="author" title="author">Profesor Daniel</cite>
-      </footer>
-    </blockquote>
-  </div>
-</body>
-</html>
-
-    `);
-    iframe.contentWindow.document.close();
- }
-  
-    var icon = element.querySelector('.yticon');
-    if (icon) {
-        icon.style.animation = 'none';
-    }
-    document.body.classList.add("show-video-modal2", "noscroll");
-}
-
-
- function close_video_modal2() {
-        
-        event.preventDefault();
-        $("body").removeClass("show-video-modal2 noscroll");
-        $("#youtube3").attr('src', '');
-        
-      }
-      $('body').on('click', '.close-video-modal2, .video-modal2 .overlay2', function(event) {
-          close_video_modal2();
-      });
-
-
 </script>
+
