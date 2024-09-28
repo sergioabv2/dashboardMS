@@ -866,18 +866,14 @@ iframe#youtube {
   }
   .menu-bar{
     position: absolute; 
-    margin-top: -400px;
+    margin-top: -460px;
      margin-left: -65px;
   }
   #full-screen-btn{
   margin-left: 120px;
   margin-top: 35px;
 }
-  .menu-bar2{ /* menu2 */
-     position: absolute; 
-    margin-top: -400px;
-     margin-left: -65px;
-  }
+
   .mic-container{
     margin-top: -20px;
     margin-left: 380px;
@@ -905,9 +901,7 @@ iframe#youtube {
   .menu-bar{
      margin-left: -135px;
   }
-     .menu-bar2{
-     margin-left: -135px;
-  }
+
      .mic-container{
     margin-left: 450px;
   }
@@ -1305,7 +1299,7 @@ iframe#youtube {
   padding: 5px 5px 0 5px;
   border-left: none;
   border-right: none;
-  height: 340px;
+  height: 380px;
 }
 
 .accordion-block {
@@ -1370,7 +1364,7 @@ iframe#youtube {
       
       
    <div class="buttons-container" >     
-   <button class="login-btn login-btn-email" onclick="showWhatsappLogin()"><i class="ri-login-box-fill login-btn-icon" style=" color: black;"></i> <span >Acceder</span></button>
+   <button class="login-btn login-btn-email" onclick="showWhatsappLogin()" style="margin-top: 100px;"><i class="ri-login-box-fill login-btn-icon" style=" color: black; "></i> <span >Acceder</span></button>
    
          </div>
     </div>
@@ -1379,7 +1373,12 @@ iframe#youtube {
 </div>
                 
        <section id="whatsapp-login" style="display: none;">
- 
+  <select ng-model="orderList">
+    <option value="name">Nombre</option>
+    <option value="schedule">Horario</option>
+    <option value="status">Status</option>
+  </select>
+   <!--   <input type="text" id="query" ng-model="query"/> -->
   <div  class="accordionContainer">
   <ul id="notebook_ul" class="accordionWrap">
     <li class="accordion-block" ng-repeat="student in students | filter:query | orderBy: orderList" id="active" ng-style="{'background-image': 'linear-gradient(90deg, ' + student.color + ' 10px, transparent 11px)'}">
@@ -1392,16 +1391,9 @@ iframe#youtube {
     </li>
   </ul>
    
-    <select ng-model="orderList">
-    <option value="name">Nombre</option>
-    <option value="schedule">Horario</option>
-    <option value="status">Status</option>
-  </select>
-      <input type="text" id="query" ng-model="query"/>
+   
 </div>
-</div>
- 
-    <button class="back-btn" onclick="showLoginOptions()" style="position: absolute; bottom: 0; width: 150px; margin-top: 20px;">Atrás</button>
+</div> 
 </section>
               
     </div>
@@ -1479,7 +1471,7 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
            
           </div> 
         </div>
-         
+         <button class="back-btn" ng-click="showLoginOptions()" style="position: absolute; bottom: 0; right: 0; width: 150px; margin-bottom: 20px;">Cerrar sesión</button>
       </div>
       <div class="col-sm-7" >
         <div class="dashboard-panel achievement-list-panel" >
@@ -1526,7 +1518,7 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
 
 
 
-
+ 
   
    <div class="video-modal">
     <div id="video-modal-content" class="video-modal-content">
@@ -1578,7 +1570,7 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
 
 
   angular.module('studentsApp', [])
-  .controller('Controller1', ['$http', '$scope', '$sce', '$timeout', function($http, $scope, $sce, $timeout) {
+  .controller('Controller1', ['$http', '$scope', '$sce', '$timeout', '$interval', function($http, $scope, $sce, $timeout, $interval) {
      
    $scope.userData = [];
  // $scope.userDataLoaded = false;
@@ -1665,11 +1657,11 @@ $scope.lessons = JSON.parse($scope.userData.lessons)
             $scope.closeModal();
         }
     };
+     
     
     
     
-    
-    $scope.students = [];
+    $scope.userData = [];
 
   $http({
     method: 'GET',
@@ -1679,9 +1671,45 @@ $scope.lessons = JSON.parse($scope.userData.lessons)
       'Accept': 'application/json'
     }
   }).then(function(response) {
-    $scope.students = response.data;
+    $scope.userData = response.data;
+    $scope.filterByHour();
   });
     
+    
+      function refreshData() { 
+    $http({
+    method: 'GET',
+    url: 'https://script.google.com/macros/s/AKfycbzIra465SJypRhzRL6ihOF0dmuCCykgZF3F4PufbHR76OBkyhS7NLvAu0joiJr5VfwM/exec',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
+  }).then(function(response) {
+   $scope.newData = response.data; 
+      $scope.stData = $scope.newData[$scope.userData.row-3]; 
+      $scope.waitforaudio()
+  });
+    
+  };
+  
+  var lastmsg = "";
+      $scope.waitforaudio = function(){
+    if($scope.stData.msg){
+      if($scope.stData.msg != lastmsg){
+        speak($scope.stData.msg)
+        lastmsg = $scope.stData.msg 
+      }
+    }
+  };
+  
+  function speak(text) {
+        var utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'es-ES'; 
+    utterance.rate = 1;
+        window.speechSynthesis.speak(utterance);
+    }
+    
+    let refreshInterval; 
     $scope.selectUser = function(user){
        document.getElementById('loginContainer').style.display = 'none'; 
             document.getElementById('dashContainer').style.display = 'block';
@@ -1689,13 +1717,15 @@ $scope.lessons = JSON.parse($scope.userData.lessons)
        $scope.userData = user
        $scope.userLevel = $scope.getLevel($scope.userData.lvl)
     $scope.history = $scope.userData.lessons
+      
       $scope.startAnimation = function() {
         $('.progress-bar').animate({
           width: $scope.userData.progress + '%'
         }, 500); 
       };
+      
     $scope.picture = $scope.userData.photo
-$scope.lessons = JSON.parse($scope.userData.lessons)
+       refreshInterval = $interval(refreshData, 1000);
     } 
 
     $scope.trustAsResourceUrl = function(url) {
@@ -1717,7 +1747,14 @@ $scope.lessons = JSON.parse($scope.userData.lessons)
        $scope.selectedEntry = entry;
     };
     
-    
+    $scope.showLoginOptions = function(){
+     document.getElementById('dashContainer').style.display = 'none';
+      document.getElementById('loginContainer').style.display = 'block';
+      
+       document.getElementById('login-options').style.display = 'block';
+    document.getElementById('whatsapp-login').style.display = 'none';
+
+    }
     
     
     
@@ -1746,7 +1783,30 @@ $scope.lessons = JSON.parse($scope.userData.lessons)
    $scope.filterByLevel = function(entry) {
     return entry.index <= $scope.userData.lsn + 1;
 };
+  
     
+   $scope.getCurrentDay = function() {
+    var days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    var now = new Date();
+    return days[now.getDay()];
+  };
+
+  $scope.getCurrentHour = function() {
+    var now = new Date();
+    now.setMinutes(now.getMinutes() + 15);
+    var hours = now.getHours();
+    //var formattedHours = (hours % 12) || 12;
+    return hours
+  };
+ 
+
+ $scope.students = [];
+  
+  $scope.filterByHour = function() {
+    $scope.students = $scope.userData.filter(function(user) {
+      return ((user.classtime[0].split(" ")[0] === $scope.getCurrentDay() && parseInt(user.classtime[0].split(" ")[2].split(":")[0]) === $scope.getCurrentHour()) || (user.classtime[1].split(" ")[0] === $scope.getCurrentDay() && parseInt(user.classtime[1].split(" ")[2].split(":")[0]) === $scope.getCurrentHour()));
+    });
+}
 
 
    
@@ -1805,12 +1865,5 @@ function toggle_video_modal(element) {
     document.getElementById('whatsapp-login').style.display = 'block';
 }
 
-
-
-        function showLoginOptions() {
-           document.getElementById('whatsapp-login').style.display = 'none'; 
-            document.getElementById('login-options').style.display = 'block';
-        }
-  
 
 </script>
