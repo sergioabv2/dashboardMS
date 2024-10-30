@@ -234,19 +234,12 @@
 .store-list-panel .panel-body .list-unstyled li .prize-actions .btn:focus {background: #ff9e16; color: #FFF;}
 
 
+
 .progress{
-  height: 8px; width: 90%; 
-  background-color: #484B53; 
+
   margin-top: 5px;
   margin-bottom: -25px;
 }
-
-.progress .progress-bar {
-  background-color: #FF8095;
-  box-shadow: 0px 0px 30px #FF2AA6;
-}
-
-
 
 
 
@@ -363,16 +356,16 @@
 .profile-pic {
   width: 100px;
   height: 100px;
-  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
+  margin-left: -2px;
   border-radius: 50%;
   -o-object-position: center;
      object-position: center;
   -o-object-fit: cover;
      object-fit: cover;
-}
+} 
    
 .p-image {
-  top: 95px;
+  top: 105px;
   left: 20px;
   position: absolute;
   color: #666666;
@@ -1426,18 +1419,25 @@ iframe#youtube {
 
           <div class="main-data" >
             <h4 style="font-size: 19px;">{{userData.name}}</h4>
-            <div class="pull-left achievement-count" ng-if="userData.plan === 'Premium - $1300'" style="color: #77777a; font-size: 12px;"> PLAN PREMIUM
+            <div class="pull-left achievement-count" ng-if="userData.plan.split(' ')[0] == 'Premium'" style="color: #77777a; font-size: 12px;"> PLAN PREMIUM
             <i class="ri-vip-crown-fill text-golden"></i>  </div>
-        <div class="pull-left achievement-count" ng-if="userData.plan === 'Pro - $700'" style="color: #77777a; font-size: 12px;"> PLAN PRO
+        <div class="pull-left achievement-count" ng-if="userData.plan.split(' ')[0] == 'Pro'" style="color: #77777a; font-size: 12px;"> PLAN PRO
             <i class="ri-verified-badge-fill text-blue"></i>  </div>
-       <div class="pull-left achievement-count" ng-if="userData.plan === 'Estudiante - $350'" style="color: #77777a; font-size: 12px;"> PLAN ESTUDIANTE
+             <div class="pull-left achievement-count" ng-if="userData.plan.split(' ')[0] == 'Standard'" style="color: #77777a; font-size: 12px;"> PLAN STANDARD
+             </div> 
+       <div class="pull-left achievement-count" ng-if="userData.plan.split(' ')[0] == 'Estudiante'" style="color: #77777a; font-size: 12px;"> PLAN ESTUDIANTE
             <i class="ri-graduation-cap-fill"></i>  </div> 
+            
+     <div class="pull-left achievement-count" ng-if="userData.plan == 'Zoom'" style="color: #77777a; font-size: 12px;"> PLAN ZOOM
+           <i class="ri-video-chat-fill" style="color: #0B5CFF"></i>  </div>
+       <div class="pull-left achievement-count" ng-if="userData.plan == 'Asíncrono'" style="color: #77777a; font-size: 12px;"> PLAN ASÍNCRONO
+            <i class="ri-mac-line"></i>  </div> 
         
           <br>
           <div style="margin-top: 1px">    {{userLevel}}  </div>
-             <div style="font-size: 11px">Bloque: <span>{{userData.blq}}</span> - Lección: <span>{{userData.lsn}} </span> </div>
+           
 
-        <div class="progress">
+       <div class="progress">
           <div class="progress-bar" style="background-color: {{userData.color}};" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{width: userData.progress + '%'}" ng-init="startAnimation()"></div>
         </div>
 
@@ -1566,7 +1566,7 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
 </div>
 <script>
   
-
+ 
 
 
   angular.module('studentsApp', [])
@@ -1576,39 +1576,7 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
  // $scope.userDataLoaded = false;
      $scope.today = new Date()
    
-/*
-  var requestData = { 
-    action: "getProfileData",
-    token: "U2FsdGVkX18ULyziIuuWAfHRHmp4Ti/rMrOdDTDspKrXYc64BaycSOYvQkiaOUGl"
-    //localStorage.getItem('MStoken')
-  };
 
-  var config = {
-    headers: {
-      "Content-Type": "text/plain;charset=utf-8"
-    },
-    followRedirects: true, 
-  };
- 
-      
-   
-  $http.post('https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7IDc7KBrYGfix6hUa4kvJ1TFpjU82NltFXezUroGgQ/exec', requestData, config)
-    .then(function(response) { 
-      $scope.userData = response.data;
-      $scope.userDataLoaded = true;
-     $scope.userLevel = $scope.getLevel($scope.userData.lvl)
-    $scope.history = $scope.userData.lessons
-      $scope.startAnimation = function() {
-        $('.progress-bar').animate({
-          width: $scope.userData.progress + '%'
-        }, 500); 
-      };
-    $scope.picture = $scope.userData.photo
-$scope.lessons = JSON.parse($scope.userData.lessons)
-    })*/
-
-
- 
        $scope.isModalVisible = false;
     let deferredPrompt;
 
@@ -1644,7 +1612,7 @@ $scope.lessons = JSON.parse($scope.userData.lessons)
             }
             deferredPrompt = null;
         });
-    };
+    }; 
 
     // Cerrar modal
     $scope.closeModal = function() {
@@ -1671,8 +1639,8 @@ $scope.lessons = JSON.parse($scope.userData.lessons)
       'Accept': 'application/json'
     }
   }).then(function(response) {
-    $scope.userData = response.data;
-    $scope.filterByHour();
+    $scope.students = response.data;
+   //  $scope.filterByHour();
   });
     
     
@@ -1781,7 +1749,7 @@ $scope.lessons = JSON.parse($scope.userData.lessons)
   
 
    $scope.filterByLevel = function(entry) {
-    return entry.index <= $scope.userData.lsn + 1;
+    return entry.index <= $scope.userData.lsn ;
 };
   
     
@@ -1800,8 +1768,6 @@ $scope.lessons = JSON.parse($scope.userData.lessons)
   };
  
 
- $scope.students = [];
-  
   $scope.filterByHour = function() {
     $scope.students = $scope.userData.filter(function(user) {
       return ((user.classtime[0].split(" ")[0] === $scope.getCurrentDay() && parseInt(user.classtime[0].split(" ")[2].split(":")[0]) === $scope.getCurrentHour()) || (user.classtime[1].split(" ")[0] === $scope.getCurrentDay() && parseInt(user.classtime[1].split(" ")[2].split(":")[0]) === $scope.getCurrentHour()));
@@ -1825,7 +1791,7 @@ function toggle_video_modal(element) {
   var icon = element.querySelector('.yticon');
     if (icon) {
         icon.style.animation = 'none';
-    }
+    } 
 }
 
       // Close and Reset the Video Modal
@@ -1835,7 +1801,7 @@ function toggle_video_modal(element) {
         $("body").removeClass("show-video-modal noscroll");
         $("#youtube").attr('src', '');
         
-      }
+      } 
       $('body').on('click', '.close-video-modal, .video-modal .overlay', function(event) {
           close_video_modal();
       });
@@ -1866,4 +1832,4 @@ function toggle_video_modal(element) {
 }
 
 
-</script>
+</script> 
