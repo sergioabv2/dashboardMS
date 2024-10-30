@@ -1313,7 +1313,7 @@ iframe#youtube {
 <div ng-app="studentsApp" ng-controller="Controller1" >
   
    <div id="myModal" class="modal" ng-show="isModalVisible" ng-click="checkCloseModal($event)">
-    <div class="modal-content">
+    <div class="modal-content"> 
       <span class="close" ng-click="closeModal()">&times;</span>
       <button class="add-to-btn" ng-click="addToHomeScreen()">Agregar a pantalla de inicio</button>
     </div>
@@ -1363,22 +1363,42 @@ iframe#youtube {
     </div>
 
   
-</div>
+</div> 
                 
        <section id="whatsapp-login" style="display: none;">
-  <select ng-model="orderList">
+ <!-- <select ng-model="orderList">
     <option value="name">Nombre</option>
     <option value="schedule">Horario</option>
     <option value="status">Status</option>
-  </select>
+  </select> -->
    <!--   <input type="text" id="query" ng-model="query"/> -->
+         <div ng-model="orderList" >
+     <button class="btn btn-success" ng-click="filterByHour()">
+    Ahora
+  </button>
+     <button class="btn btn-info" ng-click="filterByDay()">
+    Hoy
+  </button>
+  <button class="btn btn-primary" ng-click="showAllStudents()">
+    Todos
+  </button>
+         
+         </div>
+         
+         
   <div  class="accordionContainer">
+    
   <ul id="notebook_ul" class="accordionWrap">
-    <li class="accordion-block" ng-repeat="student in students | filter:query | orderBy: orderList" id="active" ng-style="{'background-image': 'linear-gradient(90deg, ' + student.color + ' 10px, transparent 11px)'}">
+    
+     <div ng-if="noStudentsMessage" class="alert alert-danger" style="margin-top: 100px;">
+         {{ noStudentsMessage }}
+        </div>
+    
+    <li class="accordion-block" ng-repeat="student in filteredStudents | filter: { name: query } | orderBy: orderList" id="active" ng-style="{'background-image': 'linear-gradient(90deg, ' + student.color + ' 10px, transparent 11px)'}">
   
       <div ng-click="selectUser(student)">
       {{student.name}}<br>
-     {{student.schedule}}<br>
+     {{student.level}}<br> 
       </div>
 
     </li>
@@ -1442,9 +1462,9 @@ iframe#youtube {
         </div>
 
           </div> 
-        </div>
+        </div> 
         
-      
+       
        
  
         
@@ -1640,9 +1660,9 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
     }
   }).then(function(response) {
     $scope.students = response.data;
-   //  $scope.filterByHour();
-  });
-    
+     $scope.filterByHour();
+  }); 
+     
     
       function refreshData() { 
     $http({
@@ -1768,13 +1788,32 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
   };
  
 
-  $scope.filterByHour = function() {
-    $scope.students = $scope.userData.filter(function(user) {
-      return ((user.classtime[0].split(" ")[0] === $scope.getCurrentDay() && parseInt(user.classtime[0].split(" ")[2].split(":")[0]) === $scope.getCurrentHour()) || (user.classtime[1].split(" ")[0] === $scope.getCurrentDay() && parseInt(user.classtime[1].split(" ")[2].split(":")[0]) === $scope.getCurrentHour()));
+  $scope.filteredStudents = [];
+
+  $scope.filterByDay = function() {
+    $scope.filteredStudents = $scope.students.filter(function(student) {
+      return (((student.classtime[0].split(" ")[0] === $scope.getCurrentDay()) || (student.classtime[1].split(" ")[0] === $scope.getCurrentDay()))  && student.status == 'ACTIVO')
     });
-}
+   $scope.noStudentsMessage = $scope.filteredStudents.length === 0 ? 'No hay alumnos en este instante.' : '';
+  };
 
-
+   
+  $scope.filterByHour = function() {
+    $scope.filteredStudents = $scope.students.filter(function(student) {
+     return (((student.classtime[0].split(" ")[0] === $scope.getCurrentDay() && parseInt(student.classtime[0].split(" ")[2].split(":")[0]) === $scope.getCurrentHour()) || (student.classtime[1].split(" ")[0] === $scope.getCurrentDay() && parseInt(student.classtime[1].split(" ")[2].split(":")[0]) === $scope.getCurrentHour()) || (student.online === 1)) && student.status == 'ACTIVO');
+    });
+  $scope.noStudentsMessage = $scope.filteredStudents.length === 0 ? 'No hay alumnos en este instante.' : '';
+  };
+  
+  
+ $scope.showAllStudents = function() {
+  $scope.filteredStudents = $scope.students.filter(function(student) {
+    return student.status == 'ACTIVO'
+  }).sort(function(a, b) {
+    return a.name.localeCompare(b.name);
+  });
+    $scope.noStudentsMessage = '';
+};
    
 }]); 
   
