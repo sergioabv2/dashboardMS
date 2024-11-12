@@ -234,19 +234,12 @@
 .store-list-panel .panel-body .list-unstyled li .prize-actions .btn:focus {background: #ff9e16; color: #FFF;}
 
 
+
 .progress{
-  height: 8px; width: 90%; 
-  background-color: #484B53; 
+
   margin-top: 5px;
   margin-bottom: -25px;
 }
-
-.progress .progress-bar {
-  background-color: #FF8095;
-  box-shadow: 0px 0px 30px #FF2AA6;
-}
-
-
 
 
 
@@ -363,16 +356,16 @@
 .profile-pic {
   width: 100px;
   height: 100px;
-  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
+  margin-left: -2px;
   border-radius: 50%;
   -o-object-position: center;
      object-position: center;
   -o-object-fit: cover;
      object-fit: cover;
-}
+} 
    
 .p-image {
-  top: 95px;
+  top: 105px;
   left: 20px;
   position: absolute;
   color: #666666;
@@ -866,18 +859,14 @@ iframe#youtube {
   }
   .menu-bar{
     position: absolute; 
-    margin-top: -400px;
+    margin-top: -460px;
      margin-left: -65px;
   }
   #full-screen-btn{
   margin-left: 120px;
   margin-top: 35px;
 }
-  .menu-bar2{ /* menu2 */
-     position: absolute; 
-    margin-top: -400px;
-     margin-left: -65px;
-  }
+
   .mic-container{
     margin-top: -20px;
     margin-left: 380px;
@@ -905,9 +894,7 @@ iframe#youtube {
   .menu-bar{
      margin-left: -135px;
   }
-     .menu-bar2{
-     margin-left: -135px;
-  }
+
      .mic-container{
     margin-left: 450px;
   }
@@ -1305,7 +1292,7 @@ iframe#youtube {
   padding: 5px 5px 0 5px;
   border-left: none;
   border-right: none;
-  height: 340px;
+  height: 380px;
 }
 
 .accordion-block {
@@ -1326,7 +1313,7 @@ iframe#youtube {
 <div ng-app="studentsApp" ng-controller="Controller1" >
   
    <div id="myModal" class="modal" ng-show="isModalVisible" ng-click="checkCloseModal($event)">
-    <div class="modal-content">
+    <div class="modal-content"> 
       <span class="close" ng-click="closeModal()">&times;</span>
       <button class="add-to-btn" ng-click="addToHomeScreen()">Agregar a pantalla de inicio</button>
     </div>
@@ -1370,38 +1357,56 @@ iframe#youtube {
       
       
    <div class="buttons-container" >     
-   <button class="login-btn login-btn-email" onclick="showWhatsappLogin()"><i class="ri-login-box-fill login-btn-icon" style=" color: black;"></i> <span >Acceder</span></button>
+   <button class="login-btn login-btn-email" onclick="showWhatsappLogin()" style="margin-top: 100px;"><i class="ri-login-box-fill login-btn-icon" style=" color: black; "></i> <span >Acceder</span></button>
    
          </div>
     </div>
 
   
-</div>
+</div> 
                 
        <section id="whatsapp-login" style="display: none;">
- 
+ <!-- <select ng-model="orderList">
+    <option value="name">Nombre</option>
+    <option value="schedule">Horario</option>
+    <option value="status">Status</option>
+  </select> -->
+   <!--   <input type="text" id="query" ng-model="query"/> -->
+         <div ng-model="orderList" >
+     <button class="btn btn-success" ng-click="filterByHour()">
+    Ahora
+  </button>
+     <button class="btn btn-info" ng-click="filterByDay()">
+    Hoy
+  </button>
+  <button class="btn btn-primary" ng-click="showAllStudents()">
+    Todos
+  </button>
+         
+         </div>
+         
+         
   <div  class="accordionContainer">
+    
   <ul id="notebook_ul" class="accordionWrap">
-    <li class="accordion-block" ng-repeat="student in students | filter:query | orderBy: orderList" id="active" ng-style="{'background-image': 'linear-gradient(90deg, ' + student.color + ' 10px, transparent 11px)'}">
+    
+     <div ng-if="noStudentsMessage" class="alert alert-danger" style="margin-top: 100px;">
+         {{ noStudentsMessage }}
+        </div>
+    
+    <li class="accordion-block" ng-repeat="student in filteredStudents | filter: { name: query } | orderBy: orderList" id="active" ng-style="{'background-image': 'linear-gradient(90deg, ' + student.color + ' 10px, transparent 11px)'}">
   
       <div ng-click="selectUser(student)">
       {{student.name}}<br>
-     {{student.schedule}}<br>
+     {{student.level}}<br> 
       </div>
 
     </li>
   </ul>
    
-    <select ng-model="orderList">
-    <option value="name">Nombre</option>
-    <option value="schedule">Horario</option>
-    <option value="status">Status</option>
-  </select>
-      <input type="text" id="query" ng-model="query"/>
+   
 </div>
-</div>
- 
-    <button class="back-btn" onclick="showLoginOptions()" style="position: absolute; bottom: 0; width: 150px; margin-top: 20px;">Atrás</button>
+</div> 
 </section>
               
     </div>
@@ -1434,25 +1439,32 @@ iframe#youtube {
 
           <div class="main-data" >
             <h4 style="font-size: 19px;">{{userData.name}}</h4>
-            <div class="pull-left achievement-count" ng-if="userData.plan === 'Premium - $1300'" style="color: #77777a; font-size: 12px;"> PLAN PREMIUM
+            <div class="pull-left achievement-count" ng-if="userData.plan.split(' ')[0] == 'Premium'" style="color: #77777a; font-size: 12px;"> PLAN PREMIUM
             <i class="ri-vip-crown-fill text-golden"></i>  </div>
-        <div class="pull-left achievement-count" ng-if="userData.plan === 'Pro - $700'" style="color: #77777a; font-size: 12px;"> PLAN PRO
+        <div class="pull-left achievement-count" ng-if="userData.plan.split(' ')[0] == 'Pro'" style="color: #77777a; font-size: 12px;"> PLAN PRO
             <i class="ri-verified-badge-fill text-blue"></i>  </div>
-       <div class="pull-left achievement-count" ng-if="userData.plan === 'Estudiante - $350'" style="color: #77777a; font-size: 12px;"> PLAN ESTUDIANTE
+             <div class="pull-left achievement-count" ng-if="userData.plan.split(' ')[0] == 'Standard'" style="color: #77777a; font-size: 12px;"> PLAN STANDARD
+             </div> 
+       <div class="pull-left achievement-count" ng-if="userData.plan.split(' ')[0] == 'Estudiante'" style="color: #77777a; font-size: 12px;"> PLAN ESTUDIANTE
             <i class="ri-graduation-cap-fill"></i>  </div> 
+            
+     <div class="pull-left achievement-count" ng-if="userData.plan == 'Zoom'" style="color: #77777a; font-size: 12px;"> PLAN ZOOM
+           <i class="ri-video-chat-fill" style="color: #0B5CFF"></i>  </div>
+       <div class="pull-left achievement-count" ng-if="userData.plan == 'Asíncrono'" style="color: #77777a; font-size: 12px;"> PLAN ASÍNCRONO
+            <i class="ri-mac-line"></i>  </div> 
         
           <br>
           <div style="margin-top: 1px">    {{userLevel}}  </div>
-             <div style="font-size: 11px">Bloque: <span>{{userData.blq}}</span> - Lección: <span>{{userData.lsn}} </span> </div>
+           
 
-        <div class="progress">
+       <div class="progress">
           <div class="progress-bar" style="background-color: {{userData.color}};" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{width: userData.progress + '%'}" ng-init="startAnimation()"></div>
         </div>
 
           </div> 
-        </div>
+        </div> 
         
-      
+       
        
  
         
@@ -1479,7 +1491,7 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
            
           </div> 
         </div>
-         
+         <button class="back-btn" ng-click="showLoginOptions()" style="position: absolute; bottom: 0; right: 0; width: 150px; margin-bottom: 20px;">Cerrar sesión</button>
       </div>
       <div class="col-sm-7" >
         <div class="dashboard-panel achievement-list-panel" >
@@ -1526,7 +1538,7 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
 
 
 
-
+ 
   
    <div class="video-modal">
     <div id="video-modal-content" class="video-modal-content">
@@ -1574,49 +1586,17 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
 </div>
 <script>
   
-
+ 
 
 
   angular.module('studentsApp', [])
-  .controller('Controller1', ['$http', '$scope', '$sce', '$timeout', function($http, $scope, $sce, $timeout) {
+  .controller('Controller1', ['$http', '$scope', '$sce', '$timeout', '$interval', function($http, $scope, $sce, $timeout, $interval) {
      
    $scope.userData = [];
  // $scope.userDataLoaded = false;
      $scope.today = new Date()
    
-/*
-  var requestData = { 
-    action: "getProfileData",
-    token: "U2FsdGVkX18ULyziIuuWAfHRHmp4Ti/rMrOdDTDspKrXYc64BaycSOYvQkiaOUGl"
-    //localStorage.getItem('MStoken')
-  };
 
-  var config = {
-    headers: {
-      "Content-Type": "text/plain;charset=utf-8"
-    },
-    followRedirects: true, 
-  };
- 
-      
-   
-  $http.post('https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7IDc7KBrYGfix6hUa4kvJ1TFpjU82NltFXezUroGgQ/exec', requestData, config)
-    .then(function(response) { 
-      $scope.userData = response.data;
-      $scope.userDataLoaded = true;
-     $scope.userLevel = $scope.getLevel($scope.userData.lvl)
-    $scope.history = $scope.userData.lessons
-      $scope.startAnimation = function() {
-        $('.progress-bar').animate({
-          width: $scope.userData.progress + '%'
-        }, 500); 
-      };
-    $scope.picture = $scope.userData.photo
-$scope.lessons = JSON.parse($scope.userData.lessons)
-    })*/
-
-
- 
        $scope.isModalVisible = false;
     let deferredPrompt;
 
@@ -1652,7 +1632,7 @@ $scope.lessons = JSON.parse($scope.userData.lessons)
             }
             deferredPrompt = null;
         });
-    };
+    }; 
 
     // Cerrar modal
     $scope.closeModal = function() {
@@ -1665,11 +1645,11 @@ $scope.lessons = JSON.parse($scope.userData.lessons)
             $scope.closeModal();
         }
     };
+     
     
     
     
-    
-    $scope.students = [];
+    $scope.userData = [];
 
   $http({
     method: 'GET',
@@ -1680,8 +1660,44 @@ $scope.lessons = JSON.parse($scope.userData.lessons)
     }
   }).then(function(response) {
     $scope.students = response.data;
+     $scope.filterByHour();
+  }); 
+     
+    
+      function refreshData() { 
+    $http({
+    method: 'GET',
+    url: 'https://script.google.com/macros/s/AKfycbzIra465SJypRhzRL6ihOF0dmuCCykgZF3F4PufbHR76OBkyhS7NLvAu0joiJr5VfwM/exec',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
+  }).then(function(response) {
+   $scope.newData = response.data; 
+      $scope.stData = $scope.newData[$scope.userData.row-3]; 
+      $scope.waitforaudio()
   });
     
+  };
+  
+  var lastmsg = "";
+      $scope.waitforaudio = function(){
+    if($scope.stData.msg){
+      if($scope.stData.msg != lastmsg){
+        speak($scope.stData.msg)
+        lastmsg = $scope.stData.msg 
+      }
+    }
+  };
+  
+  function speak(text) {
+        var utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'es-ES'; 
+    utterance.rate = 1;
+        window.speechSynthesis.speak(utterance);
+    }
+    
+    let refreshInterval; 
     $scope.selectUser = function(user){
        document.getElementById('loginContainer').style.display = 'none'; 
             document.getElementById('dashContainer').style.display = 'block';
@@ -1689,13 +1705,15 @@ $scope.lessons = JSON.parse($scope.userData.lessons)
        $scope.userData = user
        $scope.userLevel = $scope.getLevel($scope.userData.lvl)
     $scope.history = $scope.userData.lessons
+      
       $scope.startAnimation = function() {
         $('.progress-bar').animate({
           width: $scope.userData.progress + '%'
         }, 500); 
       };
+      
     $scope.picture = $scope.userData.photo
-$scope.lessons = JSON.parse($scope.userData.lessons)
+       refreshInterval = $interval(refreshData, 1000);
     } 
 
     $scope.trustAsResourceUrl = function(url) {
@@ -1717,7 +1735,14 @@ $scope.lessons = JSON.parse($scope.userData.lessons)
        $scope.selectedEntry = entry;
     };
     
-    
+    $scope.showLoginOptions = function(){
+     document.getElementById('dashContainer').style.display = 'none';
+      document.getElementById('loginContainer').style.display = 'block';
+      
+       document.getElementById('login-options').style.display = 'block';
+    document.getElementById('whatsapp-login').style.display = 'none';
+
+    }
     
     
     
@@ -1744,11 +1769,51 @@ $scope.lessons = JSON.parse($scope.userData.lessons)
   
 
    $scope.filterByLevel = function(entry) {
-    return entry.index <= $scope.userData.lsn + 1;
+    return entry.index <= $scope.userData.lsn ;
 };
+  
     
+   $scope.getCurrentDay = function() {
+    var days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    var now = new Date();
+    return days[now.getDay()];
+  };
 
+  $scope.getCurrentHour = function() {
+    var now = new Date();
+    now.setMinutes(now.getMinutes() + 15);
+    var hours = now.getHours();
+    //var formattedHours = (hours % 12) || 12;
+    return hours
+  };
+ 
 
+  $scope.filteredStudents = [];
+
+  $scope.filterByDay = function() {
+    $scope.filteredStudents = $scope.students.filter(function(student) {
+      return (((student.classtime[0].split(" ")[0] === $scope.getCurrentDay()) || (student.classtime[1].split(" ")[0] === $scope.getCurrentDay()))  && student.status == 'ACTIVO')
+    });
+   $scope.noStudentsMessage = $scope.filteredStudents.length === 0 ? 'No hay alumnos en este instante.' : '';
+  };
+
+   
+  $scope.filterByHour = function() {
+    $scope.filteredStudents = $scope.students.filter(function(student) {
+     return (((student.classtime[0].split(" ")[0] === $scope.getCurrentDay() && parseInt(student.classtime[0].split(" ")[2].split(":")[0]) === $scope.getCurrentHour()) || (student.classtime[1].split(" ")[0] === $scope.getCurrentDay() && parseInt(student.classtime[1].split(" ")[2].split(":")[0]) === $scope.getCurrentHour()) || (student.online === 1)) && student.status == 'ACTIVO');
+    });
+  $scope.noStudentsMessage = $scope.filteredStudents.length === 0 ? 'No hay alumnos en este instante.' : '';
+  };
+  
+  
+ $scope.showAllStudents = function() {
+  $scope.filteredStudents = $scope.students.filter(function(student) {
+    return student.status == 'ACTIVO'
+  }).sort(function(a, b) {
+    return a.name.localeCompare(b.name);
+  });
+    $scope.noStudentsMessage = '';
+};
    
 }]); 
   
@@ -1765,7 +1830,7 @@ function toggle_video_modal(element) {
   var icon = element.querySelector('.yticon');
     if (icon) {
         icon.style.animation = 'none';
-    }
+    } 
 }
 
       // Close and Reset the Video Modal
@@ -1775,7 +1840,7 @@ function toggle_video_modal(element) {
         $("body").removeClass("show-video-modal noscroll");
         $("#youtube").attr('src', '');
         
-      }
+      } 
       $('body').on('click', '.close-video-modal, .video-modal .overlay', function(event) {
           close_video_modal();
       });
@@ -1806,11 +1871,4 @@ function toggle_video_modal(element) {
 }
 
 
-
-        function showLoginOptions() {
-           document.getElementById('whatsapp-login').style.display = 'none'; 
-            document.getElementById('login-options').style.display = 'block';
-        }
-  
-
-</script>
+</script> 
