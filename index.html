@@ -5,6 +5,8 @@
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
    <link rel="manifest" href="/manifest.json">
 </head>
 
@@ -619,24 +621,10 @@
     background: transparent;
   }
 
-.close-video-modal {
-    display: block;
-    position: absolute;
-    left: 0;
-    top: -40px;
 
-    text-decoration: none;
-    font-size: 20px;
-    font-weight: bold;
-    color: #fff;
-}
 
 
   
-
-
-
-
 
 
 
@@ -682,13 +670,14 @@
 }
 .video-modal .overlay {
   z-index: 0;
-  background: rgba(13,1,61,0.82); /* overlay color */
-
+  background: rgba(0, 0, 0, 0.6); /* Fondo semi-transparente */
+  backdrop-filter: blur(8px); /* Efecto de difuminado */
+  -webkit-backdrop-filter: blur(8px); /* Compatibilidad con navegadores WebKit */
   opacity: 0.0;
-
   -webkit-transition: opacity 0.2s ease-out 0.05s;
   transition: opacity 0.2s ease-out 0.05s;
 }
+
 
 
 .video-modal-content {
@@ -698,66 +687,16 @@
   bottom: auto;
   left: auto;
   z-index: 1;
-  
   margin: 0 auto;
+  width: calc(100% - 12px);
+  height:  calc(100% - 12px);
 
-  overflow-y: visible;
-
-  background: #000;
-  
-  width: calc(100% - 12em);
-  height: 0;
-  padding-top: calc((100% - 12em) * 0.5625); /* 16:9 calc */
+  font-family: "Roboto", sans-serif;
+  color: white;
+  overflow: hidden;
 }
 
-/* Scaling to fit within the current Viewport size:
-   When viewport aspect ratio is greater than 16:9
-   work off the height instead of the width for calc */
- @media (min-aspect-ratio: 16/9) {
-  .video-modal-content {
-    width: 0;
-    height: calc(100vh - 10em);
-    padding-top: 0;
-    padding-left: calc((100vh - 10em) * 1.7778); /* 16:9 calc */
-  }
-}
 
-/* Mobile Layout Tweaks - side margins reduced */
-@media (max-width: 640px) {
-  .video-modal-content {
-    width: calc(100% - 1em);
-    padding-top: calc((100% - 1em) * 0.5625); /* 16:9 calc */
-  }
-}
-
-/* modal close button */
-.close-video-modal {
-  display: block;
-    position: absolute;
-    left: 0;
-    top: -40px;
-
-    text-decoration: none;
-    font-size: 20px;
-    font-weight: bold;
-    color: #fff;
-}
-
-/* set the iframe element to stretch to fit its parent element */
-iframe#youtube {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1;
-
-  background: white;
-  box-shadow: 0px 2px 16px rgba(0,0,0,0.5);
-}
-
-/* show the modal: 
-   add class to the body to reveal */
 .show-video-modal .video-modal {
   opacity: 1.0;
 
@@ -773,7 +712,43 @@ iframe#youtube {
 }
 
 
+iframe#youtube {
+  position: absolute;
+  top: 20px; /* Aumentado el margen superior */
+  right: 0;
+  bottom: 10px; /* Mantén margen inferior */
+  left: 0;
+  width: 100%;
+  height: calc(80vh - 30px); /* Altura ajustada restando márgenes */
+  padding-top: 80px;
+  box-shadow: 0px 2px 16px rgba(0, 0, 0, 0.5);
+}
 
+@media (max-width: 510px) {
+  iframe#youtube{
+    top: 25px; /* Mayor margen superior */
+    bottom: 15px; /* Mantén margen inferior */
+    height: calc(70vh - 40px); /* Ajuste proporcional */
+    padding-top: 150px;
+  }
+}
+
+@media (min-width: 750px) {
+  iframe#youtube{
+    top: 12px; /* Margen superior incrementado */
+    bottom: 10px; /* Margen inferior */
+    height: calc(90vh - 22px); /* Ajuste proporcional */
+    padding-top: 50px;
+  }
+}
+
+
+.videoslider {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0; /* Asegúrate de que no haya márgenes que lo desplacen */
+}
 
 
 
@@ -1308,6 +1283,105 @@ iframe#youtube {
   border-radius: 3px;
 }
 
+
+
+	
+
+
+
+
+#masterWrap {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+}
+
+#panelWrap {
+  width: 100%;
+  height: 100%;
+}
+
+.slide {
+  width: 100%;
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+    text-align: center;
+}
+.dots {
+  position: absolute;
+  z-index: 100;
+  bottom: 22px; /* Posiciona los dots en el fondo */
+  left: 50%;
+  transform: translateX(-50%); /* Centra los dots horizontalmente */
+  display: flex; /* Alinea los dots horizontalmente */
+  justify-content: center; /* Centra los dots en el contenedor */
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 100%;
+  background-color: #fff;
+  margin: 0 8px; /* Espaciado horizontal entre los dots */
+  cursor: pointer;
+}
+
+
+.x-tempo {
+  top: 15px;
+  left: 15px;
+  position: absolute;
+  z-index: 100;
+  font-size: 18px;
+  width: 100%;
+  text-transform: capitalize;
+}
+
+
+#downArrow {
+  bottom: 18px;
+}
+
+#upArrow {
+  top: 12px;
+}
+
+.arrow {
+  position: absolute;
+  z-index: 100;
+  right: 12px;
+  cursor: pointer;
+  opacity: 0.75;
+  width: 40px;
+  height: 40px;
+  stroke-width: 8px;
+  stroke: white;
+  fill: transparent;
+}
+
+
+.hideMe {
+  opacity: 0;
+}
+.iconWrap {
+  width: 300px;
+  margin-top: 30px;
+}
+
+@media (min-width: 700px) {
+  .iconWrap {
+    width: 600px;
+  }
+}
+
+
+}
+
 </style>
 
 <div ng-app="studentsApp" ng-controller="Controller1" >
@@ -1480,7 +1554,7 @@ iframe#youtube {
   
                 <div style="float:right; margin-right: -15px;" ng-if="entry.status == 'Evaluada' && entry.quote"><i class="ri-award-fill" style="font-size: 25px; color: orange;"></i>  </div>
                <div ng-if="entry.status == 'Límite de entrega: '" data-youtube-id="{{entry.video}}" 
-class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: red; cursor: pointer;"> <i class="ri-youtube-fill yticon" style="float:right; margin-right: 10px; font-size: 26px;"></i></div>
+class="js-trigger-video-modal" ng-click="toggle_video_modal(entry.video)"  style="color: red; cursor: pointer;"> <i class="ri-youtube-fill yticon" style="float:right; margin-right: 10px; font-size: 26px;"></i></div>
               
                         <span style="font-size: 13px;">{{entry.name}}</span>
                <small style="font-size: 11px; margin-top: 2px;">{{entry.status}} <span ng-if="entry.status == 'Límite de entrega: '"> {{dateToString(entry.limitdate)}}</span></small>
@@ -1538,23 +1612,17 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
 
 
 
- 
-  
-   <div class="video-modal">
+ <div class="video-modal">
     <div id="video-modal-content" class="video-modal-content">
-       <iframe 
-          id="youtube" 
-          width="100%" 
-          height="100%" 
-          frameborder="0" 
-          allow="autoplay" 
-          allowfullscreen 
-          src=
-        ></iframe>
-
-        <a 
+      
+      
+      <div id="slideshow"> 
+      
+   <div class="hideMe">
+    <div class="x-tempo" onclick="close_video_modal()">
+       <a 
           href="#" 
-          class="close-video-modal" 
+         
         >
           <!-- X close video icon -->
           <svg 
@@ -1569,15 +1637,94 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
             width="24" 
             height="24" 
           >
-            <g id="icon-x-close">
+            <g id="icon-x-close" >
                 <path fill="#ffffff" d="M30.3448276,31.4576271 C29.9059965,31.4572473 29.4852797,31.2855701 29.1751724,30.980339 L0.485517241,2.77694915 C-0.122171278,2.13584324 -0.104240278,1.13679247 0.52607603,0.517159487 C1.15639234,-0.102473494 2.17266813,-0.120100579 2.82482759,0.477288136 L31.5144828,28.680678 C31.9872448,29.1460053 32.1285698,29.8453523 31.8726333,30.4529866 C31.6166968,31.0606209 31.0138299,31.4570487 30.3448276,31.4576271 Z" id="Shape"></path>
                 <path fill="#ffffff" d="M1.65517241,31.4576271 C0.986170142,31.4570487 0.383303157,31.0606209 0.127366673,30.4529866 C-0.12856981,29.8453523 0.0127551942,29.1460053 0.485517241,28.680678 L29.1751724,0.477288136 C29.8273319,-0.120100579 30.8436077,-0.102473494 31.473924,0.517159487 C32.1042403,1.13679247 32.1221713,2.13584324 31.5144828,2.77694915 L2.82482759,30.980339 C2.51472031,31.2855701 2.09400353,31.4572473 1.65517241,31.4576271 Z" id="Shape"></path>
             </g>
           </svg>
         </a>
+     </div>
+    <svg id="downArrow" class="arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+        <g stroke-linejoin="round" stroke-linecap="round" >
+            <circle r="46" cx="50" cy="50" />
+            <polyline points="25 40, 50 70, 75 40" ></polyline>
+        </g>
+    </svg>
+    <svg id="upArrow" class="arrow" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 100 100">
+        <g stroke-linejoin="round" stroke-linecap="round" >
+            <circle r="46" cx="50" cy="50" />
+            <polyline points="25 60, 50 30, 75 60" ></polyline>
+        </g>
+    </svg>
+    <div id="masterWrap">
+    <div id="panelWrap">
+        <section class="slide">
+            <h3>Controls</h3>
+            <p>{{currentActivity}}</p>
+
+            
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" fill="#fff">
+                        <path d="M71.35,4.5H28.65C23.86,4.5,20,8,20,12.35V72.84c0,4.31,3.91,7.85,8.7,7.85h6.47a20.93,20.93,0,0,1-2.86-8.48c-.07-.7-.16-1.37-.26-2H26.09a1.71,1.71,0,0,1-1.79-1.62V12.69a1.71,1.71,0,0,1,1.79-1.61H73.91a1.71,1.71,0,0,1,1.79,1.61V68.57a1.71,1.71,0,0,1-1.79,1.62h-3c0,1.35-.15,2.87-.31,4.58a13.55,13.55,0,0,1-1.15,4.33,16,16,0,0,1-.83,1.59h2.73c4.79,0,8.7-3.54,8.7-7.85V12.35C80.05,8,76.14,4.5,71.35,4.5ZM54.26,8.36H45.11V7.3h9.15Z"/>
+                        <path id="hand" d="M69.31,74.77c.15-1.59.24-3,.29-4.29.21-5.35-.39-8-1.53-8.75a2.07,2.07,0,0,0-1.23-.38,4.33,4.33,0,0,0-2.38.95s.92-5.51-3.85-5.95c-2,.15-2.78,1-3.11,1.77a2.74,2.74,0,0,0-.21.71,3.06,3.06,0,0,1,0,.39,2.26,2.26,0,0,1,0-.39c0-1.21-.19-4.8-4-4.8l-.7,0a2.62,2.62,0,0,0-2.5,1.71,16.13,16.13,0,0,0-.85,3.08,6.13,6.13,0,0,1-1.4-4.29l-.1-16.43a2.3,2.3,0,0,0-.2-.94,3.16,3.16,0,0,0-2.67-1.76c-.94,0-2,.56-2.75,2.19C40.9,43.76,41,67.49,41,67.49s-2.85-.19-4-7a6.63,6.63,0,0,0-2.85-4.38A4.42,4.42,0,0,0,32,55.17c-.57,0-1,.32-1.38,1.11a2.33,2.33,0,0,0-.11.28c-.81,2.18,1.54,6.6,2.61,13.92.09.61.17,1.24.24,1.9a19.6,19.6,0,0,0,2.68,7.94,19.24,19.24,0,0,0,1.24,1.85C40,85.78,39.79,89,40.35,95.5l21.79-.06s-.88-2.35,2.79-10.56A25.78,25.78,0,0,1,67.07,81l.38-.63a14,14,0,0,0,.79-1.48A13,13,0,0,0,69.31,74.77Z" />
+                    </svg>
+                    <p>Drag &amp; Throw</p>
+                </div>
+            
+    
+        </section>
+        <section class="slide"> <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/314556/greensock-logo.svg" alt="GreenSock Logo" width="360">
+            <p>This slider demo is powered by GSAP along with the Draggable and Inertia plugins.</p>
+        </section>
+        <section class="slide"> <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/314556/clock.png" width="75" alt="clock">
+            <h3>Side Dot Animation</h3>
+            <p>See that animation on the right with the navigation dots? Its time is based on the position of the draggable element. Keep an eye on it as you drag the slides.</p>
+        </section>
+        <section class="slide"> 
+      <iframe 
+          id="youtube" 
+          frameborder="0" 
+          ng-src="{{trustAsResourceUrl(currentActivity)}}"
+        ></iframe>
+      
+            <p>Why? Because dogs are cool.</p>
+        </section>
+        <section id="section6" class="slide"> <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/314556/handTablet.svg" width="220" alt="Mobile Tablet">
+            <h3>Handy for many things</h3>
+            <p>We all need a full-screen slider from time to time.</p>
+        </section> 
+        <section class="slide"> 
+      <video class="videoslider" controls >
+ <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4"> 
+</video>
+
+<div class="progress">
+  <span class="progress__bar"></span>
+  <span class="keyframe" data-progress="26.63" style="left: 26.63%;"></span>
+  <span class="keyframe" data-progress="75" style="left: 75%;"></span>
+</div>
+      </section>
+
+        <section class="slide"> 
+      <video class="videoslider" src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4"  controls >
+</video>
+
+      </section>
+      
+    </div>
+      </div>
+    <div class="dots">
+    </div>
+</div>   
+      
+      </div>
+ 
     </div>
     <div class="overlay"></div>
 </div>
+
+
+
 </div> 
   
 
@@ -1590,6 +1737,7 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
 
 
   angular.module('studentsApp', [])
+
   .controller('Controller1', ['$http', '$scope', '$sce', '$timeout', '$interval', function($http, $scope, $sce, $timeout, $interval) {
      
    $scope.userData = [];
@@ -1646,7 +1794,13 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
         }
     };
      
-    
+
+
+$scope.toggle_video_modal = function(activity) {
+$scope.currentActivity = activity;
+        $("body").addClass("show-video-modal");
+};
+ 
     
     
     $scope.userData = [];
@@ -1822,6 +1976,18 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
   
   
   
+     function close_video_modal() {
+        
+        event.preventDefault();
+        $("body").removeClass("show-video-modal");
+        $("#youtube").attr('src', '');
+        
+      }
+      $('body').on('click', '.close-video-modal', function(event) {
+          close_video_modal();
+      });
+  
+  /*
   
 function toggle_video_modal(element) {
      var url = element.getAttribute('data-youtube-id');
@@ -1845,6 +2011,9 @@ function toggle_video_modal(element) {
           close_video_modal();
       });
  
+  
+  
+  */
 
   
     function showModal(element) {
@@ -1869,6 +2038,150 @@ function toggle_video_modal(element) {
     document.getElementById('login-options').style.display = 'none';
     document.getElementById('whatsapp-login').style.display = 'block';
 }
+
+
+
+
+	
+
+const colorArray = ["#426F42", "#262626", "#36648B", "#683A5E", "#683A5E", "#36648B"];
+const slides = document.querySelectorAll(".slide");
+const container = document.querySelector("#panelWrap");
+let dots = document.querySelector(".dots");
+dots.innerHTML = "";
+let oldSlide = 0;
+let activeSlide = 0;
+let navDots = [];
+let dur = 0.6;
+let offsets = [];
+let toolTipAnims = [];
+let ih = window.innerHeight;
+const mouseAnim = gsap.timeline({repeat:-1, repeatDelay:1});
+const handAnim = gsap.timeline({repeat:-1, repeatDelay:1});
+const cursorAnim = gsap.timeline({repeat:-1, repeatDelay:1});
+const arrowAnim = gsap.timeline({repeat:-1, repeatDelay:1});
+document.querySelector("#upArrow").addEventListener("click", slideAnim);
+document.querySelector("#downArrow").addEventListener("click", slideAnim);
+
+// create nev dots and add tooltip listeners
+for (let i = 0; i < slides.length; i++) {
+let tl = gsap.timeline({paused:true, reversed:true});
+  gsap.set(slides[i], { backgroundColor: colorArray[i] });
+  let newDot = document.createElement("div");
+  newDot.className = "dot";
+  newDot.index = i;
+  navDots.push(newDot);
+  newDot.addEventListener("click", slideAnim);
+  dots.appendChild(newDot);
+  offsets.push(-slides[i].offsetTop);
+}
+
+// icon animations for slide 1
+mouseAnim.fromTo("#mouseRings circle", {attr:{r:12}}, {duration: 0.8, stagger: 0.25, attr:{r:40}});
+mouseAnim.fromTo("#mouseRings circle", {opacity:0}, {duration: 0.4, stagger: 0.25, opacity:1}, 0);
+mouseAnim.fromTo("#mouseRings circle", {opacity:1}, {duration: 0.4, stagger:0.25, opacity:0}, 0.4);
+
+handAnim.to("#hand", {duration: 0.75, y:16, rotation:5, transformOrigin:"right bottom"});
+handAnim.to("#hand", {duration: 0.5, y:-15, ease:"power3.inOut"});
+handAnim.to("#hand", {duration: 1, y:0, rotation:0});
+
+
+
+arrowAnim.to("#caret", {duration: 0.5, attr:{points:"30 40, 50 65, 70 40"}, repeat:3, yoyo:true, ease:"power2.inOut", repeatDelay:0.25});
+
+// get elements positioned
+gsap.set(".dots", {yPercent:-50});
+  
+// side screen animation with nav dots
+const dotAnim = gsap.timeline({paused:true});
+dotAnim.to(
+  ".dot",
+  {
+    stagger: { each: 1, yoyo: true, repeat: 1 },
+    scale: 2.1,
+    rotation: 0.1,
+    ease: "none"
+  },
+  0.5
+);
+dotAnim.time(1);
+
+
+// figure out which of the 4 nav controls called the function
+  function slideAnim(e) {
+
+  oldSlide = activeSlide;
+  // dragging the panels
+  if (this.id === "dragger") {
+    activeSlide = offsets.indexOf(this.endY);
+  } else {
+    if (gsap.isTweening(container)) {
+      return;
+    }
+    // up/down arrow clicks
+    if (this.id === "downArrow" || this.id === "upArrow") {
+      activeSlide = this.id === "downArrow" ? (activeSlide += 1) : (activeSlide -= 1);
+      // click on a dot
+    } else if (this.className === "dot") {
+      activeSlide = this.index;
+      // scrollwheel
+    } else {
+      activeSlide = e.deltaY > 0 ? (activeSlide += 1) : (activeSlide -= 1);
+    }
+  }
+  // make sure we're not past the end or beginning slide
+  activeSlide = activeSlide < 0 ? 0 : activeSlide;
+  activeSlide = activeSlide > slides.length - 1 ? slides.length - 1 : activeSlide;
+  if (oldSlide === activeSlide) {
+    return;
+  }
+  // if we're dragging we don't animate the container
+  if (this.id != "dragger") {
+    gsap.to(container, dur, { y: offsets[activeSlide], ease:"power2.inOut", onUpdate:tweenDot });
+  }
+}
+
+gsap.set(".hideMe", {opacity:1});
+window.addEventListener("resize", newSize);
+
+// make the container a draggable element
+  let dragMe = Draggable.create(container, {
+  type: "y",
+  edgeResistance: 1,
+  onDragEnd: slideAnim,
+  onDrag: tweenDot,
+  onThrowUpdate: tweenDot,
+  snap: offsets,
+  inertia:true,
+  zIndexBoost: false,
+  allowNativeTouchScrolling: false,
+  bounds: "#masterWrap"
+});
+
+dragMe[0].id = "dragger";
+newSize();
+
+// resize all panels and refigure draggable snap array
+function newSize() {
+  offsets = [];
+  ih = window.innerHeight;
+  gsap.set("#panelWrap", { height: slides.length * ih });
+  gsap.set(slides, { height: ih });
+  for (let i = 0; i < slides.length; i++) {
+    offsets.push(-slides[i].offsetTop);
+  }
+  gsap.set(container, { y: offsets[activeSlide] });
+  dragMe[0].vars.snap = offsets;
+}
+
+// tween the dot animation as the draggable moves
+  function tweenDot() {
+    gsap.set(dotAnim, {
+    time: Math.abs(gsap.getProperty(container, "y") / ih) + 1
+  });
+}
+
+
 
 
 </script> 
