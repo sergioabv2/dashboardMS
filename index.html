@@ -1380,6 +1380,33 @@ iframe#youtube {
 }
 
 
+
+/* Barra de progreso */
+.progress {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  background-color: #cdcdcd;
+}
+
+.progress__bar {
+  display: block;
+  background-color: red;
+  width: 0%; /* Cambiar dinámicamente según el progreso */
+  height: 100%; /* Ocupa toda la altura de la barra */
+  z-index: 1;
+}
+
+.progress .keyframe {
+  position: absolute;
+  top: -6px; /* Ajuste para que el círculo esté centrado sobre la barra */
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  margin-left: -0.5rem;
+  border-radius: 50%;
+  background-color: green;
+  z-index: 10;
 }
 
 </style>
@@ -2181,6 +2208,52 @@ function newSize() {
   });
 }
 
+
+
+const video = document.querySelector("video");
+const progress = document.querySelector(".progress__bar");
+const keyframes = [...document.querySelectorAll(".keyframe")];
+const keyframesPauses = [];
+
+keyframes.forEach(k => {
+  keyframesPauses.push(parseFloat(k.dataset.progress));
+});
+
+let videoDuration = 15.023311;
+let currentProgress = 0;
+
+const progressAnimation = gsap.to(progress, {
+  width: "100%",
+  ease: "linear",
+  paused: true,
+  onUpdate: () => {
+    const progress = Math.ceil(progressAnimation.progress() * 100);
+    if (progress != currentProgress) {
+      currentProgress = progress;
+      const foundKeyframe = keyframesPauses.find(
+      kp => Math.ceil(kp) === currentProgress);
+
+      if (foundKeyframe) {
+        const fractionProgress = foundKeyframe / 100;
+        video.pause();
+        video.currentTime = fractionProgress * videoDuration;
+        progressAnimation.progress(fractionProgress);
+      }
+    }
+  } });
+
+
+const progressUpdate = () => {
+  progressAnimation.progress(video.currentTime / video.duration);
+};
+
+video.onplay = () => {
+  gsap.ticker.add(progressUpdate);
+};
+video.onpause = () => {
+  gsap.ticker.remove(progressUpdate);
+  ignoreProgress = true;
+};
 
 
 
