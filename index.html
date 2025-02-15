@@ -1,8 +1,8 @@
 <head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.1/js/bootstrap.js"></script>
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.1/js/bootstrap.js"></script> 
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css">    
+  <link  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -1581,7 +1581,7 @@ iframe#youtube {
   
                 <div style="float:right; margin-right: -15px;" ng-if="entry.status == 'Evaluada' && entry.quote"><i class="ri-award-fill" style="font-size: 25px; color: orange;"></i>  </div>
                <div ng-if="entry.status == 'Límite de entrega: '" data-youtube-id="{{entry.video}}" 
-class="js-trigger-video-modal" ng-click="toggle_video_modal(entry.video)"  style="color: red; cursor: pointer;"> <i class="ri-youtube-fill yticon" style="float:right; margin-right: 10px; font-size: 26px;"></i></div>
+class="js-trigger-video-modal" ng-click="toggle_video_modal(entry.lesson)"  style="color: red; cursor: pointer;"> <i class="ri-youtube-fill yticon" style="float:right; margin-right: 10px; font-size: 26px;"></i></div>
               
                         <span style="font-size: 13px;">{{entry.name}}</span>
                <small style="font-size: 11px; margin-top: 2px;">{{entry.status}} <span ng-if="entry.status == 'Límite de entrega: '"> {{dateToString(entry.limitdate)}}</span></small>
@@ -1639,7 +1639,7 @@ class="js-trigger-video-modal" ng-click="toggle_video_modal(entry.video)"  style
 
 
 
- <div class="video-modal">
+ <div class="video-modal"  ng-controller="slider">
     <div id="video-modal-content" class="video-modal-content">
       
       
@@ -1685,58 +1685,8 @@ class="js-trigger-video-modal" ng-click="toggle_video_modal(entry.video)"  style
     </svg>
     <div id="masterWrap">
     <div id="panelWrap">
-        <section class="slide">
-            <h3>Controls</h3>
-            <p>{{currentActivity}}</p>
-
-            
-                <div class="icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" fill="#fff">
-                        <path d="M71.35,4.5H28.65C23.86,4.5,20,8,20,12.35V72.84c0,4.31,3.91,7.85,8.7,7.85h6.47a20.93,20.93,0,0,1-2.86-8.48c-.07-.7-.16-1.37-.26-2H26.09a1.71,1.71,0,0,1-1.79-1.62V12.69a1.71,1.71,0,0,1,1.79-1.61H73.91a1.71,1.71,0,0,1,1.79,1.61V68.57a1.71,1.71,0,0,1-1.79,1.62h-3c0,1.35-.15,2.87-.31,4.58a13.55,13.55,0,0,1-1.15,4.33,16,16,0,0,1-.83,1.59h2.73c4.79,0,8.7-3.54,8.7-7.85V12.35C80.05,8,76.14,4.5,71.35,4.5ZM54.26,8.36H45.11V7.3h9.15Z"/>
-                        <path id="hand" d="M69.31,74.77c.15-1.59.24-3,.29-4.29.21-5.35-.39-8-1.53-8.75a2.07,2.07,0,0,0-1.23-.38,4.33,4.33,0,0,0-2.38.95s.92-5.51-3.85-5.95c-2,.15-2.78,1-3.11,1.77a2.74,2.74,0,0,0-.21.71,3.06,3.06,0,0,1,0,.39,2.26,2.26,0,0,1,0-.39c0-1.21-.19-4.8-4-4.8l-.7,0a2.62,2.62,0,0,0-2.5,1.71,16.13,16.13,0,0,0-.85,3.08,6.13,6.13,0,0,1-1.4-4.29l-.1-16.43a2.3,2.3,0,0,0-.2-.94,3.16,3.16,0,0,0-2.67-1.76c-.94,0-2,.56-2.75,2.19C40.9,43.76,41,67.49,41,67.49s-2.85-.19-4-7a6.63,6.63,0,0,0-2.85-4.38A4.42,4.42,0,0,0,32,55.17c-.57,0-1,.32-1.38,1.11a2.33,2.33,0,0,0-.11.28c-.81,2.18,1.54,6.6,2.61,13.92.09.61.17,1.24.24,1.9a19.6,19.6,0,0,0,2.68,7.94,19.24,19.24,0,0,0,1.24,1.85C40,85.78,39.79,89,40.35,95.5l21.79-.06s-.88-2.35,2.79-10.56A25.78,25.78,0,0,1,67.07,81l.38-.63a14,14,0,0,0,.79-1.48A13,13,0,0,0,69.31,74.77Z" />
-                    </svg>
-                    <p>Drag &amp; Throw</p>
-                </div>
-            
-    
-        </section>
-        <section class="slide"> <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/314556/greensock-logo.svg" alt="GreenSock Logo" width="360">
-            <p>This slider demo is powered by GSAP along with the Draggable and Inertia plugins.</p>
-        </section>
-        <section class="slide"> <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/314556/clock.png" width="75" alt="clock">
-            <h3>Side Dot Animation</h3>
-            <p>See that animation on the right with the navigation dots? Its time is based on the position of the draggable element. Keep an eye on it as you drag the slides.</p>
-        </section>
-        <section class="slide"> 
-      <iframe 
-          id="youtube" 
-          frameborder="0" 
-          ng-src="{{trustAsResourceUrl(currentActivity)}}"
-        ></iframe>
       
-            <p>Why? Because dogs are cool.</p>
-        </section>
-        <section id="section6" class="slide"> <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/314556/handTablet.svg" width="220" alt="Mobile Tablet">
-            <h3>Handy for many things</h3>
-            <p>We all need a full-screen slider from time to time.</p>
-        </section> 
-        <section class="slide"> 
-      <video class="videoslider" controls >
- <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4"> 
-</video>
-
-<div class="progress">
-  <span class="progress__bar"></span>
-  <span class="keyframe" data-progress="26.63" style="left: 26.63%;"></span>
-  <span class="keyframe" data-progress="75" style="left: 75%;"></span>
-</div>
-      </section>
-
-        <section class="slide"> 
-      <video class="videoslider" src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4"  controls >
-</video>
-
-      </section>
+      
       
     </div>
       </div>
@@ -1764,8 +1714,30 @@ class="js-trigger-video-modal" ng-click="toggle_video_modal(entry.video)"  style
 
 
   angular.module('studentsApp', [])
+  
+  .factory('SharedState', function() {
 
-  .controller('Controller1', ['$http', '$scope', '$sce', '$timeout', '$interval', function($http, $scope, $sce, $timeout, $interval) {
+var currentActivity = null;
+  var activityFunctions = {
+    setCurrentActivity: function(activity) {
+      currentActivity = activity;
+    },
+    getCurrentActivity: function() {
+      return currentActivity;
+    },
+    clearCurrentActivity: function() {
+      currentActivity = null;
+    }
+  };
+  
+  return {
+getActivity: function() {
+      return activityFunctions;
+    }
+  };
+})
+
+  .controller('Controller1', ['$http', '$scope', '$sce', '$timeout', '$interval', 'SharedState', function($http, $scope, $sce, $timeout, $interval, SharedState) {
      
    $scope.userData = [];
  // $scope.userDataLoaded = false;
@@ -1823,12 +1795,6 @@ class="js-trigger-video-modal" ng-click="toggle_video_modal(entry.video)"  style
      
 
 
-$scope.toggle_video_modal = function(activity) {
-$scope.currentActivity = activity;
-        $("body").addClass("show-video-modal");
-};
- 
-    
     
     $scope.userData = [];
 
@@ -1995,8 +1961,562 @@ $scope.currentActivity = activity;
   });
     $scope.noStudentsMessage = '';
 };
+    
+    
+  
+      
+    
+    $scope.toggle_video_modal = function(act) {
+  var activity = act.content
+  SharedState.getActivity().setCurrentActivity(activity);
+        $("body").addClass("show-video-modal");
+   let slidesHtml = '';
+  activity.forEach((item, index) => {
+    if (item.sort === 'intro') {
+        slidesHtml += `
+            <section class="slide">
+                <h4>${item.lesson}</h4>
+                <p>Desliza la pantalla o da click en los botones para navegar entre páginas.</p>
+                <div class="iconWrap">
+                <div class="icon"> 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" fill="#fff">
+                        <path d="M71.35,4.5H28.65C23.86,4.5,20,8,20,12.35V72.84c0,4.31,3.91,7.85,8.7,7.85h6.47a20.93,20.93,0,0,1-2.86-8.48c-.07-.7-.16-1.37-.26-2H26.09a1.71,1.71,0,0,1-1.79-1.62V12.69a1.71,1.71,0,0,1,1.79-1.61H73.91a1.71,1.71,0,0,1,1.79,1.61V68.57a1.71,1.71,0,0,1-1.79,1.62h-3c0,1.35-.15,2.87-.31,4.58a13.55,13.55,0,0,1-1.15,4.33,16,16,0,0,1-.83,1.59h2.73c4.79,0,8.7-3.54,8.7-7.85V12.35C80.05,8,76.14,4.5,71.35,4.5ZM54.26,8.36H45.11V7.3h9.15Z"/>
+                        <path id="hand" d="M69.31,74.77c.15-1.59.24-3,.29-4.29.21-5.35-.39-8-1.53-8.75a2.07,2.07,0,0,0-1.23-.38,4.33,4.33,0,0,0-2.38.95s.92-5.51-3.85-5.95c-2,.15-2.78,1-3.11,1.77a2.74,2.74,0,0,0-.21.71,3.06,3.06,0,0,1,0,.39,2.26,2.26,0,0,1,0-.39c0-1.21-.19-4.8-4-4.8l-.7,0a2.62,2.62,0,0,0-2.5,1.71,16.13,16.13,0,0,0-.85,3.08,6.13,6.13,0,0,1-1.4-4.29l-.1-16.43a2.3,2.3,0,0,0-.2-.94,3.16,3.16,0,0,0-2.67-1.76c-.94,0-2,.56-2.75,2.19C40.9,43.76,41,67.49,41,67.49s-2.85-.19-4-7a6.63,6.63,0,0,0-2.85-4.38A4.42,4.42,0,0,0,32,55.17c-.57,0-1,.32-1.38,1.11a2.33,2.33,0,0,0-.11.28c-.81,2.18,1.54,6.6,2.61,13.92.09.61.17,1.24.24,1.9a19.6,19.6,0,0,0,2.68,7.94,19.24,19.24,0,0,0,1.24,1.85C40,85.78,39.79,89,40.35,95.5l21.79-.06s-.88-2.35,2.79-10.56A25.78,25.78,0,0,1,67.07,81l.38-.63a14,14,0,0,0,.79-1.48A13,13,0,0,0,69.31,74.77Z" />
+                    </svg>
+                    <p>Desliza</p>
+                     </div>
+                     <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+                        <g stroke-linejoin="round" stroke-linecap="round" stroke="white" stroke-width="5" fill="none">
+                            <circle r="40" cx="50" cy="50" />
+                            <polyline id="caret" points="30 60, 50 35, 70 60" ></polyline>
+                        </g>
+                    </svg>
+                    <p>Botones de navegación</p>
+                </div>
+                </div>
+            </section>
+        `;
+    } else if (item.sort === 'end') {
+        slidesHtml += `
+            <section class="slide">
+                <img src="https://lh3.googleusercontent.com/d/1Hv9WGtVuOhTwTcolJyMO7IIlZjjydQsU"  width="360">
+                <h3 style="margin-top: -10px">Actividad completada</h3>
+                <p>${item.desc}</p>
+            </section>
+        `; 
+    } else if (item.sort === 'catIntro') {
+        slidesHtml += `
+            <section class="slide">
+                <img  src="${item.img}"  style="border-radius: 10px !important; width: 90%; max-width: 500px">
+                <h4>${item.greet1}${$scope.name}${item.greet2}</h4>
+                <p>${item.desc2}</p>
+            </section>
+        `; 
+    } else if (item.sort === 'img') {
+        slidesHtml += `
+            <section class="slide">
+                <img  src="${item.img}"   style="width: 90%; max-width: 500px">
+                <p>${item.desc}</p>
+            </section>
+        `; 
+    }else if (item.sort === 'quiz') {
+      var itemQuestions = JSON.stringify(item.questions)
+        slidesHtml += `
+            <section class="slide" style="color: black">
+               <p style="position: absolute; top: 20px; color: white !important;">Dale click en comenzar para contestar el Quiz</p>
+                 <div class="start_btn"><button>Comenzar</button></div>
+
+
+    <div class="info_box">
+        <div class="info-title"><span>Reglas del Quiz</span></div>
+        <div class="info-list">
+           <div class="info">1. Responderás 10 preguntas</div>
+            <div class="info">2. Tienes <span>15 segundos</span> para responder cada pregunta.</div>
+            <div class="info">3. Una vez respondas, no puedes cambiar tu respuesta.</div>
+            <div class="info">4. No puedes salir del quiz mientras hayas iniciado.</div>
+            <div class="info">5. Tu puntaje se calcula de acuerdo a la cantidad de respuestas correctas.</div>
+        </div>
+        <div class="buttons">
+            <button class="quit">Salir</button>
+            <button class="restart">Continuar</button>
+        </div>
+    </div>
+
+    <div class="quiz_box">
+        <header>
+            <div class="title">Quick quiz</div>
+            <div class="timer">
+                <div class="time_left_txt">Tiempo</div>
+                <div class="timer_sec">15</div>
+            </div>
+            <div class="time_line"></div>
+        </header>
+        <section style="margin-top: 10px;">
+            <div class="que_text">
+            </div>
+            <div class="option_list">
+            </div>
+            <div id="currentQuestion" currentQuestion=0 style="display: none">
+            </div>
+             <div id="userScore" userScore=0 style="display: none">
+            </div>
+             <div id="questions" data-questions='${itemQuestions}' style="display: none">
+            </div>
+        </section>
+
+        <footer>
+            <div class="total_que">
+            </div>
+            <button class="next_btn">Siguiente</button>
+        </footer>
+    </div>
+
+    <div class="result_box">
+        <div class="icon">
+            <i class="fas fa-crown"></i>
+        </div>
+        <div class="complete_text">Has completado el Quiz!</div>
+        <div class="score_text">
+        </div>
+        <div class="buttons">
+          <button class="quit">Salir</button>
+            <button class="restart">Reiniciar</button>
+        </div>
+    </div>
+            </section>
+        `;
+    } else if (item.sort === 'youtube') {
+        slidesHtml += `
+            <section class="slide" >
+                <iframe id="youtube" frameborder="0" src="${item.url}"></iframe>
+                <p style="position: absolute; top: 20px;">Dale play al video</p>
+            </section>  
+        `;
+    } else if (item.sort === 'video') {
+        slidesHtml += `
+            <section class="slide">
+             <div class="button-container">
+                        <button id="playButton${index}" class="control-btn" onclick="playVideo(${index})">
+                            <i class="ri-play-circle-fill"></i>
+                        </button>
+                        <button id="metronomeButton${index}" class="control-btn" onclick="playMetronome(${index})">
+                            <i class="ri-timer-fill"></i>
+                        </button>
+                    </div>
+                    <video class="videoslider" id="videoPlayer${index}" onended="showButton(${index})">
+                        <source src="${item.url}" type="video/mp4">
+                    </video>
+        <audio id="metronomeAudio${index}" src="https://www.mozart.studio/videos/metronome.mp3" style="display: none;"></audio>
+         
+                </section>
+        `;
+    }
+  });
+
+  // Inyectar el contenido de slides en el contenedor #panelWrap
+  $("#panelWrap").html(slidesHtml);
+
+  
+ 
+
+//const colorArray = ["#426F42", "#262626", "#36648B", "#683A5E", "#000000", "#36648B"];
+  const colorArray = act.colors
+const slides = document.querySelectorAll(".slide");
+const container = document.querySelector("#panelWrap");
+let dots = document.querySelector(".dots");
+dots.innerHTML = "";
+let oldSlide = 0;
+let activeSlide = 0;
+let navDots = [];
+let dur = 0.6;
+let offsets = [];
+let toolTipAnims = [];
+let ih = window.innerHeight;
+const mouseAnim = gsap.timeline({repeat:-1, repeatDelay:1});
+const handAnim = gsap.timeline({repeat:-1, repeatDelay:1});
+const cursorAnim = gsap.timeline({repeat:-1, repeatDelay:1});
+const arrowAnim = gsap.timeline({repeat:-1, repeatDelay:1});
+document.querySelector("#upArrow").addEventListener("click", slideAnim);
+document.querySelector("#downArrow").addEventListener("click", slideAnim);
+
+// create nev dots and add tooltip listeners
+for (let i = 0; i < slides.length; i++) {
+let tl = gsap.timeline({paused:true, reversed:true});
+  gsap.set(slides[i], { backgroundColor: colorArray[i] });
+  let newDot = document.createElement("div");
+  newDot.className = "dot";
+  newDot.index = i;
+  navDots.push(newDot);
+  newDot.addEventListener("click", slideAnim);
+  dots.appendChild(newDot);
+  offsets.push(-slides[i].offsetTop);
+}
+
+// icon animations for slide 1
+mouseAnim.fromTo("#mouseRings circle", {attr:{r:12}}, {duration: 0.8, stagger: 0.25, attr:{r:40}});
+mouseAnim.fromTo("#mouseRings circle", {opacity:0}, {duration: 0.4, stagger: 0.25, opacity:1}, 0);
+mouseAnim.fromTo("#mouseRings circle", {opacity:1}, {duration: 0.4, stagger:0.25, opacity:0}, 0.4);
+
+handAnim.to("#hand", {duration: 0.75, y:16, rotation:5, transformOrigin:"right bottom"});
+handAnim.to("#hand", {duration: 0.5, y:-15, ease:"power3.inOut"});
+handAnim.to("#hand", {duration: 1, y:0, rotation:0});
+
+
+
+arrowAnim.to("#caret", {duration: 0.5, attr:{points:"30 40, 50 65, 70 40"}, repeat:3, yoyo:true, ease:"power2.inOut", repeatDelay:0.25});
+
+// get elements positioned
+gsap.set(".dots", {yPercent:-50});
+  
+// side screen animation with nav dots
+const dotAnim = gsap.timeline({paused:true});
+dotAnim.to(
+  ".dot",
+  {
+    stagger: { each: 1, yoyo: true, repeat: 1 },
+    scale: 2.1,
+    rotation: 0.1,
+    ease: "none"
+  },
+  0.5
+);
+dotAnim.time(1);
+
+
+// figure out which of the 4 nav controls called the function
+  function slideAnim(e) {
+
+  oldSlide = activeSlide;
+  // dragging the panels
+  if (this.id === "dragger") {
+    //activeSlide = offsets.indexOf(this.endY);
+    let deltaX = Math.abs(Math.abs(this.startY)-Math.abs(this.endY))
+        let direction = Math.sign(this.startY-this.endY) // '-' => right, '+' => left
+        let movement = deltaX > ih*.2
+        movement && (activeSlide += direction)
+        gsap.to(container, dur, { y: offsets[activeSlide], onUpdate: tweenDot });
+  } else {
+    if (gsap.isTweening(container)) {
+      return;
+    }
+    // up/down arrow clicks
+    if (this.id === "downArrow" || this.id === "upArrow") {
+      activeSlide = this.id === "downArrow" ? (activeSlide += 1) : (activeSlide -= 1);
+      // click on a dot
+    } else if (this.className === "dot") {
+      activeSlide = this.index;
+      // scrollwheel
+    } else {
+      activeSlide = e.deltaY > 0 ? (activeSlide += 1) : (activeSlide -= 1);
+    }
+  }
+  // make sure we're not past the end or beginning slide
+  activeSlide = activeSlide < 0 ? 0 : activeSlide;
+  activeSlide = activeSlide > slides.length - 1 ? slides.length - 1 : activeSlide;
+  if (oldSlide === activeSlide) {
+    return;
+  }
+  // if we're dragging we don't animate the container
+  if (this.id != "dragger") {
+    gsap.to(container, dur, { y: offsets[activeSlide], ease:"power2.inOut", onUpdate:tweenDot });
+  }
+}
+
+gsap.set(".hideMe", {opacity:1});
+window.addEventListener("resize", newSize);
+
+// make the container a draggable element
+  let dragMe = Draggable.create(container, {
+  type: "y",
+  edgeResistance: 1,
+  onDragEnd: slideAnim,
+  onDrag: tweenDot,
+  onThrowUpdate: tweenDot,
+  snap: offsets,
+
+  zIndexBoost: false,
+  allowNativeTouchScrolling: false,
+  bounds: "#masterWrap"
+});
+
+dragMe[0].id = "dragger";
+newSize();
+
+// resize all panels and refigure draggable snap array
+function newSize() {
+  offsets = [];
+  ih = window.innerHeight;
+  gsap.set("#panelWrap", { height: slides.length * ih });
+  gsap.set(slides, { height: ih });
+  for (let i = 0; i < slides.length; i++) {
+    offsets.push(-slides[i].offsetTop);
+  }
+  gsap.set(container, { y: offsets[activeSlide] });
+  dragMe[0].vars.snap = offsets;
+}
+
+// tween the dot animation as the draggable moves
+  function tweenDot() {
+    gsap.set(dotAnim, {
+    time: Math.abs(gsap.getProperty(container, "y") / ih) + 1
+  });
+}
+
+
+
+  
+//selecting all required elements
+const start_btn = document.querySelector(".start_btn button");
+const info_box = document.querySelector(".info_box");
+const exit_btn = info_box.querySelector(".buttons .quit");
+const continue_btn = info_box.querySelector(".buttons .restart");
+const quiz_box = document.querySelector(".quiz_box");
+const result_box = document.querySelector(".result_box");
+const option_list = document.querySelector(".option_list");
+const time_line = document.querySelector("header .time_line");
+const timeText = document.querySelector(".timer .time_left_txt");
+const timeCount = document.querySelector(".timer .timer_sec");
+  var currentQuestion = document.getElementById("currentQuestion")
+  const questionsElement = document.querySelector("#questions");
+// const questionsRaw = questionsElement.dataset.questions;
+   const questions = JSON.parse(questionsElement.dataset.questions);
+  
+
+// if startQuiz button clicked 
+start_btn.onclick = () => {
+  info_box.classList.add("activeInfo"); 
+ // alert(questionsRaw)
+  //  alert(questions)
+};
+
+// if exitQuiz button clicked
+exit_btn.onclick = () => {
+  info_box.classList.remove("activeInfo"); //hide info box
+};
+
+// if continueQuiz button clicked
+continue_btn.onclick = () => {
+  info_box.classList.remove("activeInfo"); //hide info box
+  quiz_box.classList.add("activeQuiz"); //show quiz box
+  showQuetions(0); //calling showQestions function
+  queCounter(1); //passing 1 parameter to queCounter
+  startTimer(15); //calling startTimer function
+  startTimerLine(0); //calling startTimerLine function
+};
+
+let timeValue = 15;
+let que_count = 0;
+let que_numb = 1;
+let userScore = 0;
+let counter;
+let counterLine;
+let widthValue = 0;
+ 
+
+const restart_quiz = result_box.querySelector(".buttons .restart");
+const quit_quiz = result_box.querySelector(".buttons .quit");
+
+// if restartQuiz button clicked
+restart_quiz.onclick = () => {
+  quiz_box.classList.add("activeQuiz"); //show quiz box
+  result_box.classList.remove("activeResult"); //hide result box
+  timeValue = 15;
+  que_count = 0;
+  que_numb = 1;
+  userScore = 0;
+  widthValue = 0;
+   $("#currentQuestion").attr('currentQuestion', 0);  
+  showQuetions(que_count); //calling showQestions function
+  queCounter(que_numb); //passing que_numb value to queCounter
+  clearInterval(counter); //clear counter
+  clearInterval(counterLine); //clear counterLine
+  startTimer(timeValue); //calling startTimer function
+  startTimerLine(widthValue); //calling startTimerLine function
+  timeText.textContent = "Time Left"; //change the text of timeText to Time Left
+  next_btn.classList.remove("show"); //hide the next button
+};
+
+// if quitQuiz button clicked
+quit_quiz.onclick = () => {
+  window.location.reload(); //reload the current window
+};
+
+const next_btn = document.querySelector("footer .next_btn");
+const bottom_ques_counter = document.querySelector("footer .total_que");
+
+// if Next Que button clicked
+next_btn.onclick = () => {
+  if (que_count < questions.length - 1) {
+    //if question count is less than total question length
+    que_count++; //increment the que_count value
+    que_numb++; //increment the que_numb value
+     $("#currentQuestion").attr('currentQuestion', que_count);  
+    showQuetions(que_count); //calling showQestions function
+    queCounter(que_numb); //passing que_numb value to queCounter
+    clearInterval(counter); //clear counter
+    clearInterval(counterLine); //clear counterLine
+    startTimer(timeValue); //calling startTimer function
+    startTimerLine(widthValue); //calling startTimerLine function
+    timeText.textContent = "Time Left"; //change the timeText to Time Left
+    next_btn.classList.remove("show"); //hide the next button
+  } else {
+    clearInterval(counter); //clear counter
+    clearInterval(counterLine); //clear counterLine
+    showResult(); //calling showResult function
+  }
+};
+
+// getting questions and options from array
+function showQuetions(index) {
+  const que_text = document.querySelector(".que_text");
+
+  //creating a new span and div tag for question and option and passing the value using array index
+  let que_tag =
+    "<span>" +
+    questions[index].numb +
+    ". " +
+    questions[index].question +
+    "</span>";
+  let option_tag =
+    '<div class="option"><span>' +
+    questions[index].options[0] + 
+    "</span></div>" +
+    '<div class="option"><span>' +
+    questions[index].options[1] +
+    "</span></div>" +
+    '<div class="option"><span>' +
+    questions[index].options[2] + 
+    "</span></div>" +
+    '<div class="option"><span>' +
+    questions[index].options[3] +
+    "</span></div>";
+  que_text.innerHTML = que_tag; //adding new span tag inside que_tag
+  option_list.innerHTML = option_tag; //adding new div tag inside option_tag
+
+  const option = option_list.querySelectorAll(".option");
+
+  // set onclick attribute to all available options
+  for (i = 0; i < option.length; i++) {
+    option[i].setAttribute("onclick", "optionSelected(this)");
+  }
+}
+// creating the new div tags which for icons
+let tickIconTag = '<div class="icon tick"><i class="fas fa-check"></i></div>';
+let crossIconTag = '<div class="icon cross"><i class="fas fa-times"></i></div>';
+  
+  
+
+
+function showResult() {
+  info_box.classList.remove("activeInfo"); //hide info box
+  quiz_box.classList.remove("activeQuiz"); //hide quiz box
+  result_box.classList.add("activeResult"); //show result box
+  const scoreText = result_box.querySelector(".score_text");
+  if (userScore > 7) {
+    // if user scored more than 3
+    //creating a new span tag and passing the user score number and total question number
+    let scoreTag =
+      "<span>Excelente trabajo!, obtuviste " +
+      userScore +
+      " de " +
+      questions.length +
+      " preguntas </span>";
+    scoreText.innerHTML = scoreTag; //adding new span tag inside score_Text
+  } else if (userScore > 4) {
+    // if user scored more than 1
+    let scoreTag =
+      "<span>Gran trabajo!, obtuviste " +
+      userScore +
+      " de " +
+      questions.length +
+      " preguntas </span>";
+    scoreText.innerHTML = scoreTag;
+  } else {
+    // if user scored less than 1
+    let scoreTag =
+      "<span>Buen intento!, obtuviste " +
+      userScore +
+      " de " +
+      questions.length +
+      " preguntas </span>";
+    scoreText.innerHTML = scoreTag;
+  }
+}
+
+function startTimer(time) {
+  counter = setInterval(timer, 1000);
+  function timer() {
+    timeCount.textContent = time; //changing the value of timeCount with time value
+    time--; //decrement the time value
+    if (time < 9) {
+      //if timer is less than 9
+      let addZero = timeCount.textContent;
+      timeCount.textContent = "0" + addZero; //add a 0 before time value
+    }
+    if (time < 0) {
+      //if timer is less than 0
+      clearInterval(counter); //clear counter
+      timeText.textContent = "Time Off"; //change the time text to time off
+      const allOptions = option_list.children.length; //getting all option items
+      let correcAns = questions[que_count].answer; //getting correct answer from array
+      for (i = 0; i < allOptions; i++) {
+        if (option_list.children[i].textContent == correcAns) {
+          //if there is an option which is matched to an array answer
+          option_list.children[i].setAttribute("class", "option correct"); //adding green color to matched option
+          option_list.children[i].insertAdjacentHTML("beforeend", tickIconTag); 
+        }
+      }
+      for (i = 0; i < allOptions; i++) {
+        option_list.children[i].classList.add("disabled"); //once user select an option then disabled all options
+      }
+      next_btn.classList.add("show"); //show the next button if user selected any option
+    }
+  }
+}
+
+function startTimerLine(time) {
+  counterLine = setInterval(timer, 29);
+  function timer() {
+    time += 1; //upgrading time value with 1
+    time_line.style.width = time + "px"; //increasing width of time_line with px by time value
+    if (time > 549) {
+      //if time value is greater than 549
+      clearInterval(counterLine); //clear counterLine
+    }
+  }
+}
+
+function queCounter(index) {
+  //creating a new span tag and passing the question number and total question
+  let totalQueCounTag =
+    "<span><p>" +
+    index +
+    " de " +
+    questions.length +
+    " preguntas</span>";
+  bottom_ques_counter.innerHTML = totalQueCounTag; //adding new span tag inside bottom_ques_counter
+}
+
+}; 
+    
    
-}]); 
+}])
+  
+  
+  .controller('slider', ["$scope", "SharedState", "$sce", function($scope, SharedState, $sce) {
+  
+   $scope.trustAsResourceUrl = function(url) {
+    return $sce.trustAsResourceUrl(url);
+  };
+  
+   $scope.$watch(function() {
+    return SharedState.getActivity().getCurrentActivity();
+  }, function(newActivity) {
+    $scope.currentActivity = newActivity;
+
+  });
+}])
   
   
   
@@ -2070,191 +2590,6 @@ function toggle_video_modal(element) {
 
 
 	
-
-const colorArray = ["#426F42", "#262626", "#36648B", "#683A5E", "#683A5E", "#36648B"];
-const slides = document.querySelectorAll(".slide");
-const container = document.querySelector("#panelWrap");
-let dots = document.querySelector(".dots");
-dots.innerHTML = "";
-let oldSlide = 0;
-let activeSlide = 0;
-let navDots = [];
-let dur = 0.6;
-let offsets = [];
-let toolTipAnims = [];
-let ih = window.innerHeight;
-const mouseAnim = gsap.timeline({repeat:-1, repeatDelay:1});
-const handAnim = gsap.timeline({repeat:-1, repeatDelay:1});
-const cursorAnim = gsap.timeline({repeat:-1, repeatDelay:1});
-const arrowAnim = gsap.timeline({repeat:-1, repeatDelay:1});
-document.querySelector("#upArrow").addEventListener("click", slideAnim);
-document.querySelector("#downArrow").addEventListener("click", slideAnim);
-
-// create nev dots and add tooltip listeners
-for (let i = 0; i < slides.length; i++) {
-let tl = gsap.timeline({paused:true, reversed:true});
-  gsap.set(slides[i], { backgroundColor: colorArray[i] });
-  let newDot = document.createElement("div");
-  newDot.className = "dot";
-  newDot.index = i;
-  navDots.push(newDot);
-  newDot.addEventListener("click", slideAnim);
-  dots.appendChild(newDot);
-  offsets.push(-slides[i].offsetTop);
-}
-
-// icon animations for slide 1
-mouseAnim.fromTo("#mouseRings circle", {attr:{r:12}}, {duration: 0.8, stagger: 0.25, attr:{r:40}});
-mouseAnim.fromTo("#mouseRings circle", {opacity:0}, {duration: 0.4, stagger: 0.25, opacity:1}, 0);
-mouseAnim.fromTo("#mouseRings circle", {opacity:1}, {duration: 0.4, stagger:0.25, opacity:0}, 0.4);
-
-handAnim.to("#hand", {duration: 0.75, y:16, rotation:5, transformOrigin:"right bottom"});
-handAnim.to("#hand", {duration: 0.5, y:-15, ease:"power3.inOut"});
-handAnim.to("#hand", {duration: 1, y:0, rotation:0});
-
-
-
-arrowAnim.to("#caret", {duration: 0.5, attr:{points:"30 40, 50 65, 70 40"}, repeat:3, yoyo:true, ease:"power2.inOut", repeatDelay:0.25});
-
-// get elements positioned
-gsap.set(".dots", {yPercent:-50});
-  
-// side screen animation with nav dots
-const dotAnim = gsap.timeline({paused:true});
-dotAnim.to(
-  ".dot",
-  {
-    stagger: { each: 1, yoyo: true, repeat: 1 },
-    scale: 2.1,
-    rotation: 0.1,
-    ease: "none"
-  },
-  0.5
-);
-dotAnim.time(1);
-
-
-// figure out which of the 4 nav controls called the function
-  function slideAnim(e) {
-
-  oldSlide = activeSlide;
-  // dragging the panels
-  if (this.id === "dragger") {
-    activeSlide = offsets.indexOf(this.endY);
-  } else {
-    if (gsap.isTweening(container)) {
-      return;
-    }
-    // up/down arrow clicks
-    if (this.id === "downArrow" || this.id === "upArrow") {
-      activeSlide = this.id === "downArrow" ? (activeSlide += 1) : (activeSlide -= 1);
-      // click on a dot
-    } else if (this.className === "dot") {
-      activeSlide = this.index;
-      // scrollwheel
-    } else {
-      activeSlide = e.deltaY > 0 ? (activeSlide += 1) : (activeSlide -= 1);
-    }
-  }
-  // make sure we're not past the end or beginning slide
-  activeSlide = activeSlide < 0 ? 0 : activeSlide;
-  activeSlide = activeSlide > slides.length - 1 ? slides.length - 1 : activeSlide;
-  if (oldSlide === activeSlide) {
-    return;
-  }
-  // if we're dragging we don't animate the container
-  if (this.id != "dragger") {
-    gsap.to(container, dur, { y: offsets[activeSlide], ease:"power2.inOut", onUpdate:tweenDot });
-  }
-}
-
-gsap.set(".hideMe", {opacity:1});
-window.addEventListener("resize", newSize);
-
-// make the container a draggable element
-  let dragMe = Draggable.create(container, {
-  type: "y",
-  edgeResistance: 1,
-  onDragEnd: slideAnim,
-  onDrag: tweenDot,
-  onThrowUpdate: tweenDot,
-  snap: offsets,
-  inertia:true,
-  zIndexBoost: false,
-  allowNativeTouchScrolling: false,
-  bounds: "#masterWrap"
-});
-
-dragMe[0].id = "dragger";
-newSize();
-
-// resize all panels and refigure draggable snap array
-function newSize() {
-  offsets = [];
-  ih = window.innerHeight;
-  gsap.set("#panelWrap", { height: slides.length * ih });
-  gsap.set(slides, { height: ih });
-  for (let i = 0; i < slides.length; i++) {
-    offsets.push(-slides[i].offsetTop);
-  }
-  gsap.set(container, { y: offsets[activeSlide] });
-  dragMe[0].vars.snap = offsets;
-}
-
-// tween the dot animation as the draggable moves
-  function tweenDot() {
-    gsap.set(dotAnim, {
-    time: Math.abs(gsap.getProperty(container, "y") / ih) + 1
-  });
-}
-
-
-
-const video = document.querySelector("video");
-const progress = document.querySelector(".progress__bar");
-const keyframes = [...document.querySelectorAll(".keyframe")];
-const keyframesPauses = [];
-
-keyframes.forEach(k => {
-  keyframesPauses.push(parseFloat(k.dataset.progress));
-});
-
-let videoDuration = 15.023311;
-let currentProgress = 0;
-
-const progressAnimation = gsap.to(progress, {
-  width: "100%",
-  ease: "linear",
-  paused: true,
-  onUpdate: () => {
-    const progress = Math.ceil(progressAnimation.progress() * 100);
-    if (progress != currentProgress) {
-      currentProgress = progress;
-      const foundKeyframe = keyframesPauses.find(
-      kp => Math.ceil(kp) === currentProgress);
-
-      if (foundKeyframe) {
-        const fractionProgress = foundKeyframe / 100;
-        video.pause();
-        video.currentTime = fractionProgress * videoDuration;
-        progressAnimation.progress(fractionProgress);
-      }
-    }
-  } });
-
-
-const progressUpdate = () => {
-  progressAnimation.progress(video.currentTime / video.duration);
-};
-
-video.onplay = () => {
-  gsap.ticker.add(progressUpdate);
-};
-video.onpause = () => {
-  gsap.ticker.remove(progressUpdate);
-  ignoreProgress = true;
-};
-
 
 
 </script> 
