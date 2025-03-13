@@ -1701,7 +1701,7 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
     $scope.selectUser = function(user){
        document.getElementById('loginContainer').style.display = 'none'; 
             document.getElementById('dashContainer').style.display = 'block';
- $("#metronom").attr('src', 'https://embed.metronome.app/'); 
+ /*$("#metronom").attr('src', 'https://embed.metronome.app/'); */
        $scope.userData = user
        $scope.userLevel = $scope.getLevel($scope.userData.lvl)
     $scope.history = $scope.userData.lessons
