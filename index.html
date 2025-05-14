@@ -5,6 +5,8 @@
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
+  <script src="https://unpkg.com/vexflow@3.0.9/releases/vexflow-min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/soundfont-player@0.12.0/dist/soundfont-player.min.js"></script>
    <link rel="manifest" href="/manifest.json">
 </head>
 
@@ -14,6 +16,12 @@
    body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
+ #staff { border: 1px solid #ccc; margin-top: 20px; overflow-x: auto; }
+    #status { margin-top: 10px; font-size: 18px; }
+    .correct { color: green; }
+    .wrong { color: red; }
+
   
 .dashboard-container {
   max-width: 1200px;
@@ -373,11 +381,7 @@
 }
 
   
-  
-   .drive{
-    height: 400px;
-    width: 100%;
-  }
+
   
   .modal-container {
     position: fixed;
@@ -421,6 +425,7 @@
     border-radius: 3px;
     font-weight: 300;
     position: relative;
+
   }
 
   @keyframes blowUpContent {
@@ -562,13 +567,14 @@
   }
   #modal-container2 .modal-background .modal-msg {
     padding: 10px;
-    width: 75%;
+    width: 95%;
     display: inline-block;
-    border-radius: 3px;
-    background: transparent;
+    border-radius: 13px;
+    background: #fef2cc;
     font-weight: 300;
     position: relative;
-    max-width: 430px;
+    max-height: 530px;
+    overflow: auto !important;
   }
 
 
@@ -682,7 +688,10 @@
 }
 .video-modal .overlay {
   z-index: 0;
-  background: rgba(13,1,61,0.82); /* overlay color */
+  background-color: rgba(0, 0, 0, 0.6);
+    filter: blur(14px);
+
+
 
   opacity: 0.0;
 
@@ -698,7 +707,7 @@
   bottom: auto;
   left: auto;
   z-index: 1;
-  
+  border-radius: 13px;
   margin: 0 auto;
 
   overflow-y: visible;
@@ -751,6 +760,8 @@ iframe#youtube {
   bottom: 0;
   left: 0;
   z-index: 1;
+  border-radius: 13px;
+
 
   background: white;
   box-shadow: 0px 2px 16px rgba(0,0,0,0.5);
@@ -847,12 +858,7 @@ iframe#youtube {
 
 
 @media screen and (min-width:576px){
-   .drive{
-    height: 480px;
-    width: 140%;
-    margin-left: -20%;
-    margin-top: -50px;
-  }
+   
    .metronome { 
      margin-top: -50px;
      margin-left: -130px;
@@ -883,11 +889,7 @@ iframe#youtube {
 }
   
    @media screen and (min-width:700px){
-   .drive{
-    height: 480px;
-    width: 180%;
-    margin-left: -40%;
-  }
+
       .metronome { 
      margin-left: -200px;
   }
@@ -1521,12 +1523,18 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
       <br>    
 
 
-         <iframe class="drive" id="drivemodal" src="" frameborder="0">
-        </iframe>
+          <h1>Oda a la Alegría</h1>
+  <p>Ludwig van Beethoven</p>
+   <button onclick="hideModal()">Salir</button>
+   <button id="startBtn">Comenzar</button>
+  
+
+  <div id="staff"></div>
+  <div id="status">Cargando...</div>
+
+ 
    
-      <ul class="menu-bar">
-            <li><a href="#" onclick="hideModal()">Regresar</a></li>
-        </ul>
+   
 
              </div>
       <br>
@@ -1865,10 +1873,234 @@ function toggle_video_modal(element) {
 
 
 
-	  function showWhatsappLogin() {
+    function showWhatsappLogin() {
     document.getElementById('login-options').style.display = 'none';
     document.getElementById('whatsapp-login').style.display = 'block';
 }
 
+
+
+
+
+
+
+  const { Renderer, Stave, StaveNote, Voice, Formatter, Accidental, BarNote, StaveConnector } = Vex.Flow;
+
+  // Definimos dos sistemas (renglones) de melodías
+  const rightSequences = [
+    // Primer sistema
+    [64, 64, 65, 67, 67, 65, 64, 62, 60, 60, 62, 64, 62, 60, 60, 60],
+    // Segundo sistema (puedes cambiar estas notas)
+    [64, 64, 65, 67, 67, 65, 64, 62, 60, 60, 62, 64, 62, 60, 60, 60]
+  ];
+
+  const leftSequences = [
+    // Primer sistema
+    [48, 55, 48, 55],
+    // Segundo sistema (puedes cambiar estas notas)
+    [48, 55, 48, 55]
+  ];
+
+  let currentSystem = 0;
+  let currentIndex = 0;
+  let pendingNotes = new Set();
+  window.leftCompasesPlayed = [new Set(), new Set()]; // Un Set por cada sistema
+
+  function midiToNoteName(midi) {
+    const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+    const name = noteNames[midi % 12];
+    const octave = Math.floor(midi / 12) - 1;
+    return name + octave;
+  }
+
+  function midiToVexflowKey(midi) {
+    const names = ['c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'a#', 'b'];
+    const name = names[midi % 12];
+    const octave = Math.floor(midi / 12) - 1;
+    return `${name}/${octave}`;
+  }
+
+  function renderScore() {
+    const div = document.getElementById("staff");
+    div.innerHTML = "";
+
+    const renderer = new Renderer(div, Renderer.Backends.SVG);
+    renderer.resize(800, 450); // Aumentamos la altura para dos sistemas
+    const context = renderer.getContext();
+
+    // Primer sistema (renglón)
+    const staveTop1 = new Stave(30, 30, 700);
+    staveTop1.addClef("treble").addTimeSignature("4/4").setContext(context).draw();
+
+    const staveBottom1 = new Stave(30, 120, 700);
+    staveBottom1.addClef("bass").addTimeSignature("4/4").setContext(context).draw();
+
+    const brace1 = new StaveConnector(staveTop1, staveBottom1);
+    brace1.setType(StaveConnector.type.BRACE).setContext(context).draw();
+
+    const singleLeft1 = new StaveConnector(staveTop1, staveBottom1);
+    singleLeft1.setType(StaveConnector.type.SINGLE_LEFT).setContext(context).draw();
+
+    // Segundo sistema (renglón)
+    const staveTop2 = new Stave(30, 230, 700);
+    staveTop2.addClef("treble").addTimeSignature("4/4").setContext(context).draw();
+
+    const staveBottom2 = new Stave(30, 320, 700);
+    staveBottom2.addClef("bass").addTimeSignature("4/4").setContext(context).draw();
+
+    const brace2 = new StaveConnector(staveTop2, staveBottom2);
+    brace2.setType(StaveConnector.type.BRACE).setContext(context).draw();
+
+    const singleLeft2 = new StaveConnector(staveTop2, staveBottom2);
+    singleLeft2.setType(StaveConnector.type.SINGLE_LEFT).setContext(context).draw();
+
+    // Renderizar ambos sistemas
+    renderSystem(context, staveTop1, staveBottom1, 0);
+    renderSystem(context, staveTop2, staveBottom2, 1);
+  }
+
+  function renderSystem(context, staveTop, staveBottom, systemIndex) {
+    const rightSequence = rightSequences[systemIndex];
+    const leftSequence = leftSequences[systemIndex];
+
+    const rightNotes = [];
+    for (let i = 0; i < rightSequence.length; i++) {
+      const rightKey = midiToVexflowKey(rightSequence[i]);
+      const rn = new StaveNote({ keys: [rightKey], duration: "q" });
+
+      if (rightKey.includes("#")) rn.addAccidental(0, new Accidental("#"));
+      
+      // Resaltar solo las notas del sistema actual
+      if (systemIndex === currentSystem) {
+        if (i < currentIndex) rn.setStyle({ fillStyle: "green", strokeStyle: "green" });
+        else if (i === currentIndex) rn.setStyle({ fillStyle: "orange", strokeStyle: "orange" });
+      } else if (systemIndex < currentSystem) {
+        // Sistema completado
+        rn.setStyle({ fillStyle: "green", strokeStyle: "green" });
+      }
+
+      rightNotes.push(rn);
+
+      if ((i + 1) % 4 === 0 && i !== rightSequence.length - 1) {
+        rightNotes.push(new BarNote());
+      }
+    }
+
+    const leftNotes = [];
+    for (let i = 0; i < rightSequence.length; i += 4) {
+      const compasIndex = i / 4;
+      const leftKey = midiToVexflowKey(leftSequence[compasIndex] || 48);
+      const leftNote = new StaveNote({
+        keys: [leftKey],
+        duration: "w",
+        clef: "bass"
+      });
+
+      if (leftKey.includes("#")) leftNote.addAccidental(0, new Accidental("#"));
+
+      // Resaltar según el sistema actual
+      if (systemIndex === currentSystem) {
+        if (window.leftCompasesPlayed[systemIndex].has(compasIndex)) {
+          leftNote.setStyle({ fillStyle: "green", strokeStyle: "green" });
+        } else if (Math.floor(currentIndex / 4) === compasIndex) {
+          leftNote.setStyle({ fillStyle: "orange", strokeStyle: "orange" });
+        }
+      } else if (systemIndex < currentSystem) {
+        // Sistema completado
+        leftNote.setStyle({ fillStyle: "green", strokeStyle: "green" });
+      }
+
+      leftNotes.push(leftNote);
+
+      if (i + 4 < rightSequence.length) {
+        leftNotes.push(new BarNote());
+      }
+    }
+
+    const voiceRight = new Voice({ num_beats: 16, beat_value: 4 });
+    voiceRight.addTickables(rightNotes);
+
+    const voiceLeft = new Voice({ num_beats: 16, beat_value: 4 });
+    voiceLeft.addTickables(leftNotes);
+
+    const formatter = new Formatter();
+    formatter.joinVoices([voiceRight]);
+    formatter.joinVoices([voiceLeft]);
+    formatter.format([voiceRight, voiceLeft], 650);
+
+    voiceRight.draw(context, staveTop);
+    voiceLeft.draw(context, staveBottom);
+  }
+
+  function advanceNote() {
+    currentIndex++;
+    pendingNotes.clear();
+
+    // Verificar si completamos el sistema actual
+    if (currentIndex >= rightSequences[currentSystem].length) {
+      // Avanzar al siguiente sistema
+      currentSystem++;
+      currentIndex = 0;
+      
+      if (currentSystem >= rightSequences.length) {
+        document.getElementById("status").textContent = "🎉 ¡Toda la partitura completada!";
+        document.getElementById("status").className = "correct";
+        return;
+      }
+    }
+
+    renderScore();
+    document.getElementById("status").textContent = `Sistema ${currentSystem + 1}: Toca ambas notas...`;
+    document.getElementById("status").className = "";
+  }
+
+  let piano;
+  const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+  Soundfont.instrument(audioContext, "acoustic_grand_piano").then((p) => {
+    piano = p;
+    renderScore();
+    document.getElementById("status").textContent = "MIDI listo. Toca ambas notas...";
+  });
+
+  if (navigator.requestMIDIAccess) {
+    navigator.requestMIDIAccess().then((midiAccess) => {
+      for (let input of midiAccess.inputs.values()) {
+        input.onmidimessage = (msg) => {
+          const [command, note, velocity] = msg.data;
+          if (command === 144 && velocity > 0) {
+            if (piano) piano.play(midiToNoteName(note), audioContext.currentTime, { gain: velocity / 127 });
+
+            const expectedRight = rightSequences[currentSystem][currentIndex];
+            const expectedLeftIndex = Math.floor(currentIndex / 4);
+            const expectedLeft = leftSequences[currentSystem][expectedLeftIndex];
+
+            if (note === expectedRight) {
+              pendingNotes.add('right');
+            }
+
+            if (note === expectedLeft && !window.leftCompasesPlayed[currentSystem].has(expectedLeftIndex)) {
+              pendingNotes.add('left');
+              window.leftCompasesPlayed[currentSystem].add(expectedLeftIndex);
+              renderScore();
+            }
+
+            if (pendingNotes.has('right') && window.leftCompasesPlayed[currentSystem].has(expectedLeftIndex)) {
+              document.getElementById("status").textContent = "✔ ¡Correcto!";
+              document.getElementById("status").className = "correct";
+              advanceNote();
+            } else if (note !== expectedRight && note !== expectedLeft) {
+              document.getElementById("status").textContent = "✘ Incorrecto";
+              document.getElementById("status").className = "wrong";
+            }
+          }
+        };
+      }
+    }, () => {
+      document.getElementById("status").textContent = "No se pudo acceder a la entrada MIDI";
+    });
+  } else {
+    document.getElementById("status").textContent = "Tu navegador no soporta la Web MIDI API";
+  }
 
 </script> 
