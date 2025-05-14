@@ -22,6 +22,29 @@
     #status { margin-top: 10px; font-size: 18px; }
     .correct { color: green; }
     .wrong { color: red; }
+  
+      .close-btn {
+  position: absolute;
+  top: 1.7rem;
+  right: 1.7rem;
+  background-color: rgba(0, 0, 0, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.close-btn:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
 
   
 .dashboard-container {
@@ -1522,12 +1545,11 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
   <div class="modal-background" > 
     <div class="modal-msg">
       <br>    
-
+<button class="close-btn" onclick="hideModal()">✕</button>
 
           <h1>Oda a la Alegría</h1>
   <p>Ludwig van Beethoven</p>
-   <button onclick="hideModal()">Salir</button>
-   <button id="startBtn">Comenzar</button>
+
   
 <div class="staffContainer">
   <div id="staff"></div>
