@@ -17,7 +17,8 @@
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
- #staff { border: 1px solid #ccc; margin-top: 20px; overflow-x: auto; width: 100% ;  display: flex; justify-content: center;}
+   .staffContainer{display: flex; justify-content: center;}
+ #staff { border: 1px solid #ccc; margin-top: 20px; overflow-x: auto;  }
     #status { margin-top: 10px; font-size: 18px; }
     .correct { color: green; }
     .wrong { color: red; }
@@ -1528,8 +1529,9 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
    <button onclick="hideModal()">Salir</button>
    <button id="startBtn">Comenzar</button>
   
-
+<div class="staffContainer">
   <div id="staff"></div>
+</div>
   <div id="status">Cargando...</div>
 
  
