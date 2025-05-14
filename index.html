@@ -17,8 +17,8 @@
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-   .staffContainer{display: flex; justify-content: center;}
- #staff { border: 1px solid #ccc; margin-top: 20px; overflow-x: auto;  }
+   .staffContainer{display: flex; justify-content: center; }
+ #staff { border: 1px solid #ccc; margin-top: 20px; overflow-x: auto; overflow-y: auto ; height: 450px; }
     #status { margin-top: 10px; font-size: 18px; }
     .correct { color: green; }
     .wrong { color: red; }
@@ -1931,10 +1931,10 @@ function toggle_video_modal(element) {
     const context = renderer.getContext();
 
     // Primer sistema (renglón)
-    const staveTop1 = new Stave(30, 30, 700);
+    const staveTop1 = new Stave(50, 30, 700);
     staveTop1.addClef("treble").addTimeSignature("4/4").setContext(context).draw();
 
-    const staveBottom1 = new Stave(30, 120, 700);
+    const staveBottom1 = new Stave(50, 120, 700);
     staveBottom1.addClef("bass").addTimeSignature("4/4").setContext(context).draw();
 
     const brace1 = new StaveConnector(staveTop1, staveBottom1);
@@ -2049,6 +2049,10 @@ function toggle_video_modal(element) {
         document.getElementById("status").className = "correct";
         return;
       }
+
+       const staffDiv = document.getElementById("staff");
+  var systemHeight = 200; 
+  staffDiv.scrollTop += systemHeight;
     }
 
     renderScore();
