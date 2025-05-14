@@ -18,8 +18,8 @@
 }
 
    .staffContainer{display: flex; justify-content: center; }
- #staff { border: 1px solid #ccc; margin-top: 20px; overflow-x: auto; overflow-y: auto ; height: 450px; }
-    #status { margin-top: 10px; font-size: 18px; }
+ #staff { border: 1px solid #ccc;  overflow-x: auto; overflow-y: auto ; height: 450px; }
+    #status { margin-top: 10px; font-size: 18px; position: absolute;}
     .correct { color: green; }
     .wrong { color: red; }
   
@@ -1526,7 +1526,7 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
           </div>
        <div class="panel-body" >
  
-           <iframe width="520px" height="450px" src="" id="metronom" frameborder="0">
+           <iframe width="520px" height="450px" src="http://embed.metronome.app/" id="metronom" frameborder="0">
         </iframe>
           
         </div>
@@ -1545,20 +1545,17 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
   <div class="modal-background" > 
     <div class="modal-msg">
       <br>    
+        <div id="status">Cargando...</div>
 <button class="close-btn" onclick="hideModal()">✕</button>
 
-          <h1>Oda a la Alegría</h1>
+          <h2>Oda a la Alegría</h2>
   <p>Ludwig van Beethoven</p>
 
   
 <div class="staffContainer">
   <div id="staff"></div>
 </div>
-  <div id="status">Cargando...</div>
-
  
-   
-   
 
              </div>
       <br>
@@ -1953,10 +1950,10 @@ function toggle_video_modal(element) {
     const context = renderer.getContext();
 
     // Primer sistema (renglón)
-    const staveTop1 = new Stave(50, 30, 700);
+    const staveTop1 = new Stave(50, 10, 700);
     staveTop1.addClef("treble").addTimeSignature("4/4").setContext(context).draw();
 
-    const staveBottom1 = new Stave(50, 120, 700);
+    const staveBottom1 = new Stave(50, 100, 700);
     staveBottom1.addClef("bass").addTimeSignature("4/4").setContext(context).draw();
 
     const brace1 = new StaveConnector(staveTop1, staveBottom1);
@@ -1966,10 +1963,10 @@ function toggle_video_modal(element) {
     singleLeft1.setType(StaveConnector.type.SINGLE_LEFT).setContext(context).draw();
 
     // Segundo sistema (renglón)
-    const staveTop2 = new Stave(30, 230, 700);
+    const staveTop2 = new Stave(50, 200, 700);
     staveTop2.addClef("treble").addTimeSignature("4/4").setContext(context).draw();
 
-    const staveBottom2 = new Stave(30, 320, 700);
+    const staveBottom2 = new Stave(50, 290, 700);
     staveBottom2.addClef("bass").addTimeSignature("4/4").setContext(context).draw();
 
     const brace2 = new StaveConnector(staveTop2, staveBottom2);
