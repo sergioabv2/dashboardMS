@@ -1546,7 +1546,7 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
 <button class="close-btn" onclick="hideModal()">✕</button>
 
       <div class="staffContainer">
-         <iframe class="staff" id="drivemodal" src="" frameborder="0">
+         <iframe class="staff" id="drivemodal" src="" allow="midi" frameborder="0">
         </iframe>
     </div>
  
@@ -1724,7 +1724,7 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
     $scope.selectUser = function(user){
        document.getElementById('loginContainer').style.display = 'none'; 
             document.getElementById('dashContainer').style.display = 'block';
- /*$("#metronom").attr('src', 'https://embed.metronome.app/'); */
+ $("#metronom").attr('src', 'https://embed.metronome.app/'); 
        $scope.userData = user
        $scope.userLevel = $scope.getLevel($scope.userData.lvl)
     $scope.history = $scope.userData.lessons
