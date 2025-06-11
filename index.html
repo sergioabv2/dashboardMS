@@ -1332,6 +1332,21 @@ iframe#youtube {
   cursor: pointer;
   border-radius: 3px;
 }
+
+	    .dashboard-panel .panel-header #toolSelector {
+      margin: 0;
+      padding: 6px;
+      font-size: 18px;
+      background-color: #333;
+      color: #FFF;
+      border: none;
+      border-radius: 0.2em;
+      appearance: none; /* elimina flecha en algunos navegadores */
+    }
+
+    .dashboard-panel .panel-header select:focus {
+      outline: 2px solid #888;
+    }
 </style>
 
 <div ng-app="studentsApp" ng-controller="Controller1" >
@@ -1520,7 +1535,11 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
       <div class="col-sm-7" >
         <div class="dashboard-panel achievement-list-panel" >
           <div class="panel-header">
-          <h4><i class="fa fa-fw fa-book"></i> Metrónomo</h4>
+	 <select id="toolSelector" onchange="cambiarIframeSrc()">
+        <option value="metronome">📖 Metrónomo</option>
+        <option value="sniffer">🎹 Sniffer</option>
+      </select>
+         <!-- <h4><i class="fa fa-fw fa-book"></i> Metrónomo</h4> -->
           </div>
        <div class="panel-body" >
  
@@ -1894,5 +1913,20 @@ function toggle_video_modal(element) {
     document.getElementById('whatsapp-login').style.display = 'block';
 }
 
+
+
+	  function cambiarIframeSrc() {
+      const selector = document.getElementById("toolSelector");
+      const iframe = document.getElementById("metronom");
+      const valor = selector.value;
+
+      // Mapear opción a URL
+      const rutas = {
+        metronome: "https://app.mozartacademy.mx/renderMidi", 
+        sniffer: "https://app.mozartacademy.mx/midiHistory"
+      };
+
+      iframe.src = rutas[valor] || "";
+    }
 
 </script> 
