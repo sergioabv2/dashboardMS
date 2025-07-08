@@ -1333,7 +1333,7 @@ iframe#youtube {
   border-radius: 3px;
 }
 
-	    .dashboard-panel .panel-header #toolSelector {
+        .dashboard-panel .panel-header #toolSelector {
       margin: 0;
       padding: 6px;
       font-size: 18px;
@@ -1535,15 +1535,18 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
       <div class="col-sm-7" >
         <div class="dashboard-panel achievement-list-panel" >
           <div class="panel-header">
-	 <select id="toolSelector" onchange="cambiarIframeSrc()">
-        <option value="metronome">📖 Metrónomo</option>
-        <option value="sniffer">🎹 Sniffer</option>
+     <select id="toolSelector" onchange="cambiarIframeSrc()">
+        <option value="metronome">Metrónomo</option>
+        <option value="recorder">Grabador</option>
+         <option value="noteDetector">Detector de Notas</option>
+        <option value="chordDetector">Detector de Acordes</option>
+         <option value="handsDetector">Detector de Manos</option>
       </select>
          <!-- <h4><i class="fa fa-fw fa-book"></i> Metrónomo</h4> -->
           </div>
        <div class="panel-body" >
  
-           <iframe width="520px" height="450px" src="" id="metronom" allow="midi" frameborder="0">
+           <iframe width="520px" height="450px" src="" id="metronom" allow="midi; camera" frameborder="0">
         </iframe>
           
         </div>
@@ -1744,7 +1747,7 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
        document.getElementById('loginContainer').style.display = 'none'; 
             document.getElementById('dashContainer').style.display = 'block';
  /*$("#metronom").attr('src', 'https://embed.metronome.app/'); */
-$("#metronom").attr('src', 'https://sightread.dev/freeplay');
+$("#metronom").attr('src', 'http://embed.metronome.app/');
        $scope.userData = user
        $scope.userLevel = $scope.getLevel($scope.userData.lvl)
     $scope.history = $scope.userData.lessons
@@ -1908,22 +1911,25 @@ function toggle_video_modal(element) {
 
 
 
-	  function showWhatsappLogin() {
+      function showWhatsappLogin() {
     document.getElementById('login-options').style.display = 'none';
     document.getElementById('whatsapp-login').style.display = 'block';
 }
 
 
 
-	  function cambiarIframeSrc() {
+      function cambiarIframeSrc() {
       const selector = document.getElementById("toolSelector");
       const iframe = document.getElementById("metronom");
       const valor = selector.value;
 
       // Mapear opción a URL
       const rutas = {
-        metronome: "https://app.mozartacademy.mx/renderMidi", 
-        sniffer: "https://app.mozartacademy.mx/midiHistory"
+          metronome: "http://embed.metronome.app/", 
+           recorder: "https://app.mozartacademy.mx/midiHistory",
+        noteDetector: "https://app.mozartacademy.mx/notereader", 
+    chordDetector: "https://app.mozartacademy.mx/chordDetect",
+          handsDetector: "https://app.mozartacademy.mx/handsDetector2"
       };
 
       iframe.src = rutas[valor] || "";
