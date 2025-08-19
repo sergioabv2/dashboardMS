@@ -1517,14 +1517,14 @@ iframe#youtube {
              <li ng-repeat="entry in history | filter:filterByLevel" ng-class="{ 'status-completed': entry.status === 'Evaluada', 'status-error': entry.status === 'A corrección', 'status-default': entry.status === 'Límite de entrega: '}">
            <!--     <button style="float:right; margin-right: -15px; margin-top: 7px; font-size: 11px; " data-pdf-url="{{entry.pdf}}" onclick="showModal(this)" ng-click="selectEntry(entry)" ng-if="entry.status !== 'En revisión' && entry.status !== 'Evaluada'" class="btn btn-dark btn-sm">Abrir </button>  -->
   
-                <div style="float:right; margin-right: -15px;" ng-if="entry.status == 'Evaluada' && entry.quote"><i class="ri-award-fill" style="font-size: 25px; color: orange;"></i>  </div>
+              
                <div ng-if="entry.status == 'Límite de entrega: '" data-youtube-id="{{entry.video}}" 
-class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: red; cursor: pointer;"> <i class="ri-youtube-fill yticon" style="float:right; margin-right: 10px; font-size: 26px;"></i></div>
+class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: red; cursor: pointer;"> <i class="ri-youtube-fill yticon" style="float:right; margin-right: -15px; font-size: 26px;"></i></div>
               
                         <span style="font-size: 13px;">{{entry.name}}</span>
-               <small style="font-size: 11px; margin-top: 2px;">{{entry.status}} <span ng-if="entry.status == 'Límite de entrega: '"> {{dateToString(entry.limitdate)}}</span></small>
+               <small style="font-size: 11px; margin-top: 2px;">{{entry.status}} <span ng-if="entry.status == 'Límite de entrega: '"> </span></small>
            
-               <small ng-if="entry.status == 'Límite de entrega: ' && stringToDate(entry.limitdate) < today" style="font-size: 9px; margin-top: 2px; position:absolute;">Entrega atrasada, envía un avance</small>
+             
                     </li>
             </ul>
            
@@ -1546,7 +1546,7 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
           </div>
        <div class="panel-body" >
  
-           <iframe width="530px" height="450px" src="" id="metronom" allow="midi; camera" frameborder="0">
+           <iframe width="570px" height="450px" src="" id="metronom" allow="midi; camera" frameborder="0">
         </iframe>
           
         </div>
