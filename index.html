@@ -190,7 +190,7 @@
   
 
 .status-pending:before {
- content: "\f021";
+ content: "\f017";
   animation: load 1.5s steps(900, end) infinite;
 }
   
@@ -215,7 +215,7 @@
 }
 
   .status-default:before {
-    content: "\f11d"; 
+    content: "\f017"; 
 }
   
   .yticon{
@@ -1509,26 +1509,35 @@ iframe#youtube {
         
         <div class="dashboard-panel registry-log-panel" >
           <div class="panel-header">
-            <h4><i class="fa fa-fw fa-clock-o"></i> Registro de actividad</h4>
+            <h4><i class="fa fa-fw fa-flag"></i> Actividades</h4>
           
           </div>
-          <div class="panel-body log-list-container" style="max-height: 220px;"> 
+          <div class="panel-body log-list-container" style="max-height: 200px;"> 
              <ul class="list-unstyled log-list">
              <li ng-repeat="entry in history | filter:filterByLevel" ng-class="{ 'status-completed': entry.status === 'Evaluada', 'status-error': entry.status === 'A corrección', 'status-default': entry.status === 'Límite de entrega: '}">
            <!--     <button style="float:right; margin-right: -15px; margin-top: 7px; font-size: 11px; " data-pdf-url="{{entry.pdf}}" onclick="showModal(this)" ng-click="selectEntry(entry)" ng-if="entry.status !== 'En revisión' && entry.status !== 'Evaluada'" class="btn btn-dark btn-sm">Abrir </button>  -->
   
               
-               <div ng-if="entry.status == 'Límite de entrega: '" data-youtube-id="{{entry.video}}" 
+               <div ng-if="entry.status == 'Límite de entrega: ' && entry.video != ''" data-youtube-id="{{entry.video}}" 
 class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: red; cursor: pointer;"> <i class="ri-youtube-fill yticon" style="float:right; margin-right: -15px; font-size: 26px;"></i></div>
               
                         <span style="font-size: 13px;">{{entry.name}}</span>
-               <small style="font-size: 11px; margin-top: 2px;">{{entry.status}} <span ng-if="entry.status == 'Límite de entrega: '"> </span></small>
+               <small style="font-size: 11px; margin-top: 2px;" ng-if="entry.status == 'Límite de entrega: '">Pendiente </small>
+                    <small style="font-size: 11px; margin-top: 2px;" ng-if="entry.status != 'Límite de entrega: '">{{entry.status}} </small>
+
+               
            
-             
                     </li>
             </ul>
-           
           </div> 
+
+
+
+          <div class="panel-body" style="height: 60px; overflow: hidden; padding: 7px"> 
+              <span style="font-size: 13px;">Última instrucción: {{userData.msg}}</span>
+          </div> 
+
+
         </div>
          <button class="back-btn" ng-click="showLoginOptions()" style="position: absolute; bottom: 0; right: 0; width: 150px; margin-bottom: 20px;">Cerrar sesión</button>
       </div>
@@ -1536,17 +1545,16 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
         <div class="dashboard-panel achievement-list-panel" >
           <div class="panel-header">
      <select id="toolSelector" onchange="cambiarIframeSrc()">
-        <option value="metronome">Metrónomo</option>
-        <option value="recorder">Grabador</option>
+        <option value="repertoire">Biblioteca</option>
+        <option value="agenda">Agenda</option>
          <option value="noteDetector">Detector de Notas</option>
         <option value="chordDetector">Detector de Acordes</option>
-         <option value="handsDetector">Detector de Manos</option>
       </select>
          <!-- <h4><i class="fa fa-fw fa-book"></i> Metrónomo</h4> -->
           </div>
        <div class="panel-body"  style="height: 480px">
  
-           <iframe width="620px" height="470px" src="" id="metronom" allow="midi; camera; microphone" frameborder="0">
+           <iframe width="620px" height="470px" src="https://app.mozartacademy.mx/books3" id="dashboard" allow="midi; camera; microphone" frameborder="0">
         </iframe>
           
         </div>
@@ -1747,7 +1755,7 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
        document.getElementById('loginContainer').style.display = 'none'; 
             document.getElementById('dashContainer').style.display = 'block';
  /*$("#metronom").attr('src', 'https://embed.metronome.app/'); */
-$("#metronom").attr('src', 'http://embed.metronome.app/');
+
        $scope.userData = user
        $scope.userLevel = $scope.getLevel($scope.userData.lvl)
     $scope.history = $scope.userData.lessons
@@ -1920,18 +1928,18 @@ function toggle_video_modal(element) {
 
       function cambiarIframeSrc() {
       const selector = document.getElementById("toolSelector");
-      const iframe = document.getElementById("metronom");
+      const iframe = document.getElementById("dashboard");
       const valor = selector.value;
 
       // Mapear opción a URL
       const rutas = {
-          metronome: "https://embed.metronome.app/", 
+          repertoire: "https://app.mozartacademy.mx/books3", 
           // recorder: "https://app.mozartacademy.mx/midiHistory",
-         recorder: "https://app.mozartacademy.mx/books3",
+         agenda: "https://app.mozartacademy.mx/agenda2",
        // noteDetector: "https://app.mozartacademy.mx/notereader", 
-         noteDetector: "https://app.mozartacademy.mx/agenda2",
+         noteDetector: "https://app.mozartacademy.mx/notereader",
     chordDetector: "https://app.mozartacademy.mx/chordDetect",
-          handsDetector: "https://app.mozartacademy.mx/handsDetector2"
+         // handsDetector: "https://app.mozartacademy.mx/handsDetector2"
       };
 
       iframe.src = rutas[valor] || "";
