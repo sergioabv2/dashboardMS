@@ -550,321 +550,6 @@
 
 
 
-  
-  #modal-container2 {
-    font-family: Helvetica, sans-serif;
-    position: fixed;
-    display: table;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    transform: scale(0);
-    z-index: 1;
-  }
-
-  #modal-container2.four {
-    z-index: 0;
-    transform: scale(1);
-  }
-
-  #modal-container2.four .modal-background .modal-msg {
-    animation: blowUpModal 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-  }
-  #modal-container2.four + body {
-    z-index: 1;
-    animation: blowUpContent 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-  }
-  #modal-container2.four.out .modal-background .modal-msg {
-    animation: blowUpModalTwo 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-  }
-  #modal-container2.four.out + body {
-    animation: blowUpContentTwo 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-  }
-
-  #modal-container2 .modal-background {
-    display: table-cell;
-    background: rgba(0, 0, 0, 0.8);
-    text-align: center;
-    vertical-align: middle;
-  }
-  #modal-container2 .modal-background .modal-msg {
-    padding: 10px;
-    width: 95%;
-    display: inline-block;
-    border-radius: 13px;
-    background: #fef2cc;
-    font-weight: 300;
-    position: relative;
-    max-height: 530px;
-    overflow: auto !important;
-  }
-
-
-
-  @keyframes blowUpContent {
-    0% {
-      transform: scale(1);
-      opacity: 1;
-    }
-    99.9% {
-      transform: scale(2);
-      opacity: 0;
-    }
-    100% {
-      transform: scale(0);
-    }
-  }
-  @keyframes blowUpContentTwo {
-    0% {
-      transform: scale(2);
-      opacity: 0;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-  @keyframes blowUpModal {
-    0% {
-      transform: scale(0);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-  @keyframes blowUpModalTwo {
-    0% {
-      transform: scale(1);
-      opacity: 1;
-    }
-    100% {
-      transform: scale(0);
-      opacity: 0;
-    }
-  }
-
-  .modal-hidden .modal-background {
-    background: transparent;
-  }
-
-.close-video-modal {
-    display: block;
-    position: absolute;
-    left: 0;
-    top: -40px;
-
-    text-decoration: none;
-    font-size: 20px;
-    font-weight: bold;
-    color: #fff;
-}
-
-
-  
-
-
-
-
-
-
-
-
-.video-modal,
-.video-modal .overlay {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 3000;
-}
-.video-modal {
-  overflow: hidden;
-  position: fixed;
-  opacity: 0.0;
-
-  -webkit-transform: translate(500%,0%);
-  transform: translate(500%,0%);
-
-  -webkit-transition: -webkit-transform 0s linear 0s;
-  transition: transform 0s linear 0s;
-
-
-  /* using flexbox for vertical centering */
-
-  /* Flexbox display */
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-
-  /* Vertical alignment */
-  -webkit-box-align: center;
-  -moz-box-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  align-items: center;
-
-  -webkit-transform-style: preserve-3d;
-  -moz-transform-style: preserve-3d;
-  transform-style: preserve-3d;
-}
-.video-modal .overlay {
-  z-index: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-    filter: blur(14px);
-
-
-
-  opacity: 0.0;
-
-  -webkit-transition: opacity 0.2s ease-out 0.05s;
-  transition: opacity 0.2s ease-out 0.05s;
-}
-
-
-.video-modal-content {
-  position: relative;
-  top: auto;
-  right: auto;
-  bottom: auto;
-  left: auto;
-  z-index: 1;
-  border-radius: 13px;
-  margin: 0 auto;
-
-  overflow-y: visible;
-
-  background: #000;
-  
-  width: calc(100% - 12em);
-  height: 0;
-  padding-top: calc((100% - 12em) * 0.5625); /* 16:9 calc */
-}
-
-/* Scaling to fit within the current Viewport size:
-   When viewport aspect ratio is greater than 16:9
-   work off the height instead of the width for calc */
- @media (min-aspect-ratio: 16/9) {
-  .video-modal-content {
-    width: 0;
-    height: calc(100vh - 10em);
-    padding-top: 0;
-    padding-left: calc((100vh - 10em) * 1.7778); /* 16:9 calc */
-  }
-}
-
-/* Mobile Layout Tweaks - side margins reduced */
-@media (max-width: 640px) {
-  .video-modal-content {
-    width: calc(100% - 1em);
-    padding-top: calc((100% - 1em) * 0.5625); /* 16:9 calc */
-  }
-}
-
-/* modal close button */
-.close-video-modal {
-  display: block;
-    position: absolute;
-    left: 0;
-    top: -40px;
-
-    text-decoration: none;
-    font-size: 20px;
-    font-weight: bold;
-    color: #fff;
-}
-
-/* set the iframe element to stretch to fit its parent element */
-iframe#youtube {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1;
-  border-radius: 13px;
-
-
-  background: white;
-  box-shadow: 0px 2px 16px rgba(0,0,0,0.5);
-}
-
-/* show the modal: 
-   add class to the body to reveal */
-.show-video-modal .video-modal {
-  opacity: 1.0;
-
-  transform: translate(0%,0%);
-  -webkit-transform: translate(0%,0%);
-}
-.show-video-modal .video-modal .overlay {
-  opacity: 1.0;
-}
-.show-video-modal .video-modal-content {
-  transform: translate(0%,0%);
-  -webkit-transform: translate(0%,0%);
-}
-
-
-
-
-
-
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.4);
-      padding-top: 60px;
-    }
-
-    .modal-content {
-      background-color: #fefefe;
-      margin: 5% auto;
-      padding: 20px;
-      border: 1px solid #888;
-      width: 80%;
-      max-width: 300px;
-    }
-
-    .close {
-      color: #aaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-    }
-
-    .close:hover,
-    .close:focus {
-      color: black;
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    .add-to-btn {
-      background-color: #E02D44;
-      color: white;
-      border: none;
-      outline: none;
-      font-weight: bold;
-      width: 100%;
-      height: 50px;
-    }
- 
-#myModal {
-    display: block; 
-  }
-
-
-
-
-
 
 #full-screen-btn{
     position: absolute;
@@ -1347,6 +1032,37 @@ iframe#youtube {
     .dashboard-panel .panel-header select:focus {
       outline: 2px solid #888;
     }
+
+
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px); /* For Safari support */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.loader2 {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50% 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 </style>
 
 <div ng-app="studentsApp" ng-controller="Controller1" >
@@ -1460,7 +1176,9 @@ iframe#youtube {
 
 
   
-
+<div id="loading-overlay" class="overlay">
+        <div class="loader2"></div>
+    </div>
 
 
 
@@ -1569,8 +1287,8 @@ if (localStorage.getItem('userMail')) {
 
 
     $scope.selectUser = function(user){
-
-      
+      const loadingOverlay = document.getElementById('loading-overlay');
+       loadingOverlay.style.display = 'flex';
         var api = "https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7IDc7KBrYGfix6hUa4kvJ1TFpjU82NltFXezUroGgQ/exec";
         var validationData = {
           redirect: "follow",
@@ -1584,6 +1302,7 @@ if (localStorage.getItem('userMail')) {
             var validation = JSON.parse(res);
             if (validation.status == "success") {
               localStorage.setItem('userMail', validation.token);
+                  loadingOverlay.style.display = 'none';
               window.location.href = 'https://dashboard.mozartacademy.mx/main';
             }
           });
