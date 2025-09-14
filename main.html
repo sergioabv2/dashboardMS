@@ -3060,7 +3060,7 @@ width: 200px; /* Ajusta según el tamaño deseado */
         </ion-content>
  <ion-footer-bar style="z-index: 999 !important;">
         
-  <button class="button pull-right" ng-click=""><i class="ri-logout-box-line"></i>Salir</button>
+  <button class="button pull-right" ng-click="logout()"><i class="ri-logout-box-line"></i>Salir</button>
 </ion-footer-bar>
 
       </ion-side-menu>
@@ -3187,7 +3187,7 @@ width: 200px; /* Ajusta según el tamaño deseado */
 
 
      <ion-content > 
-        <div class="iframe-container"><iframe src="https://app.mozartacademy.mx/recordings" frameborder="0" allowfullscreen></iframe></div>   
+        <div class="iframe-container"><iframe src="https://dashboard.mozartacademy.mx/recordings" frameborder="0" allowfullscreen></iframe></div>   
       </ion-content>
      
     </ion-view>
@@ -3404,18 +3404,14 @@ width: 200px; /* Ajusta según el tamaño deseado */
 
     
     <!-- Botones Flotantes -->
-    <div class="floating-buttons">
- 
-      
-      <!-- Botón de Micrófono -->
+  <!--  <div class="floating-buttons">
       <button class="button floating-btn mic"
               ng-class="{'muted': webrtc.isMuted}"
               ng-click="toggleMicrophone()"
               ng-show="webrtc.connectionStatus !== 'disconnected'">
         <i class="fas" ng-class="{'fa-microphone': !webrtc.isMuted, 'fa-microphone-slash': webrtc.isMuted}"></i>
       </button>
-      
-    </div>
+    </div>  -->
   
     </ion-view>
   </script>  
@@ -3477,7 +3473,7 @@ width: 200px; /* Ajusta según el tamaño deseado */
 
     <ion-content > 
       <!-- achievements -->
-        <div class="iframe-container"><iframe src="https://app.mozartacademy.mx/lessons3" frameborder="0" allowfullscreen ></iframe></div> 
+        <div class="iframe-container"><iframe src="https://dashboard.mozartacademy.mx/lessons" frameborder="0" allowfullscreen ></iframe></div> 
     </ion-content> 
 
   
@@ -3539,7 +3535,7 @@ width: 200px; /* Ajusta según el tamaño deseado */
 
 
      <ion-content >
-  <div class="iframe-container2"><iframe src="https://app.mozartacademy.mx/books2" frameborder="0" allowfullscreen ></iframe></div> 
+  <div class="iframe-container2"><iframe src="https://dashboard.mozartacademy.mx/books" frameborder="0" allowfullscreen ></iframe></div> 
 
    
       </ion-content>
@@ -3752,7 +3748,8 @@ $scope.goBack = function() {
 
 
   $scope.logout = function() {
-   
+     token: localStorage.removeItem('userMail')
+    window.location.href = '/';
   };
 
  }])
