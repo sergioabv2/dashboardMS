@@ -5,24 +5,24 @@
 
   <script>
     
-   var requestData = {
-          action: "getBasicData",
-          token: localStorage.getItem('userMail')
-        };
+  
 
-        var config = {
-          headers: {
-            "Content-Type": "text/plain;charset=utf-8"
-          } 
+   var token = localStorage.getItem('userMail')
+      var api = "https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7IDc7KBrYGfix6hUa4kvJ1TFpjU82NltFXezUroGgQ/exec";
+        var validationData = {
+          redirect: "follow",
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ action: "getBasicData", token: token})
         };
-                 
-        $http.post('https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7IDc7KBrYGfix6hUa4kvJ1TFpjU82NltFXezUroGgQ/exec', requestData, config)
-          .then(function(response) { 
-            //  var repertoire = JSON.parse(response.data.repertoire);
-            document.getElementById("dato").textContent = response.data.name;
-          })  
+        fetch(api, validationData)
+          .then(response => response.text())
+          .then(res => {
+             document.getElementById("dato").textContent = JSON.parse(res);
+      
+          });
     
-    document.getElementById("dato").textContent = localStorage.getItem("userMail");
+
   </script>
 </body>
 </html>
