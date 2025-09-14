@@ -1388,7 +1388,7 @@ iframe#youtube {
               
                  
        <div id="login-options">
-           <img src="https://lh3.googleusercontent.com/d/1EIVHue1UhcSP-82ftLN01xyi_yp7s0de"  class="logo-img my-3">
+           <img src="https://lh3.googleusercontent.com/d/1CWImzia2Z8LdK-VxeMKK22oa7387Ktwj"  class="logo-img my-3">
     <h4 class="mt-3" >Inicia sesión</h4>
         
 
@@ -1457,180 +1457,13 @@ iframe#youtube {
 
 
   
-  
-<div class="dashboard-container" style="display: none" id="dashContainer">
-  <!--<div class="showbox" ng-if="!userDataLoaded">
-      <div class="loader">
-        <svg class="circular" viewbox="25 25 50 50">
-          <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"></circle>
-        </svg>
-      </div>
-    </div>-->
-  
-   
-
-    <div class="row">
-      <div class="col-sm-4">
-        <div class="profile-user-data clearfix">
-          <div class="circle">
-              <img class="profile-pic" src={{picture}}>
-          </div>
-
-          <div class="main-data" >
-            <h4 style="font-size: 19px;">{{userData.name}}</h4>
-            <div class="pull-left achievement-count" ng-if="userData.plan.split(' ')[0] == 'Premium'" style="color: #77777a; font-size: 12px;"> PLAN PREMIUM
-            <i class="ri-vip-crown-fill text-golden"></i>  </div>
-        <div class="pull-left achievement-count" ng-if="userData.plan.split(' ')[0] == 'Pro'" style="color: #77777a; font-size: 12px;"> PLAN PRO
-            <i class="ri-verified-badge-fill text-blue"></i>  </div>
-             <div class="pull-left achievement-count" ng-if="userData.plan.split(' ')[0] == 'Standard'" style="color: #77777a; font-size: 12px;"> PLAN STANDARD
-             </div> 
-       <div class="pull-left achievement-count" ng-if="userData.plan.split(' ')[0] == 'Estudiante'" style="color: #77777a; font-size: 12px;"> PLAN ESTUDIANTE
-            <i class="ri-graduation-cap-fill"></i>  </div> 
-            
-     <div class="pull-left achievement-count" ng-if="userData.plan == 'Zoom'" style="color: #77777a; font-size: 12px;"> PLAN ZOOM
-           <i class="ri-video-chat-fill" style="color: #0B5CFF"></i>  </div>
-       <div class="pull-left achievement-count" ng-if="userData.plan == 'Asíncrono'" style="color: #77777a; font-size: 12px;"> PLAN ASÍNCRONO
-            <i class="ri-mac-line"></i>  </div> 
-        
-          <br>
-          <div style="margin-top: 1px">    {{userLevel}}  </div>
-           
-
-       <div class="progress">
-          <div class="progress-bar" style="background-color: {{userData.color}};" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{width: userData.progress + '%'}" ng-init="startAnimation()"></div>
-        </div>
-
-          </div> 
-        </div> 
-        
-       
-       
- 
-        
-        <div class="dashboard-panel registry-log-panel" >
-          <div class="panel-header">
-            <h4><i class="fa fa-fw fa-flag"></i> Actividades</h4>
-          
-          </div>
-          <div class="panel-body log-list-container" style="max-height: 200px;"> 
-             <ul class="list-unstyled log-list">
-             <li ng-repeat="entry in history | filter:filterByLevel" ng-class="{ 'status-completed': entry.status === 'Evaluada', 'status-error': entry.status === 'A corrección', 'status-default': entry.status === 'Límite de entrega: '}">
-           <!--     <button style="float:right; margin-right: -15px; margin-top: 7px; font-size: 11px; " data-pdf-url="{{entry.pdf}}" onclick="showModal(this)" ng-click="selectEntry(entry)" ng-if="entry.status !== 'En revisión' && entry.status !== 'Evaluada'" class="btn btn-dark btn-sm">Abrir </button>  -->
-  
-              
-               <div ng-if="entry.status == 'Límite de entrega: ' && entry.video != ''" data-youtube-id="{{entry.video}}" 
-class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: red; cursor: pointer;"> <i class="ri-youtube-fill yticon" style="float:right; margin-right: -15px; font-size: 26px;"></i></div>
-              
-                        <span style="font-size: 13px;">{{entry.name}}</span>
-               <small style="font-size: 11px; margin-top: 2px;" ng-if="entry.status == 'Límite de entrega: '">Pendiente </small>
-                    <small style="font-size: 11px; margin-top: 2px;" ng-if="entry.status != 'Límite de entrega: '">{{entry.status}} </small>
-
-               
-           
-                    </li>
-            </ul>
-          </div> 
 
 
 
-          <div class="panel-body" style="height: 60px; overflow: hidden; padding: 7px"> 
-              <span style="font-size: 13px;">Última instrucción: {{userData.msg}}</span>
-          </div> 
 
-
-        </div>
-         <button class="back-btn" ng-click="showLoginOptions()" style="position: absolute; bottom: 0; right: 0; width: 150px; margin-bottom: 20px;">Cerrar sesión</button>
-      </div>
-      <div class="col-sm-8" >
-        <div class="dashboard-panel achievement-list-panel" >
-          <div class="panel-header">
-     <select id="toolSelector" onchange="cambiarIframeSrc()">
-        <option value="repertoire">Biblioteca</option>
-        <option value="agenda">Agenda</option>
-         <option value="noteDetector">Detector de Notas</option>
-        <option value="chordDetector">Detector de Acordes</option>
-      </select>
-         <!-- <h4><i class="fa fa-fw fa-book"></i> Metrónomo</h4> -->
-          </div>
-       <div class="panel-body"  style="height: 480px">
- 
-           <iframe width="620px" height="470px" src="https://app.mozartacademy.mx/books3" id="dashboard" allow="midi; camera; microphone" frameborder="0">
-        </iframe>
-          
-        </div>
-        </div>
-      </div>
-    </div>
- </div> 
     </div>  
 
-  
-  
-  
-  
-  
-   <div id="modal-container2" class="modal-container">
-  <div class="modal-background" > 
-    <div class="modal-msg">
-      <br>    
-<button class="close-btn" onclick="hideModal()">✕</button>
 
-      <div class="staffContainer">
-         <iframe class="staff" id="drivemodal" src="" allow="midi" frameborder="0">
-        </iframe>
-    </div>
- 
-
-             </div>
-      <br>
-
-    </div>
-  </div>
-  
-
-
-
-
- 
-  
-   <div class="video-modal">
-    <div id="video-modal-content" class="video-modal-content">
-       <iframe 
-          id="youtube" 
-          width="100%" 
-          height="100%" 
-          frameborder="0" 
-          allow="autoplay" 
-          allowfullscreen 
-          src=
-        ></iframe>
-
-        <a 
-          href="#" 
-          class="close-video-modal" 
-        >
-          <!-- X close video icon -->
-          <svg 
-            version="1.1" 
-            xmlns="http://www.w3.org/2000/svg" 
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            x="0"
-            y="0"
-            viewBox="0 0 32 32" 
-            style="enable-background:new 0 0 32 32;" 
-            xml:space="preserve" 
-            width="24" 
-            height="24" 
-          >
-            <g id="icon-x-close">
-                <path fill="#ffffff" d="M30.3448276,31.4576271 C29.9059965,31.4572473 29.4852797,31.2855701 29.1751724,30.980339 L0.485517241,2.77694915 C-0.122171278,2.13584324 -0.104240278,1.13679247 0.52607603,0.517159487 C1.15639234,-0.102473494 2.17266813,-0.120100579 2.82482759,0.477288136 L31.5144828,28.680678 C31.9872448,29.1460053 32.1285698,29.8453523 31.8726333,30.4529866 C31.6166968,31.0606209 31.0138299,31.4570487 30.3448276,31.4576271 Z" id="Shape"></path>
-                <path fill="#ffffff" d="M1.65517241,31.4576271 C0.986170142,31.4570487 0.383303157,31.0606209 0.127366673,30.4529866 C-0.12856981,29.8453523 0.0127551942,29.1460053 0.485517241,28.680678 L29.1751724,0.477288136 C29.8273319,-0.120100579 30.8436077,-0.102473494 31.473924,0.517159487 C32.1042403,1.13679247 32.1221713,2.13584324 31.5144828,2.77694915 L2.82482759,30.980339 C2.51472031,31.2855701 2.09400353,31.4572473 1.65517241,31.4576271 Z" id="Shape"></path>
-            </g>
-          </svg>
-        </a>
-    </div>
-    <div class="overlay"></div>
-</div>
 </div> 
   
 
@@ -1648,6 +1481,12 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
    $scope.userData = [];
  // $scope.userDataLoaded = false;
      $scope.today = new Date()
+
+     // Al entrar a la página, limpiar userMail si existe
+if (localStorage.getItem('userMail')) {
+    localStorage.removeItem('userMail');
+}
+
    
 
        $scope.isModalVisible = false;
@@ -1717,62 +1556,17 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
   }); 
      
     
-      function refreshData() { 
-    $http({
-    method: 'GET',
-    url: 'https://script.google.com/macros/s/AKfycbzIra465SJypRhzRL6ihOF0dmuCCykgZF3F4PufbHR76OBkyhS7NLvAu0joiJr5VfwM/exec',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    }
-  }).then(function(response) {
-   $scope.newData = response.data; 
-      $scope.stData = $scope.newData[$scope.userData.row-3]; 
-      $scope.waitforaudio()
-  });
-    
-  };
-  
-  var lastmsg = "";
-      $scope.waitforaudio = function(){
-    if($scope.stData.msg){
-      if($scope.stData.msg != lastmsg){
-        speak($scope.stData.msg)
-        lastmsg = $scope.stData.msg 
-      }
-    }
-  };
-  
-  function speak(text) {
-        var utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'es-ES'; 
-    utterance.rate = 1;
-        window.speechSynthesis.speak(utterance);
-    }
-    
-    let refreshInterval; 
-    $scope.selectUser = function(user){
-       document.getElementById('loginContainer').style.display = 'none'; 
-            document.getElementById('dashContainer').style.display = 'block';
- /*$("#metronom").attr('src', 'https://embed.metronome.app/'); */
 
-       $scope.userData = user
-       $scope.userLevel = $scope.getLevel($scope.userData.lvl)
-    $scope.history = $scope.userData.lessons
-      
-      $scope.startAnimation = function() {
-        $('.progress-bar').animate({
-          width: $scope.userData.progress + '%'
-        }, 500); 
-      };
-      
-    $scope.picture = $scope.userData.photo
-       refreshInterval = $interval(refreshData, 1000);
+
+    
+
+    $scope.selectUser = function(user){
+
+      localStorage.setItem('userMail', user.mail);
+        window.location.href = 'https://dashboard.mozartacademy.mx/main';
+       // localStorage.removeItem('MStoken');
     } 
 
-    $scope.trustAsResourceUrl = function(url) {
-        return $sce.trustAsResourceUrl(url);
-    };
 
     
     
@@ -1875,48 +1669,7 @@ class="js-trigger-video-modal" onclick="toggle_video_modal(this)" style="color: 
   
   
   
-  
-  
-function toggle_video_modal(element) {
-     var url = element.getAttribute('data-youtube-id');
-          $("#youtube").attr('src', url);        
-          $("body").addClass("show-video-modal noscroll");  
-  var icon = element.querySelector('.yticon');
-    if (icon) {
-        icon.style.animation = 'none';
-    } 
-}
-
-      // Close and Reset the Video Modal
-      function close_video_modal() {
-        
-        event.preventDefault();
-        $("body").removeClass("show-video-modal noscroll");
-        $("#youtube").attr('src', '');
-        
-      } 
-      $('body').on('click', '.close-video-modal, .video-modal .overlay', function(event) {
-          close_video_modal();
-      });
  
-
-  
-    function showModal(element) {
-       var url = element.getAttribute('data-pdf-url');
-          $("#drivemodal").attr('src', url);   
-        document.getElementById('modal-container2').classList.add('four');
-    };
-
-    function hideModal() {
-        const modal = document.getElementById('modal-container2');
-       $("#drivemodal").attr('src', '');  
-        modal.classList.add('out');
-        setTimeout(() => {
-            modal.classList.remove('four', 'out');
-        }, 400);
-    }
-
-
 
 
       function showWhatsappLogin() {
@@ -1925,24 +1678,5 @@ function toggle_video_modal(element) {
 }
 
 
-
-      function cambiarIframeSrc() {
-      const selector = document.getElementById("toolSelector");
-      const iframe = document.getElementById("dashboard");
-      const valor = selector.value;
-
-      // Mapear opción a URL
-      const rutas = {
-          repertoire: "https://app.mozartacademy.mx/books3", 
-          // recorder: "https://app.mozartacademy.mx/midiHistory",
-         agenda: "https://app.mozartacademy.mx/agenda2",
-       // noteDetector: "https://app.mozartacademy.mx/notereader", 
-         noteDetector: "https://app.mozartacademy.mx/notereader",
-    chordDetector: "https://app.mozartacademy.mx/chordDetect",
-         // handsDetector: "https://app.mozartacademy.mx/handsDetector2"
-      };
-
-      iframe.src = rutas[valor] || "";
-    }
 
 </script> 
