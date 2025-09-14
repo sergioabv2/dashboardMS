@@ -1367,8 +1367,11 @@ iframe#youtube {
           </div>
           <div class="intro-content-wrapper">
         
-            <h1 class="intro-title strong-shadow">Bienvenido al mundo del Piano!</h1>
-            <p class="intro-text strong-shadow">En Mozart Academy, te ofrecemos clases adaptadas a tus necesidades y horarios, ya seas principiante o avanzado.</p>
+            <h1 class="intro-title strong-shadow">Simplicidad y Eficiencia</h1>
+          <p class="intro-text strong-shadow">
+  En Mozart Academy te ofrecemos enseñanza profesional con la ayuda de tecnología para potenciar tu aprendizaje.
+</p>
+
      
           </div>
         </div>
@@ -1539,9 +1542,6 @@ if (localStorage.getItem('userMail')) {
     };
      
     
-    
-    
-    $scope.userData = [];
 
   $http({
     method: 'GET',
@@ -1558,14 +1558,37 @@ if (localStorage.getItem('userMail')) {
     
 
 
-    
+    /*
+
+    $scope.selectUser = function(user){
+      localStorage.setItem('userMail', user.mail);
+        window.location.href = 'https://dashboard.mozartacademy.mx/main';
+    } 
+
+*/
+
 
     $scope.selectUser = function(user){
 
-      localStorage.setItem('userMail', user.mail);
-        window.location.href = 'https://dashboard.mozartacademy.mx/main';
-       // localStorage.removeItem('MStoken');
-    } 
+      
+        var api = "https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7IDc7KBrYGfix6hUa4kvJ1TFpjU82NltFXezUroGgQ/exec";
+        var validationData = {
+          redirect: "follow",
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ action: "validateUserDash", email: user.mail})
+        };
+        fetch(api, validationData)
+          .then(response => response.text())
+          .then(res => {
+            var validation = JSON.parse(res);
+            if (validation.status == "success") {
+              localStorage.setItem('userMail', validation.token);
+              window.location.href = 'https://dashboard.mozartacademy.mx/main';
+            }
+          });
+      } 
+    
 
 
     
