@@ -4,6 +4,24 @@
   <p id="dato"></p>
 
   <script>
+    
+   var requestData = {
+          action: "getBasicData",
+          token: localStorage.getItem('userMail')
+        };
+
+        var config = {
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          } 
+        };
+                 
+        $http.post('https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7IDc7KBrYGfix6hUa4kvJ1TFpjU82NltFXezUroGgQ/exec', requestData, config)
+          .then(function(response) { 
+            //  var repertoire = JSON.parse(response.data.repertoire);
+            document.getElementById("dato").textContent = response.data.name;
+          })  
+    
     document.getElementById("dato").textContent = localStorage.getItem("userMail");
   </script>
 </body>
