@@ -3136,6 +3136,23 @@ width: 200px; /* Ajusta según el tamaño deseado */
   </script>
 
 
+
+    <script id="profile.html" type="text/ng-template">
+    <ion-view>
+           <ion-nav-bar class="bar-light" >     
+       <ion-nav-buttons side="left">
+    <button class="button button-clear" ng-click="goBack()">
+      <i class="ri-arrow-left-s-line"></i> regresar
+    </button>
+  </ion-nav-buttons>  
+    </ion-nav-bar>
+     <ion-content > 
+        <div class="iframe-container"><iframe src="https://dashboard.mozartacademy.mx/agenda" frameborder="0" allowfullscreen></iframe></div>   
+      </ion-content>
+    </ion-view>
+  </script>
+
+
  <script id="recordings.html" type="text/ng-template">
     <ion-view >
       
@@ -3177,6 +3194,10 @@ width: 200px; /* Ajusta según el tamaño deseado */
       Pro
       </span>
      </div>
+    </div>
+
+     <div class="dropdown-item" ng-click="goToProfile(); toggleDropdown()">
+      <i class="ri-calendar-view"></i> Calendario
     </div>
     
       <div class="dropdown-item" ng-click="logout()">
@@ -3240,6 +3261,10 @@ width: 200px; /* Ajusta según el tamaño deseado */
       Pro
       </span>
      </div>
+    </div>
+
+     <div class="dropdown-item" ng-click="goToProfile(); toggleDropdown()">
+      <i class="ri-calendar-view"></i> Calendario
     </div>
     
       <div class="dropdown-item" ng-click="logout()">
@@ -3463,6 +3488,10 @@ width: 200px; /* Ajusta según el tamaño deseado */
       </span>
      </div>
     </div>
+
+     <div class="dropdown-item" ng-click="goToProfile(); toggleDropdown()">
+      <i class="ri-calendar-view"></i> Calendario
+    </div>
     
       <div class="dropdown-item" ng-click="logout()">
       <i class="ri-shut-down-line"></i> Cerrar sesión
@@ -3525,6 +3554,10 @@ width: 200px; /* Ajusta según el tamaño deseado */
       Pro
       </span>
      </div>
+    </div>
+
+     <div class="dropdown-item" ng-click="goToProfile(); toggleDropdown()">
+      <i class="ri-calendar-view"></i> Calendario
     </div>
     
       <div class="dropdown-item" ng-click="logout()">
@@ -3726,7 +3759,11 @@ app
   window.location.href = '#/menu/account';
 }; 
      
- 
+  
+    $scope.goToProfile = function() {
+   window.location.href = '#/menu/profile';
+};
+
   
     $scope.goToMain = function() {
    window.location.href = '#/main';
