@@ -3595,7 +3595,7 @@ app
 
 .factory('SharedState', function($http, $q) {
   var requestData = {
-    action: "getProfileData",
+    action: "getUserData",
     token: localStorage.getItem('userMail')
   //  token: "U2FsdGVkX1+pTAJ/i/vnElIrTlT7VjKJ6kuzk2FlnAIkGq9xl29aZsKgbGygQIfF"
   };
@@ -3613,9 +3613,6 @@ app
     $http.post('https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7IDc7KBrYGfix6hUa4kvJ1TFpjU82NltFXezUroGgQ/exec', requestData, config)
       .then(function(response) {
         deferred.resolve({
-          lvl: response.data.lvl,
-          blq: response.data.blq,
-    lsn: response.data.lsn, 
           data: response.data,
         });
       }, function(error) {
@@ -3734,10 +3731,10 @@ app
     $scope.loadingProfile = true;
   SharedState.getNum().then(function(data) {
        $scope.userData = data.data;
+       var userLvl = JSON.parse($scope.userData.stage)
+       $scope.userLvl = userLvl.lvl;
        $scope.userPlan = data.data.plan.split(" ")[0];
       $scope.userNameShort = data.data.name.split(" ")[0];
-      $scope.chats = JSON.parse(data.data.messages);
-    $scope.alerts = JSON.parse(data.data.alerts);
       $scope.loadingProfile = false;
   }) 
 
