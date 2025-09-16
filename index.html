@@ -1152,11 +1152,15 @@
          {{ noStudentsMessage }}
         </div>
     
-    <li class="accordion-block" ng-repeat="student in filteredStudents | filter: { name: query } | orderBy: orderList" id="active" ng-style="{'background-image': 'linear-gradient(90deg, ' + student.color + ' 10px, transparent 11px)'}">
+    <li class="accordion-block" ng-repeat="student in filteredStudents | filter: { name: query } | orderBy: orderList" id="active" ng-style="{'background-image': 'linear-gradient(90deg, ' + (student.status === 'ACTIVO' ? 'green' : 'orange') + ' 10px, transparent 11px)'}">
   
       <div ng-click="selectUser(student)">
+    
       {{student.name}}<br>
-     {{student.level}}<br> 
+      <span ng-if="student.stage.lvl === 0">Nivel Preparatorio</span>   <span ng-if="student.stage.lvl !== 0">Nivel {{student.stage.lvl}}</span>
+            <span ng-if="student.status == 'ACTIVO'" style=" display: flex; justify-content: flex-start; font-size: 12px; right: 10px; bottom: 5px; color: green; text-shadow: 0 0 2px green; font-weight: 600;">ACTIVO</span>
+               <span ng-if="student.status != 'ACTIVO'" style=" display: flex; justify-content: flex-start; font-size: 12px; right: 10px; bottom: 5px;  text-shadow: 0 0 2px orange; font-weight: 600;">Pago Pendiente</span>
+  
       </div>
 
     </li>
@@ -1261,19 +1265,22 @@ if (localStorage.getItem('userMail')) {
      
     
 
-  $http({
-    method: 'GET',
-    url: 'https://script.google.com/macros/s/AKfycbzIra465SJypRhzRL6ihOF0dmuCCykgZF3F4PufbHR76OBkyhS7NLvAu0joiJr5VfwM/exec',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    }
-  }).then(function(response) {
-    $scope.students = response.data;
-     $scope.filterByHour();
-  }); 
-     
-    
+    var requestData = {
+        action: "getAllUsers",
+    };
+    var config = {
+        headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+        }
+    };
+    $http.post('https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7IDc7KBrYGfix6hUa4kvJ1TFpjU82NltFXezUroGgQ/exec', requestData, config)
+        .then(function (response) {
+ 
+          $scope.students = response.data;
+          $scope.filterByHour();
+    });
+
+
 
 
     /*
@@ -1398,7 +1405,7 @@ if (localStorage.getItem('userMail')) {
   
  $scope.showAllStudents = function() {
   $scope.filteredStudents = $scope.students.filter(function(student) {
-    return student.status == 'ACTIVO'
+    return student
   }).sort(function(a, b) {
     return a.name.localeCompare(b.name);
   });
