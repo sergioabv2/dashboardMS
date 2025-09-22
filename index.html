@@ -1309,7 +1309,6 @@ if (localStorage.getItem('userMail')) {
           .then(res => {
             var validation = JSON.parse(res);
             if (validation.status == "success") {
-              alert(validation.token)
               localStorage.setItem('userMail', validation.token);
                   loadingOverlay.style.display = 'none';
               window.location.href = 'https://dashboard.mozartacademy.mx/main';
