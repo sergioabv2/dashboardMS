@@ -1296,6 +1296,7 @@ if (localStorage.getItem('userMail')) {
     $scope.selectUser = function(user){
       const loadingOverlay = document.getElementById('loading-overlay');
        loadingOverlay.style.display = 'flex';
+      
         var api = "https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7IDc7KBrYGfix6hUa4kvJ1TFpjU82NltFXezUroGgQ/exec";
         var validationData = {
           redirect: "follow",
@@ -1308,6 +1309,7 @@ if (localStorage.getItem('userMail')) {
           .then(res => {
             var validation = JSON.parse(res);
             if (validation.status == "success") {
+              alert(validation.token)
               localStorage.setItem('userMail', validation.token);
                   loadingOverlay.style.display = 'none';
               window.location.href = 'https://dashboard.mozartacademy.mx/main';
