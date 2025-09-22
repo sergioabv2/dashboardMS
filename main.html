@@ -3046,10 +3046,10 @@ width: 200px; /* Ajusta según el tamaño deseado */
                      
    
        
-    <a href="#/menu/lessons" class="item" ng-class="(activeMenuClr=='lessons')?'menuSelectedColor':''" ng-click="activeMenuClr = 'lessons'" menu-toggle="left"><i class="ri-presentation-line" ></i>&nbsp&nbspLecciones</a>  
-      <a href="#/menu/livestream" class="item" ng-class="(activeMenuClr=='livestream')?'menuSelectedColor':''" ng-click="activeMenuClr = 'livestream'" menu-toggle="left"><i class="ri-calendar-event-line"></i>&nbsp&nbspSessions</a>  
-         <hr>
-         <a href="#/menu/library" class="item" ng-class="(activeMenuClr=='library')?'menuSelectedColor':''" ng-click="activeMenuClr = 'library'" menu-toggle="left"><i class="ri-book-shelf-line" ></i>&nbsp&nbspRepertorio</a>
+ <!--   <a href="#/menu/lessons" class="item" ng-class="(activeMenuClr=='lessons')?'menuSelectedColor':''" ng-click="activeMenuClr = 'lessons'" menu-toggle="left"><i class="ri-presentation-line" ></i>&nbsp&nbspLecciones</a>   -->
+      <a href="#/menu/livestream" class="item" ng-class="(activeMenuClr=='livestream')?'menuSelectedColor':''" ng-click="activeMenuClr = 'livestream'" menu-toggle="left"><i class="ri-calendar-event-line"></i>&nbsp&nbspDashboard</a>  
+
+         <a href="#/menu/library" class="item" ng-class="(activeMenuClr=='library')?'menuSelectedColor':''" ng-click="activeMenuClr = 'library'" menu-toggle="left"><i class="ri-book-shelf-line" ></i>&nbsp&nbspBiblioteca</a>
     <a href="#/menu/recordings" class="item" ng-class="(activeMenuClr=='recordings')?'menuSelectedColor':''" ng-click="activeMenuClr = 'recordings'" menu-toggle="left"><i class="ri-radio-button-line"></i>&nbsp&nbspGrabaciones</a>      
 
 
@@ -3703,7 +3703,7 @@ app
  
     ; 
 
-  $urlRouterProvider.otherwise("menu/lessons");
+  $urlRouterProvider.otherwise("menu/livestream");
   $ionicConfigProvider.tabs.position('bottom'); 
 })
 
