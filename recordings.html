@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="es" ng-app="recordingApp">
 <head>
     <meta charset="UTF-8">
@@ -84,10 +84,6 @@
         .modal-title .title-text { font-weight: 400; margin-left: 8px; max-width: 400px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: inline-block; vertical-align: middle; }
         .modal-close-btn { background: none; border: none; color: #6b7280; font-size: 24px; cursor: pointer; transition: color 0.2s ease; }
         .modal-close-btn:hover { color: #dc2626; }
-        .visualizer-container { flex-grow: 1; padding: 0; overflow: hidden; }
-        midi-visualizer { width: 100%; height: 100%; }
-        .player-container { padding: 10px 24px; background: white; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; }
-        midi-player { width: 100%; display: block; }
         #recordingReviewModal .modal-content, #audioReviewModal .modal-content { max-width: 700px; max-height: none; height: auto; }
         #recordingReviewModal p, #audioReviewModal p { padding: 0 24px 16px; color: #6e6e73; }
         #recordingReviewModal .visualizer-container { padding: 24px; background-color: #f9f9f9; }
@@ -111,6 +107,141 @@
             .record-controls-wrapper { align-items: stretch; text-align: center; }
             #midiStatus { text-align: center; }
         }
+
+        /* --- INICIO: ESTILOS DEL MODAL MIDI VISUALIZER APLICADOS --- */
+        .midi-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(4.5px);
+            z-index: 2500; /* Aumentado para estar sobre el otro modal si es necesario */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .midi-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .midi-modal-container {
+            width: 90%;
+            max-width: 700px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            transform: translateY(20px);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .midi-modal-overlay.active .midi-modal-container {
+            transform: translateY(0);
+        }
+
+        .midi-modal-header {
+            padding: 20px 20px 15px 20px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .midi-modal-title {
+            margin: 0;
+            color: #111827;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .midi-modal-user {
+            margin: 0;
+            color: #4b5563;
+            font-size: 0.9rem;
+            font-weight: 400;
+            margin-top: 4px;
+        }
+
+        .midi-modal-close {
+            background: none;
+            border: none;
+            color: #9ca3af;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+            line-height: 1;
+        }
+
+        .midi-modal-close:hover {
+            color: #111827;
+        }
+
+        .midi-modal-body {
+            padding: 25px;
+        }
+
+        .midi-player-wrapper {
+            margin-bottom: 20px;
+        }
+
+        .midi-visualizer-wrapper {
+            height: 200px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 15px;
+            position: relative;
+            background-color: #f3f4f6;
+        }
+
+        .wave-effect {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(74, 111, 165, 0.6),
+                    transparent);
+            animation: wave 2s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        #recordingVisualizer {
+            display: flex;
+            justify-content: center;
+            transform: scale(0.5);
+            width: 100%;
+            height: 100%;
+        }
+
+        @media (max-width: 600px) {
+            #recordingVisualizer { transform: scale(0.4); }
+        }
+
+        @media (max-width: 470px) {
+            #recordingVisualizer { transform: scale(0.3); }
+        }
+
+        @media (max-width: 578px) {
+            .midi-modal-body { padding: 15px; }
+            .midi-modal-header { padding: 15px 15px 10px 15px; }
+            .midi-modal-title { font-size: 1.2rem; }
+        }
+        /* --- FIN: ESTILOS DEL MODAL MIDI VISUALIZER APLICADOS --- */
     </style>
 </head>
 <body ng-controller="recordingCtrl">
@@ -128,7 +259,6 @@
                 <input type="text" class="search-input" placeholder="Buscar grabaciones..." ng-model="filters.title">
             </div>
         </div>
-
         <div class="actions-container">
             <div class="filters">
                 <div class="filter-group filter-date">
@@ -153,7 +283,6 @@
                  <div id="midiStatus"></div>
             </div>
         </div>
-
         <div class="recordings-grid">
             <div class="recording-card" ng-repeat="rec in recordings | filter:filters | orderBy:sortOrder">
                 <div class="recording-header" ng-click="playPause(rec, $event)">
@@ -199,17 +328,26 @@
     
     <audio id="audioPlayer" style="display: none;"></audio>
 
-    <div class="modal-overlay" ng-class="{show: isMidiModalVisible}" ng-click="hideMidiModal()">
-        <div class="modal-content" ng-click="$event.stopPropagation()">
-            <div class="modal-header">
-                <div class="modal-title"><i class="fas fa-music"></i> Visualizador MIDI <span class="title-text" title="{{ currentMidi.title }}">{{ currentMidi.title }}</span></div>
-                <button class="modal-close-btn" ng-click="hideMidiModal()"><i class="fas fa-times"></i></button>
+    <div class="midi-modal-overlay" ng-class="{'active': isMidiModalVisible}" ng-click="hideMidiModal()">
+        <div class="midi-modal-container" ng-click="$event.stopPropagation()">
+            <div class="midi-modal-header">
+                <div>
+                    <h4 class="midi-modal-title">{{ currentMidi.title }}</h4>
+                    <p class="midi-modal-user">{{ currentMidi.genre }}</p>
+                </div>
+                <button class="midi-modal-close" ng-click="hideMidiModal()"><i class="fas fa-times"></i></button>
             </div>
-            <div class="visualizer-container"><midi-visualizer id="recordingVisualizer" type="waterfall"></midi-visualizer></div>
-            <div class="player-container"><midi-player id="recordingPlayer" sound-font visualizer="#recordingVisualizer"></midi-player></div>
+            <div class="midi-modal-body">
+                <div class="midi-player-wrapper">
+                    <midi-player id="recordingPlayer" sound-font visualizer="#recordingVisualizer"></midi-player>
+                </div>
+                <div class="midi-visualizer-wrapper">
+                    <div class="wave-effect"></div>
+                    <midi-visualizer id="recordingVisualizer" type="waterfall"></midi-visualizer>
+                </div>
+            </div>
         </div>
     </div>
-    
     <div id="recordingReviewModal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
@@ -246,6 +384,7 @@
     </div>
 
     <script>
+        // ... (El script de AngularJS no necesita cambios) ...
         const app = angular.module('recordingApp', []);
         
         app.filter('formatDuration', function() {
