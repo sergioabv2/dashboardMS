@@ -3048,7 +3048,7 @@ width: 200px; /* Ajusta según el tamaño deseado */
        
  <!--   <a href="#/menu/lessons" class="item" ng-class="(activeMenuClr=='lessons')?'menuSelectedColor':''" ng-click="activeMenuClr = 'lessons'" menu-toggle="left"><i class="ri-presentation-line" ></i>&nbsp&nbspLecciones</a>   -->
       <a href="#/menu/livestream" class="item" ng-class="(activeMenuClr=='livestream')?'menuSelectedColor':''" ng-click="activeMenuClr = 'livestream'" menu-toggle="left"><i class="ri-calendar-event-line"></i>&nbsp&nbspDashboard</a>  
-
+    <a href="#/menu/finder" class="item" ng-class="(activeMenuClr=='finder')?'menuSelectedColor':''" ng-click="activeMenuClr = 'finder'" menu-toggle="left"><i class="ri-book-marked-line"></i>&nbsp&nbspSongbook</a>
          <a href="#/menu/library" class="item" ng-class="(activeMenuClr=='library')?'menuSelectedColor':''" ng-click="activeMenuClr = 'library'" menu-toggle="left"><i class="ri-book-shelf-line" ></i>&nbsp&nbspBiblioteca</a>
     <a href="#/menu/recordings" class="item" ng-class="(activeMenuClr=='recordings')?'menuSelectedColor':''" ng-click="activeMenuClr = 'recordings'" menu-toggle="left"><i class="ri-radio-button-line"></i>&nbsp&nbspGrabaciones</a>      
 
@@ -3514,6 +3514,68 @@ width: 200px; /* Ajusta según el tamaño deseado */
 
     
 
+       <script id="finder.html" type="text/ng-template">
+    <ion-view >
+
+      <ion-nav-bar class="bar-light" >      
+        <ion-nav-buttons side="right">
+
+  <button class="button button-clear" ng-class="{ 'barImage': btnBar}" ng-click="toggleDropdown()" style="font-size: 18px; font-weight: 550; font-family: 'Poppins', sans-serif; margin-right: 10px;" >
+  <div style="display: flex; align-items: center;" >    
+      <div style="position: relative; " class="profilImg">
+       <img class="profile-avatar2" src="{{userData.photo}}" width="30" height="30" />
+      </div>
+   </div>
+  </button> 
+  </ion-nav-buttons>
+
+        <ion-nav-buttons side="left">
+          <button class="button button-clear" ng-click="toggleRight()"><i class="button button-icon ion-navicon"></i>menu</button>
+        </ion-nav-buttons>  
+
+       
+        <div class="dropdownContent" ng-show="isDropdownVisible" ng-click="$event.stopPropagation()">
+     <div id="bannerRow">
+      <div class="profile-avatar-container" style="transform: scale(0.9)">
+      <img src="{{userData.photo}}" class="profile-avatar">
+      <div class="profile-level">Nivel {{userData.lvl}}</div>
+    </div>
+      <p class="profileName">{{userData.name}}</p>
+      <p class="profileEmail">{{userData.mail}}</p>
+    </div>
+    <div class="dropdown-item" ng-click="goToAccount(); toggleDropdown()">
+      <i class="ri-user-3-line"></i> Perfil
+    </div>
+     <div class="dropdown-item" >
+      <i class="ri-bank-card-line"></i> Suscripción
+       <div class="pro-badge" >
+        <i class="ri-vip-crown-fill"></i>
+       <span class="pro-text">        
+      Pro
+      </span>
+     </div>
+    </div>
+
+     <div class="dropdown-item" ng-click="goToProfile(); toggleDropdown()">
+      <i class="ri-calendar-view"></i> Calendario
+    </div>
+    
+      <div class="dropdown-item" ng-click="logout()">
+      <i class="ri-shut-down-line"></i> Cerrar sesión
+    </div>
+  </div>        
+    </ion-nav-bar>
+
+
+     <ion-content >
+  <div class="iframe-container2"><iframe src="https://dashboard.mozartacademy.mx/bookfinder" frameborder="0" allowfullscreen ></iframe></div> 
+
+   
+      </ion-content>
+       
+    </ion-view>
+  </script>   
+
     
    <script id="library.html" type="text/ng-template">
     <ion-view >
@@ -3689,7 +3751,14 @@ app
       }
     }) 
     
-
+ .state('menu.finder', {
+      url: "/finder",
+      views: {
+        'menuContent': {
+          templateUrl: "finder.html"
+        }
+      }
+    })
 
    .state('menu.library', {
       url: "/library",
