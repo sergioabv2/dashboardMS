@@ -1035,6 +1035,60 @@
 
 
 
+    
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+      padding-top: 60px;
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 5% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 300px;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .add-to-btn {
+      background-color: #E02D44;
+      color: white;
+      border: none;
+      outline: none;
+      font-weight: bold;
+      width: 100%;
+      height: 50px;
+    }
+ 
+#myModal {
+    display: block; 
+  }
+
+
+
+
 .overlay {
     position: fixed;
     top: 0;
@@ -1202,15 +1256,7 @@
 
   angular.module('studentsApp', [])
   .controller('Controller1', ['$http', '$scope', '$sce', '$timeout', '$interval', function($http, $scope, $sce, $timeout, $interval) {
-     
-   $scope.userData = [];
- // $scope.userDataLoaded = false;
-     $scope.today = new Date()
-
-     // Al entrar a la página, limpiar userMail si existe
-if (localStorage.getItem('userMail')) {
-    localStorage.removeItem('userMail');
-}
+  
 
    
 
@@ -1263,6 +1309,16 @@ if (localStorage.getItem('userMail')) {
         }
     };
      
+
+
+
+   $scope.userData = [];
+     $scope.today = new Date()
+
+     // Al entrar a la página, limpiar userMail si existe
+if (localStorage.getItem('userMail')) {
+    localStorage.removeItem('userMail');
+}
     
 
     var requestData = {
