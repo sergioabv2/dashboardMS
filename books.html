@@ -1,548 +1,785 @@
-<!DOCTYPE html>
-<html lang="es" ng-app="libraryApp">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biblioteca de Piano</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css" rel="stylesheet">
+ <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/tone@14.7.58"></script>
+ <script src="https://cdn.jsdelivr.net/npm/@magenta/music@1.23.1/es6/core.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/focus-visible@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html-midi-player@1.5.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@magenta/music@1.2"></script>
+
+
+<style>
+
+  :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #166088;
+            --accent-color: #4fc3f7;
+            --background-color: #f5f7fa;
+            --text-color: #333;
+        }
+        
+       .loader {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f8f9fa;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* --- Header --- */
-        .header {
-            background: white;
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-            border: 1px solid #e9ecef;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .header-icon {
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, #5668E2, #7343D9);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            box-shadow: 0 4px 12px rgba(86, 104, 226, 0.3);
-        }
-
-        .header-info h1 {
-            font-size: 24px;
-            font-weight: 600;
-            color: #1d1d1f;
-            margin-bottom: 4px;
-        }
-
-        .header-info p {
-            color: #6e6e73;
-            font-size: 16px;
-        }
-
-        /* --- Search Box --- */
-        .search-box {
-            position: relative;
-            min-width: 280px;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 12px 16px 12px 44px;
-            border: 1px solid #d1d5db;
-            border-radius: 12px;
-            background: #f8f9fa;
-            font-size: 14px;
-            transition: all 0.2s ease;
-        }
-        
-        .search-input:focus {
-            outline: none;
-            border-color: #5668E2;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(86, 104, 226, 0.1);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #6b7280;
-        }
-
-        /* --- Library Content --- */
-        .library-section {
-            margin-bottom: 40px;
-        }
-
-        .section-title {
-            font-size: 22px;
-            font-weight: 600;
-            color: #1d1d1f;
-            margin-bottom: 16px;
-            padding-left: 5px;
-        }
-        
-        .carousel-wrapper {
-            position: relative;
-        }
-
-        .carousel {
-            display: flex;
-            gap: 20px;
-            overflow-x: auto;
-            padding: 10px 5px;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-        }
-
-        .carousel::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* --- Book Card --- */
-        .book-card {
-            flex: 0 0 auto;
-            width: 180px;
-            scroll-snap-align: start;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-            position: relative;
-        }
-        
-        .book-card:hover {
-            transform: translateY(-4px);
-        }
-
-        .book-cover {
-            width: 100%;
-            height: 240px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            object-fit: cover;
-            border: 1px solid #f0f0f0;
-            margin-bottom: 12px;
-            display: block;
-        }
-
-        .book-title {
-            font-size: 15px;
-            font-weight: 600;
-            color: #343a40;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .book-level {
-            font-size: 13px;
-            color: #6c757d;
-        }
-        
-        /* --- Locked State --- */
-        .locked-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 240px;
-            background: rgba(30, 30, 30, 0.5);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 32px;
-            backdrop-filter: blur(2px);
-            opacity: 0;
-            transition: opacity 0.2s ease;
-            pointer-events: none; /* Allows clicks to go through if needed, but here it's for visual effect */
-        }
-        
-        .book-card.is-locked .book-cover {
-            filter: grayscale(80%);
-        }
-
-        .book-card.is-locked .locked-overlay {
-             opacity: 1;
-        }
-
-        /* --- Scroll Buttons --- */
-        .scroll-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-70%);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid #e9ecef;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            color: #343a40;
-            font-size: 16px;
-            cursor: pointer;
-            z-index: 10;
-            opacity: 0;
-            transition: opacity 0.2s ease, transform 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .carousel-wrapper:hover .scroll-btn {
-            opacity: 1;
-        }
-        
-        .scroll-btn:hover {
-            transform: translateY(-70%) scale(1.1);
-        }
-
-        .scroll-btn.prev {
-            left: -20px;
-        }
-        .scroll-btn.next {
-            right: -20px;
-        }
-
-        /* --- Modal Styles --- */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(8px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-
-        .modal-overlay.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            background: #2a2a2e;
-            border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-            max-width: 800px;
-            width: 90%;
-            display: flex;
-            color: #e0e0e0;
-            overflow: hidden;
-            animation: fadeInScale 0.3s ease-out;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        @keyframes fadeInScale {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .modal-left {
-            flex: 1;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #1c1c1e;
-        }
-
-        .modal-preview-img {
-            max-width: 100%;
-            max-height: 400px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255,255,255,0.15);
-        }
-
-        .modal-right {
-            width: 350px;
-            padding: 30px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: #8e8e93;
-            cursor: pointer;
-            transition: color 0.2s ease;
-        }
-
-        .modal-close:hover {
-            color: #ffffff;
-        }
-
-        .modal-header-info {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 20px;
-            margin-bottom: 20px;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
         }
         
-        .modal-category {
-            font-size: 13px;
-            color: #a0a0a0;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 30px;
+            animation: float 3s ease-in-out infinite;
         }
-
-        .modal-title {
-            font-size: 26px;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 8px;
+        
+      .loader    h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 2.5rem;
         }
-
-        .modal-author {
-            font-size: 18px;
-            color: #c0c0c0;
+        
+      .loader    p {
+            color: var(--secondary-color);
+            margin-bottom: 40px;
+            font-size: 1.1rem;
         }
-
-        .modal-progress-section {
+        
+        .loading-container {
+            width: 300px;
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
             margin-bottom: 30px;
         }
-
-        .modal-progress-bar {
-            width: 100%;
-            height: 8px;
-            background: #444448;
-            border-radius: 4px;
-            overflow: hidden;
-            margin-top: 10px;
-            margin-bottom: 15px;
-        }
-
-        .modal-progress-fill {
+        
+        .loading-bar {
             height: 100%;
-            background: linear-gradient(90deg, #5668E2, #7343D9);
+            width: 0%;
+            background-color: var(--accent-color);
             border-radius: 4px;
-            transition: width 0.5s ease-out;
-        }
-
-        .modal-stats {
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-            color: #a0a0a0;
+            animation: loading 2.5s ease-in-out infinite;
         }
         
-        .modal-stat-value {
-            font-size: 20px;
-            font-weight: 600;
-            color: #ffffff;
-            margin-top: 4px;
-        }
-
-        .modal-actions {
+        .book-icons {
             display: flex;
-            flex-direction: column;
             gap: 15px;
-            margin-top: auto;
-        }
-
-        .modal-button {
-            padding: 15px 25px;
-            border-radius: 12px;
-            border: none;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: center;
-            text-decoration: none; /* Para el tag <a> */
-        }
-
-        .modal-button.primary {
-            background: linear-gradient(135deg, #5668E2, #7343D9);
-            color: white;
-            box-shadow: 0 4px 15px rgba(86, 104, 226, 0.4);
-        }
-
-        .modal-button.primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(86, 104, 226, 0.5);
-        }
-
-        .modal-button.secondary {
-            background: #4a4a4e;
-            color: #e0e0e0;
-        }
-
-        .modal-button.secondary:hover {
-            background: #5e5e62;
+            margin-top: 30px;
         }
         
-        /* --- PDF Viewer Styles --- */
-        .pdf-viewer-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #212121;
-            z-index: 2000;
-            display: flex;
-            flex-direction: column;
-            animation: fadeIn 0.3s ease;
+        .book-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
         }
-
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        @keyframes loading {
+            0% { width: 0%; }
+            50% { width: 100%; }
+            100% { width: 0%; }
+        }
+        
         @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-
-        .pdf-viewer-header {
-            height: 60px;
-            background-color: #333;
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-            flex-shrink: 0;
+            to { opacity: 0.7; }
         }
         
-        .pdf-viewer-header h3 {
-            font-size: 18px;
-            font-weight: 500;
-        }
+        /* Asignamos diferentes delays a los iconos de libros */
+        .book-icon:nth-child(1) { animation-delay: 0.3s; }
+        .book-icon:nth-child(2) { animation-delay: 0.6s; }
+        .book-icon:nth-child(3) { animation-delay: 0.9s; }
+        .book-icon:nth-child(4) { animation-delay: 1.2s; }
+        .book-icon:nth-child(5) { animation-delay: 1.5s; }
 
-        .pdf-viewer-close {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            transition: color 0.2s ease;
-        }
-        
-        .pdf-viewer-close:hover {
-            color: #d1d1d1;
-        }
+ 
+  body{font-family:Roboto,'Open Sans',sans-serif}
 
-        .pdf-viewer-overlay iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+.mhn-slide .mhn-item{width:100%;padding:10px}
+.mhn-slide .mhn-inner{width:100%;box-shadow:0 2px 10px 0 rgba(0,0,0,.16),0 2px 5px 0 rgba(0,0,0,.26);border-radius:3px;transition: transform 0.4s ease;}
+  
+  .mhn-item:hover .mhn-inner {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
 
-        .add-file-btn { background-color: #8a2be2; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        .add-file-btn:hover { background-color: #7b24c6; }
+.mhn-slide .mhn-text{text-align:center;padding:0 10px}
+.mhn-slide .mhn-text h4{font-weight:700;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+.mhn-slide .mhn-text p{max-height:4.5em;overflow:hidden}
+.mhn-slide .owl-stage-outer{z-index:1}
+.mhn-slide .owl-nav{color:#333;position:absolute;top:0;left:0;right:0;bottom:0}
+.mhn-slide .owl-nav svg{color:currentColor}
+.mhn-slide .owl-nav .disabled{display:none}
+.mhn-slide .owl-prev,
+.mhn-slide .owl-next{
+  top:110px;
+  z-index:2;
+  width:40px;
+  height:40px;
+  padding:8px;
+  margin-top:-20px;
+  position:absolute;
+  border-radius:50%;
+  background-color:#fff;
+  box-shadow:0 4px 4px rgba(0,0,0,.3),0 0 4px rgba(0,0,0,.2)
+}
+.mhn-slide .owl-prev{left:-10px}
+.mhn-slide .owl-next{right:-10px}
+  
+  .carousel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 15px 10px;
+}
 
-.modal-content2 {
-            background: #e0e0e0;
-            border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-            max-width: 500px;
-            width: 90%;
-            color:#2a2a2e;
-            overflow: hidden;
-            animation: fadeInScale 0.3s ease-out;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .upload-modal-content { padding: 25px; }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; color: #555; }
-        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
-        .drop-zone { border: 2px dashed #ccc; border-radius: 10px; padding: 30px; text-align: center; cursor: pointer; background-color: #f9f9f9; }
-        .drop-zone p { margin: 0; color: #888; }
-        .drop-zone:hover { border-color: #8a2be2; background-color: #f5efff; }
-        .modal-actions-upload { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
-        .locked-modal-content { background-color: #fff; padding: 30px; border-radius: 10px; text-align: center; max-width: 350px; }
-        .locked-modal-content i { font-size: 40px; color: #ffc107; margin-bottom: 15px; }
-        .locked-modal-content p { font-size: 1.1rem; color: #333; margin: 0; }
-        .book-card { position: relative; }
-        .delete-btn { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.6); color: white; border: none; border-radius: 50%; width: 28px; height: 28px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; opacity: 0; transition: opacity 0.2s; }
-        .book-card:hover .delete-btn { opacity: 1; }
+.carousel-header h2 {
+  font-size: 1.4em;
+  font-weight: bold;
+  margin: 0;
+}
 
-        /* Responsive */
-        @media (max-width: 800px) {
-            .modal-content {
-                flex-direction: column;
-                max-width: 400px;
-                height: 90vh;
-                overflow-y: auto;
-            }
-            .modal-left {
-                padding: 15px;
-                max-height: 200px;
-                border-bottom: 1px solid rgba(255,255,255,0.1);
-            }
-            .modal-right {
-                width: 100%;
-                padding: 25px;
-            }
-           .modal-preview-img {
-                max-height: 180px;
-           }
-           .scroll-btn { display: none; }
-        }
+.carousel-header .arrow {
+  font-size: 1.1em;
+  color: silver;
+}
 
-        @media (max-width: 768px) {
-            body { padding: 10px; }
-            .header { flex-direction: column; align-items: flex-start; }
-            .search-box { min-width: 100%; }
-            .carousel-wrapper { margin-left: 0; margin-right: 0; }
-        }
+  
+  
+  .preview-modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
 
-          @media (max-width: 558px) {
-            .add-file-btn{display: none}
-            .bookTitle{display: none}
-          }
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+ 
+.preview-backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+}
 
- .right-controls {
+.preview-content {
+  position: relative;
+  max-width: 340px;
+  background: #111;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  color: white;
+  z-index: 1;
+  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+ 
+.cover-large {
+  width: 100%;
+  border-radius: 2px;
+  margin-bottom: 1rem;
+}
+
+.close-btn {
+  position: absolute;
+  top: 1.7rem;
+  right: 1.7rem;
+  background-color: rgba(0, 0, 0, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.close-btn:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+.collection {
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #aaa;
+  margin-bottom: 0.25rem;
+}
+
+.separator {
+  border: none;
+  height: 1px;
+  background: #888;
+  width: 70%;
+  margin: 0.5rem auto 1rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.author {
+  font-size: 1rem;
+  color: #ccc;
+  margin-top: 0.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.action-buttons button {
+  background: #444;
+  color: white;
+  padding: 0.75rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+  
+   .noDisplay{display: none;}
+
+.secondary {
+  background: transparent;
+  border: 1px solid #555;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+  
+  .custom-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1050;
+  display: flex;
+background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(7px);
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  z-index: 1040;
+}
+
+  .lock-icon {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: rgba(0, 0, 0, 0.6); /* gris claro translúcido */
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.lock-icon i {
+  font-size: 16px;
+  color: white;
+}
+
+.grade-badge{
+    position: absolute;
+  bottom: 15px;
+  left: 15px;
+  background-color: rgba(0, 0, 0, 0.6); /* gris claro translúcido */
+  padding: 0px 7px 0px 7px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  font-size: 12px;
+  color: white;
+}
+
+
+  @media (min-width: 768px) {
+  .preview-content {
+    max-width: 700px !important;
+    display: flex;
+    flex-direction: row;
+    padding: 2rem;
+   
+    gap: 2rem;
+  }
+    
+    
+
+  .cover-large {
+    width: 40% !important;
+    height: auto;
+    margin-bottom: 0;
+    border-radius: 8px;
+  }
+
+  .right-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .text-content {
+    margin-top: 1.5rem;
+  }
+    
+    .text-content .title{
+      margin-top: 20px !important;
+       text-align: left;
+      font-size: 20px;
+    }
+    
+    .text-content .author{
+      margin-top: 5px !important;
+       text-align: left;
+      font-size: 15px;
+    }
+
+  .separator {
+    margin: 0.5rem 0 1rem 0;
+    width: 100%;
+  }
+
+  .action-buttons {
+    margin-bottom: 3rem;
+    flex-direction: column;
+    gap: 0.8rem !important;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .action-buttons button {
+    flex: 1 1 auto;
+  }
+  
+  .noDisplay{display: block !important;}
+}
+
+
+   .player-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .player-header {
+    padding: 4px;
+    background: #f5f5f5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .player-container {
+    flex: 1;
+    width: 100%;
+   
+  }
+  
+  .player-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  
+
+  .mhn-slide2 .mhn-item{width:100%;padding:10px}
+.mhn-slide2 .mhn-inner{width:100%;box-shadow:0 2px 10px 0 rgba(0,0,0,.16),0 2px 5px 0 rgba(0,0,0,.26);border-radius:3px;transition: transform 0.4s ease;}
+
+.mhn-slide2 .mhn-text{text-align:center;padding:0 10px}
+.mhn-slide2 .mhn-text h4{font-weight:700;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+.mhn-slide2 .mhn-text p{max-height:4.5em;overflow:hidden}
+.mhn-slide2 .owl-stage-outer{z-index:1}
+.mhn-slide2 .owl-nav{color:#333;position:absolute;top:0;left:0;right:0;bottom:0}
+.mhn-slide2 .owl-nav svg{color:currentColor}
+.mhn-slide2 .owl-nav .disabled{display:none}
+.mhn-slide2 .owl-prev,
+.mhn-slide2 .owl-next{
+  top:110px;
+  z-index:2;
+  width:40px;
+  height:40px;
+  padding:8px;
+  margin-top:-20px;
+  position:absolute;
+  border-radius:50%;
+  background-color:#fff;
+  box-shadow:0 4px 4px rgba(0,0,0,.3),0 0 4px rgba(0,0,0,.2)
+}
+.mhn-slide2 .owl-prev{left:-10px}
+.mhn-slide2 .owl-next{right:-10px}
+
+
+  .player-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+}
+
+.player-header {
+    padding: 6px 15px;
+    background: #f5f5f5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    flex-wrap: wrap;
+}
+
+.player-tools {
+    display: flex;
+    gap: 10px;
+}
+
+.tool-btn {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.tool-btn:hover {
+    background: #f0f0f0;
+}
+
+.tool-btn i {
+    font-size: 16px;
+}
+
+.progress-display {
+  padding: 1px 10px;
+  background: #f9f9f9;
+  border-bottom: 1px solid #eee;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: nowrap;
+}
+
+.progress-bar-container {
+  flex: 1;
+  min-width: 0;
+  padding-right: 15px;
+}
+
+.time-displays-container {
+  display: flex;
+  gap: 5px;
+  margin-right: 7px;
+}
+
+.time-display {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  min-width: 60px;
+}
+
+.time-display .label {
+  font-size: 11px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-right: -10px;
+}
+
+.time-display .value {
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+
+}
+
+
+.progress-bar {
+
+  overflow: hidden;
+  height: 12px;
+  width: 130px;
+  background: #e0e0e0;
+  border-radius: 4px;
+}
+
+
+.progress-fill {
+    height: 12px;
+    background: gray; /* Green for the filled part */
+    border-radius: 2px;
+    transition: width 0.3s ease;
+    display: block;
+}
+
+.player-container {
+    flex: 1;
+    width: 100%;
+    min-height: 0; /* Para que el iframe no desborde */
+}
+
+.player-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Estilo para metrónomo activo */
+.metronome-active {
+    background: #ffeb3b !important;
+    border-color: #ffc107 !important;
+}
+
+/* Estilo para grabación activa */
+.recording-active {
+    background: #ffebee !important;
+    border-color: #ef9a9a !important;
+    color: #f44336 !important;
+}
+
+.recording-active i {
+    color: #f44336 !important;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+
+
+.close-btn2 {
+
+  top: 1.7rem;
+  right: 1.7rem;
+  background-color: rgba(0, 0, 0, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.close-btn2:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+@media(max-width: 550px){
+  .mobile{
+    display: none;
+  }
+    .player-header {
+    justify-content: space-between; /* Fuerza los elementos restantes a los extremos */
+  }
+  
+  .player-tools {
+    margin-left: auto; /* Empuja a la derecha */
+  }
+}
+
+
+/* Efecto vidrio para métricas en móvil */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Contenedor de métricas para móvil */
+.mobile-metrics {
+  display: flex;
+  justify-content: space-around;
+  margin-top: -30px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.metric-item {
+  display: flex;
+  flex-direction: column;
+
+  padding: 0 10px;
+}
+
+.metric-value {
+  font-weight: bold;
+  font-size: 16px;
+  color: white;
+}
+
+.metric-label {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 4px;
+}
+
+/* Contenedor de métricas para desktop */
+.desktop-metrics {
+  margin-top: 20px;
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.progress-container {
+  grid-column: span 2;
+  margin-bottom: 25px; 
+}
+
+
+.progress-percentage {
+  font-size: 13px;
+  margin-top: -3px !important;
+  margin-right: 205px !important;
+  color: rgba(255, 255, 255, 0.8);
+  display: block;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+  .desktop-metrics {
+    display: none;
+  }
+  
+  .mobile-metrics {
+    display: flex;
+  }
+}
+
+@media (min-width: 768px) {
+  .mobile-metrics {
+    display: none;
+  }
+  
+  .desktop-metrics {
+    display: block;
+  }
+  
+  .preview-content {
+    flex-direction: row;
+  }
+}
+  
+  
+.tool-btn.active {
+  background: white;
+  border-color: #bdbdbd;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+}
+.recording-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+}
+
+.left-controls {
+  display: flex;
+  gap: 8px;
+  margin-right: auto; /* Empuja todo a la izquierda */
+}
+
+.right-controls {
   display: flex;
   gap: 8px;
   margin-left: auto; /* Empuja todo a la derecha */
-  margin-right: 15px;
 }
 
 .metronome-control {
@@ -555,7 +792,7 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  background: silver;
+  background: rgba(0, 0, 0, 0.05);
   border-radius: 12px;
   padding: 4px 8px;
 }
@@ -579,7 +816,6 @@
 
 .bpm-label {
   font-family: 'Roboto Mono', monospace;
-  color: black !important;
   font-size: 14px;
   min-width: 50px;
   text-align: center;
@@ -589,26 +825,6 @@
 .record-btn.active {
   color: #f44336;
   animation: pulse 1.5s infinite;
-}
-
-.tool-btn {
-    background: silver;
-    border: 1px solid #ddd;
-    border-radius: 20px;
-    padding: 5px 12px;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    cursor: pointer;
-}
-
-.tool-btn:hover {
-    background: #f0f0f0;
-}
-
-.tool-btn i {
-    font-size: 16px;
 }
 
 .metronome-btn.active {
@@ -629,682 +845,1507 @@
 
 
 
-.online-badge-container {
-  position: absolute;
- margin-top: 70px !important;
-  margin-left: 10px !important;
+.recording-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.online-badge {
+.modal-content2 {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 800px;
+  position: relative;
+}
 
+#recordingVisualizer {
+  display: flex;
+  justify-content: center;
+  transform: scale(0.5);
+}
+
+@media (max-width: 600px){
+    #recordingVisualizer {
+  transform: scale(0.4);
+}
+}
+
+@media (max-width: 470px){
+    #recordingVisualizer {
+  transform: scale(0.3);
+}
+}
+
+
+.visualizer-container {
+  width: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+  position: relative;
+}
+  
+  
+   .recording-indicator {
+    position: absolute;
+    top: 10px;
+    left: 10px;
     display: flex;
     align-items: center;
-    gap: 8px;
-    background: white;
-    padding: 8px 16px;
-    border-radius: 50px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    border: 1px solid #e5e7eb;
-  width: 130px;
-}
-
-.status-indicator {
-    position: relative;
-    width: 12px;
-    height: 12px;
-}
-
-.status-dot {
-    width: 12px;
-    height: 12px;
-    /* Color rojo principal */
-    background-color: #ef4444; 
-    border-radius: 50%;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.status-pulse {
-    width: 12px;
-    height: 12px;
-    /* Color rojo para la pulsación */
-    background-color: #f87171; 
-    border-radius: 50%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-
-.status-ring {
-    width: 12px;
-    height: 12px;
-    /* Color rojo claro para el anillo */
-    background-color: #fca5a5;
-    border-radius: 50%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-.status-text {
+    background: rgba(0,0,0,0.7);
+    padding: 5px 10px;
+    border-radius: 20px;
+    color: white;
     font-size: 14px;
-    font-weight: 500;
-    color: #374151;
-    margin: 0;
-}
-
-@keyframes ping {
-    75%, 100% {
-        transform: scale(2);
-        opacity: 0;
-    }
-}
-
-@keyframes pulse {
-    0%, 100% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.5;
-    }
-}
-
-/* === ESTILOS DEL MODAL DE GUARDAR GRABACIÓN === */
-.save-recording-modal {
-    max-width: 500px;
-}
-
-.audio-preview-container {
-    margin: 24px 0;
-}
-
-.audio-preview-container audio {
-    width: 100%;
-    border-radius: 8px;
-}
-
-.save-recording-modal .upload-modal-header {
-    text-align: center;
-    margin-bottom: 24px;
-  margin-top: 7px;
-    border-bottom: 1px solid #f1f3f5;
-    padding-bottom: 16px;
-}
-.save-recording-modal .upload-modal-header h2 {
-    font-size: 1.5rem;
-    color: #212529;
-    margin: 0;
-}
-.save-recording-modal .upload-modal-header p {
-    color: #6c757d;
-    margin-top: 4px;
-    margin-bottom: 0;
-    font-size: 1rem;
-}
-
-/* Previsualización del audio */
-.audio-preview-container {
-    margin: 20px 0;
-}
-.audio-preview-container audio {
-    width: 100%;
-    border-radius: 8px;
-}
-
-
-
-/* Formulario */
-.recording-form {
-    margin-top: 24px;
-  padding: 17px;
-}
-.recording-form .form-group {
-    margin-bottom: 18px;
-}
-.recording-form .form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: #495057;
-    font-size: 0.9rem;
-}
-.recording-form .form-group input {
-    width: 100%;
-    padding: 12px 14px;
-    border: 1px solid #ced4da;
-    border-radius: 8px;
-    background: #f8f9fa;
-    font-size: 1rem;
-    transition: all 0.2s ease;
-    box-sizing: border-box;
-}
-.recording-form .form-group input:focus {
-    outline: none;
-    border-color: #5668E2;
-    background: white;
-    box-shadow: 0 0 0 3px rgba(86, 104, 226, 0.15);
-}
-
-/* Caja de metadatos (Fecha, Duración) */
-.recording-metadata {
-    display: flex;
-    justify-content: center; /* Centrado si solo hay un elemento */
-    gap: 24px;
-    padding: 14px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    margin-top: 10px;
-    border: 1px solid #e9ecef;
-    color: #495057;
-    font-size: 0.9rem;
-}
-.recording-metadata span {
+    z-index: 100;
+  }
+  
+  .recording-dot {
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    margin-right: 8px;
+    animation: pulse 1.5s infinite;
+  }
+  
+  .processing-indicator {
+    position: absolute;
+    top: 10px;
+    left: 10px;
     display: flex;
     align-items: center;
-    gap: 8px;
-}
-.recording-metadata i {
-    color: #868e96;
-}
-
-/* Botones de acción (Eliminar, Guardar) */
-.modal-actions-upload {
+    background: rgba(0,0,0,0.7);
+    padding: 5px 10px;
+    border-radius: 20px;
+    color: white;
+    font-size: 14px;
+    z-index: 100;
+  }
+  
+  .spinner {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+  }
+  
+  @keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.3; }
+    100% { opacity: 1; }
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  
+  /* Estilos para el modal de grabaciones guardadas */
+  .saved-recordings-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
     display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-    margin-top: 28px;
-    padding-top: 20px;
-    border-top: 1px solid #f1f3f5;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .saved-recordings-modal .modal-content {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  
+  .recordings-list {
+    margin-top: 15px;
+  }
+  
+   .recording-item {
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .recording-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .recording-details {
+    flex-grow: 1;
+  }
+
+  .recording-name {
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .recording-date {
+    font-size: 12px;
+    color: #666;
+  }
+
+  .recording-actions {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .no-recordings {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+  }
+
+  .ap {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  font-family: inherit;
+  font-size: 14px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  border-top: 1px solid #ccc;
+  background: #f2f2f2;
+  box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.1);
+  z-index: 99999;
 }
-        
-    </style>
-</head>
-<body ng-controller="libraryCtrl">
-    <div class="container" ng-hide="showPdfViewer">
-        <div class="header">
-            <div class="header-left">
-                <div class="header-icon">
-                    <i class="fas fa-book"></i>
-                </div>
-                <div class="header-info">
-                    <h1>Mi Biblioteca</h1>
-                    <p>Encuentra tus libros y piezas de piano</p>
-                   
 
-                   </div>
-                  
-            </div>
+.ap__inner {
+  display: flex;
+  max-width: 1440px;
+  margin: auto;
+}
 
-              <div class="search-box">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" class="search-input" placeholder="Buscar en la biblioteca..." ng-model="searchQuery">
-                </div>
+.ap__item {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
 
-   
-            </div>
+.ap__item--playback > .ap__controls,
+.ap__item--settings > .ap__controls {
+  flex: 0 25%;
+}
 
-         
-        </div>
+@-webkit-keyframes fs {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 
-        <div class="library-content">
-            <div class="library-section" ng-repeat="section in library | filter: { books: { title: searchQuery } }">
-                <h2 class="section-title">{{ section.title }}</h2>
-                <div class="carousel-wrapper">
-                    <div class="carousel" id="carousel-{{$index}}">
-                        <div class="book-card" ng-repeat="book in section.books | filter: { title: searchQuery }" 
-                             ng-class="{'is-locked': !isLoaded || book.lvl > lvl || (book.lvl == lvl && book.lsn > lsn)}" 
-                             ng-click="showPreview(book, section.title)">
-                            <img ng-src="{{ book.coverUrl }}" alt="{{ book.title }}" class="book-cover">
-                            <div class="book-title">{{ book.title }}</div>
-                            <div class="book-level">{{ book.author }}</div>
-                            <div class="locked-overlay" ng-if="!isLoaded || book.lvl > lvl || (book.lvl == lvl && book.lsn > lsn)" >
-                                <i class="fas fa-lock"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="scroll-btn prev" ng-click="scrollCarousel('carousel-' + $index, -1)"><i class="fas fa-chevron-left"></i></button>
-                    <button class="scroll-btn next" ng-click="scrollCarousel('carousel-' + $index, 1)"><i class="fas fa-chevron-right"></i></button>
-                </div>
-            </div>
-        </div>
-    </div>
+@keyframes fs {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.ap__item--track {
+  flex: 1 40%;
+  padding: 0 20px;
+}
 
-    <div class="modal-overlay" ng-class="{show: showPreviewModal}" ng-click="closePreviewModal($event)">
-        <div class="modal-content" ng-click="$event.stopPropagation()">
-            <div class="modal-left">
-                <img ng-src="{{ selectedBook.coverUrl }}" alt="{{ selectedBook.title }}" class="modal-preview-img">
-            </div>
-            <div class="modal-right">
-                <button class="modal-close" ng-click="closePreviewModal()"><i class="fas fa-times"></i></button>
-                <div class="modal-header-info">
-                    <div class="modal-category">{{ selectedCategory }}</div>
-                    <h2 class="modal-title">{{ selectedBook.title }}</h2>
-                    <p class="modal-author">{{ selectedBook.author }}</p>
-                </div>
-                
-         <div class="modal-progress-section" ng-if="selectedBook.type === 'manual'">
-            <div ng-if="selectedBook.lvl === lvl && selectedBook.lsn === lsn">
-                <div class="modal-progress-bar">
-                    <div class="modal-progress-fill" ng-style="{width: (exe / selectedBook.totalExercises * 100) + '%'}"></div>
-                </div>
-                <div class="modal-stats">
-                    <div>
-                        <span>Ejercicios completados</span>
-                        <div class="modal-stat-value">{{ exe }}/{{ selectedBook.totalExercises }}</div>
-                    </div>
-                    <div>
-                        <span>Progreso</span>
-                         <div class="modal-stat-value">{{ exe / selectedBook.totalExercises * 100 }}%</div>
-                    </div>
-                </div>
-            </div>
-            <div ng-if="selectedBook.lvl < lvl || (selectedBook.lvl === lvl && selectedBook.lsn < lsn)">
-                <div class="modal-progress-bar">
-                    <div class="modal-progress-fill" ng-style="{width: '100%'}"></div>
-                </div>
-                <div class="modal-stats">
-                    <div>
-                        <span>Ejercicios completados</span>
-                        <div class="modal-stat-value">{{ selectedBook.totalExercises }}/{{ selectedBook.totalExercises }}</div>
-                    </div>
-                    <div>
-                        <span>Progreso</span>
-                        <div class="modal-stat-value">100%</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+.track {
+  position: relative;
+  width: 100%;
+  align-self: flex-start;
+  padding: 5px 0 0;
+}
 
-                <div class="modal-actions">
-                    <button class="modal-button primary" ng-click="openPdfViewer(selectedBook)">Abrir</button>
-                    <a ng-href="{{selectedBook.pdf}}" download="{{selectedBook.title}}.pdf" class="modal-button secondary">Descargar</a>
-                </div>
-            </div>
-        </div>
-    </div>
+.track__title {
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+  padding-right: 80px;
+  text-align: left;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 
-     <div class="modal-overlay" ng-class="{show: showUploadModal}" ng-click="closeUploadModal($event)">
-        <div class="modal-content2 upload-modal-content" ng-click="$event.stopPropagation()">
-            <button class="modal-close" ng-click="closeUploadModal()"><i class="fas fa-times"></i></button>
-            <h2>Agregar nuevo PDF</h2>
-            <div class="form-group">
-                <label for="title">Título</label>
-                <input type="text" id="title" ng-model="newPdf.title" placeholder="Ej: Sonata Claro de Luna">
-            </div>
-            <div class="form-group">
-                <label for="author">Autor</label>
-                <input type="text" id="author" ng-model="newPdf.author" placeholder="Ej: L.V. Beethoven">
-            </div>
-            <div class="form-group">
-                <label for="grade">Grado / Nivel</label>
-                <input type="text" id="grade" ng-model="newPdf.grade" placeholder="Ej: Grado 3">
-            </div>
-            <div class="form-group">
-                <label>Archivo PDF</label>
-                <div class="drop-zone" ng-click="triggerFileInput()">
-                    <p ng-if="!newPdf.fileName">Haz clic o arrastra un archivo PDF aquí</p>
-                    <p ng-if="newPdf.fileName"><i class="fas fa-check-circle"></i> {{ newPdf.fileName }}</p>
-                </div>
-                <input type="file" id="fileInput" onchange="angular.element(this).scope().onFileSelect(event)" style="display: none;" accept=".pdf">
-            </div>
-            <div class="modal-actions-upload">
-                <button class="modal-button secondary" ng-click="closeUploadModal()">Cancelar</button>
-                <button class="modal-button primary" ng-click="saveNewPdf()">Guardar</button>
-            </div>
-        </div>
-    </div>
+.track__time {
+  position: absolute;
+  top: 5px;
+  right: 0;
+}
 
+.progress-container {
+  position: relative;
+  padding: 7px 0;
+  margin-top: 15px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.progress-container:hover .progress__bar:after {
+  opacity: 1;
+}
 
+.progressb {
+  height: 3px;
+  border-radius: 3px;
+  background: #ddd;
+}
+
+.progress__bar,
+.progress__preload {
+  position: absolute;
+  width: 0;
+  height: 3px;
+  border-radius: 3px 0 0 3px;
+}
+
+.progress__bar {
+  background: steelblue;
+  z-index: 1;
+}
+.progress__bar:after {
+  position: absolute;
+  top: 0;
+  right: -10px;
+  width: 10px;
+  height: 10px;
+  margin-top: -3px;
+  content: "";
+  border-radius: 6px;
+  background: steelblue;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.progress__bar--active:after {
+  transform: scale(1.4);
+}
+
+.progress__preload {
+  background: #c4c4c4;
+  z-index: 0;
+}
+
+.ap__controls,
+.ap button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  position: relative;
+  display: block;
+  height: 50px;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.ap__controls:active,
+.ap button:active {
+  background: rgba(0, 0, 0, 0.1);
+}
+.ap__controls:hover,
+.ap button:hover {
+  opacity: 1;
+}
+
+.icon-play > path {
+  transition: all 0.3s ease;
+}
+
+.is-playing .icon-play {
+  fill: steelblue;
+}
+
+.volume-btn {
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+
+.volume {
+  position: absolute;
+  left: 50%;
+  bottom: 45px;
+  width: 40px;
+  margin-left: -20px;
+  height: 120px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s cubic-bezier(0.17, 0.72, 0.26, 1.23);
+  background: #f2f2f2;
+  border: 1px solid #ccc;
+  border-radius: 1px;
+  z-index: 88888;
+}
+.volume::before, .volume::after {
+  content: "";
+  position: absolute;
+  bottom: -12px;
+  border: 7px solid transparent;
+  border-top: 7px solid #f2f2f2;
+  left: 50%;
+  margin-left: -7px;
+}
+.volume::after {
+  bottom: -14px;
+  z-index: -1;
+  border-top: 7px solid #ccc;
+}
+
+.volume-container:hover .volume {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+.volume__track {
+  position: relative;
+  display: block;
+  width: 3px;
+  height: 100px;
+  margin: 10px auto;
+  background: #ddd;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.volume__bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: steelblue;
+  height: 50%;
+}
+
+.icon-volume-off {
+  display: none;
+}
+
+.has-muted .icon-volume-on {
+  display: none;
+}
+.has-muted .icon-volume-off {
+  display: inline;
+  opacity: 0.7;
+}
+
+.ap__controls.is-active > svg {
+  fill: steelblue;
+  filter: drop-shadow(0 0 3px rgba(70, 130, 180, 0.4));
+}
+
+@media (max-width: 1024px) {
+  .ap__item > .ap__controls {
+    flex: 1;
+  }
+}
+@media (max-width: 580px) {
+  .ap {
+    min-width: 250px;
+  }
+
+  .ap, .ap__inner {
+    height: auto;
+  }
+
+  .ap__inner {
+    flex-wrap: wrap;
+  }
+
+  .ap__item--track {
+    margin-bottom: 10px;
+    padding: 0 20px;
+    order: 1;
+    flex: 1 1 100%;
+  }
+
+  .ap__item--playback,
+.ap__item--settings {
+    flex: 1 1 50%;
+    order: 2;
+  }
+}
+/*-----------------------
+    Playlist Player - PL
+------------------------*/
+.pl-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 50px;
+  left: 0;
+  overflow: auto;
+  font-family: inherit;
+  font-size: 14px;
+  background: #fff;
+  z-index: 77777;
+}
+
+.pl-ul {
+  width: 100%;
+  max-width: 550px;
+  margin: 0 auto;
+  padding: 30px 10px 100px 10px;
+}
+
+.pl-list {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  line-height: 40px;
+}
+.pl-list svg {
+  fill: steelblue;
+}
+
+.pl-list + .pl-list {
+  border-top: 1px solid #eee;
+}
+
+.pl-list:not(.pl-list--current):hover {
+  background: #f6f6f6;
+}
+
+.pl-list__track,
+.pl-list__remove {
+  flex: 0 50px;
+  text-align: center;
+}
+
+.pl-list__icon {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 8px solid #555;
+}
+
+.pl-list__title {
+  overflow: hidden;
+  padding-right: 10px;
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.pl-list__remove {
+  height: 100%;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.pl-list__remove > svg {
+  width: 16px;
+  height: 16px;
+}
+
+.pl-list__eq {
+  display: none;
+}
+
+.pl-list--current {
+  background: steelblue;
+  color: #fff;
+}
+
+.pl-list--current svg {
+  fill: #fff;
+}
+.pl-list--current .pl-list__eq {
+  display: block;
+}
+.pl-list--current .pl-list__icon {
+  display: none;
+}
+
+.pl-list:hover .pl-list__remove,
+.pl-list--current .pl-list__remove {
+  opacity: 1;
+}
+
+.pl-list--current .pl-list__remove:hover {
+  background: #3f75a2;
+}
+
+.pl-list--empty {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 2rem;
+  transform: translate(-50%, -50%);
+  letter-spacing: 2px;
+  color: #ccc;
+}
+
+@-webkit-keyframes eq {
+  0% {
+    height: 3px;
+  }
+  50% {
+    height: 20px;
+  }
+  100% {
+    height: 3px;
+  }
+}
+
+@keyframes eq {
+  0% {
+    height: 3px;
+  }
+  50% {
+    height: 20px;
+  }
+  100% {
+    height: 3px;
+  }
+}
+.eq {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  margin: 0 auto;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.eq__bar {
+  width: 4px;
+  background: #fff;
+  filter: drop-shadow(0 0 5px #fff);
+}
+
+.eq__bar:nth-child(1) {
+  -webkit-animation: eq 0.8s ease-in-out infinite 0s;
+          animation: eq 0.8s ease-in-out infinite 0s;
+}
+
+.eq__bar:nth-child(2) {
+  -webkit-animation: eq 0.8s ease-in-out infinite 0.2s;
+          animation: eq 0.8s ease-in-out infinite 0.2s;
+}
+
+.eq__bar:nth-child(3) {
+  -webkit-animation: eq 0.8s ease-in-out infinite 0.4s;
+          animation: eq 0.8s ease-in-out infinite 0.4s;
+}
+
+.h-hide {
+  display: none;
+}
+
+.h-show {
+  display: block;
+}
+</style>
+
+<div  ng-app="books" ng-controller="main">
   
 
 
-    <div class="modal-overlay" ng-class="{show: showLockedModal}">
-        <div class="locked-modal-content">
-            <i class="fas fa-lock"></i>
-            <p>Este material está bloqueado. <br>¡Sigue avanzando para desbloquearlo!</p>
-        </div>
+  <div class="loader" id="loader" >
+  <svg class="logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 22H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h6v7l2.5-1.5L16 9V2h2a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2z" fill="#4a6fa5"/>
+    </svg> 
+    
+    <h1>Biblioteca</h1>
+    <p>Organizando tu biblioteca digital...</p>
+    
+    <div class="loading-container">
+        <div class="loading-bar"></div>
     </div>
     
-   <div class="pdf-viewer-overlay" ng-show="showPdfViewer">  
-        <div class="pdf-viewer-header">
-            <h3 class="bookTitle">{{ selectedBook.title }}</h3>
+    <div class="book-icons">
+        <div class="book-icon">📕</div>
+        <div class="book-icon">📗</div>
+        <div class="book-icon">📘</div>
+        <div class="book-icon">📙</div>
+        <div class="book-icon">📖</div>
+    </div> 
+  </div >
+  
+  
+  <div class="container" id="container" style="display: none">
+    <div class="carousel-header">
+  <h2>Piezas  </h2>
+</div>
+  
+  <div class="mhn-slide owl-carousel">
+    <div class="mhn-item" ng-repeat="manual in pieces" ng-click="openPlayer(manual)">
+      <div class="mhn-inner">
+       <div class="lock-icon" ng-if="!datosCargados || manual.lvl > lvl || (manual.lvl == lvl && manual.lsn >= lsn)">
+  <i class="ri-lock-fill"></i>
+</div> 
 
-<div class="right-controls">
-  <audio id="metronomeAudio" src="https://dashboard.mozartacademy.mx/media/metronom.mp3" loop style="display: none;"></audio>
-  <div class="metronome-control">
-    <button class="tool-btn record-btn" ng-click="recordWav()" ng-class="{'active': isRecording2}">
-   <i class="fa-solid fa-microphone"></i>
-    </button>
-    <button class="tool-btn metronome-btn" ng-click="toggleMetronome()" ng-class="{'active': metronomeActive}">
-      <i class="fa-solid fa-stopwatch"></i>
-    </button>
-    <div class="bpm-control">
-      <button class="bpm-btn" ng-mousedown="adjustBPM(-1, $event)" ng-touchstart="adjustBPM(-1, $event)">
-        <i class="fa-solid fa-minus"></i>
-      </button>
-      <span class="bpm-label">{{metronomeBPM}} BPM</span>
-      <button class="bpm-btn" ng-mousedown="adjustBPM(1, $event)" ng-touchstart="adjustBPM(1, $event)">
-        <i class="fa-solid fa-plus"></i>
-      </button>
+ <div class="grade-badge">
+ {{manual.grade}}
+</div> 
+        <img ng-src="{{manual.background}}">
+      </div>
+    </div>
+  </div>
+  
+<div class="carousel-header">
+  <h2>Manuales   </h2>
+</div>
+
+  
+  <div class="mhn-slide owl-carousel">
+    <div class="mhn-item" ng-repeat="manual in manuals" ng-click="openPlayer(manual)">
+     <!-- <h4>{{manual.level}}</h4>
+          <p>{{manual.block}}</p>  -->
+      <div class="mhn-inner">
+       <div class="lock-icon" ng-if="!datosCargados || manual.lvl > lvl || (manual.lvl == lvl && manual.lsn >= lsn)">
+  <i class="ri-lock-fill"></i>
+        </div>
+        
+         <div class="lock-icon" ng-if="!datosCargados || manual.lvl > lvl || (manual.lvl == lvl && manual.lsn >= lsn)">
+  <i class="ri-lock-fill"></i>
+        </div>
+        <img ng-src="{{manual.background}}">
+      </div>
+    </div>
+  </div>
+  
+
+  
+  <div class="carousel-header">
+  <h2>Piezas finales  </h2>
+</div>
+  
+   <div class="mhn-slide2 owl-carousel">
+    <div class="mhn-item" ng-repeat="manual in repertoire" ng-click="openPlayer(manual)">
+      <div class="mhn-inner">
+       
+<div class="grade-badge">
+ {{manual.grade}}
+</div> 
+        <img ng-src="{{manual.background}}">
+      </div>
+    </div>
+  </div>
+  
+  
+  <br><br>
+ 
+  
+  
+<div class="preview-modal" ng-show="selectedManual">
+  <div class="preview-backdrop"></div>
+  <div class="preview-content">
+    <button class="close-btn" ng-click="selectedManual = null">✕</button>
+    <img class="cover-large" ng-src="{{selectedManual.background}}" />
+    
+    <!-- Contenedor de métricas para móvil -->
+    <div class="mobile-metrics glass-effect" ng-if="selectedManual.practiceData">
+      <div class="metric-item">
+        <span class="metric-value">{{selectedManual.practiceData.completedBars}}/{{selectedManual.totalBars}}</span>
+        <span class="metric-label">Compases</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-value">{{selectedManual.practiceData.totalTime | secondsToTime}}</span>
+        <span class="metric-label">Tiempo</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-value">{{getProgressPercentage2()}}%</span>
+        <span class="metric-label">Progreso</span>
+      </div>
+    </div>
+
+    <div class="right-column">
+      <div class="text-content">
+        <p class="collection">Mozart Academy</p>
+        <hr class="separator">
+        <h2 class="title">{{selectedManual.title}}</h2>
+        <p class="author">{{selectedManual.subtitle}}</p>
+        
+        <!-- Contenedor de métricas para desktop -->
+        <div class="desktop-metrics" ng-if="selectedManual.practiceData">
+            
+          <div class="metric-grid">
+             <div class="progress-container">
+              <div class="progress-bar">
+                <div class="progress-fill" ng-style="{'width': getProgressPercentage2() + '%'}"></div>
+              </div>
+              <span class="progress-percentage">{{getProgressPercentage2()}}%</span>
+            </div>
+            
+            <div class="metric-item">
+              <span class="metric-value">{{selectedManual.practiceData.completedBars}}/{{selectedManual.totalBars}}</span>
+              <span class="metric-label">Compases avanzados</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value">{{selectedManual.practiceData.totalTime | secondsToTime}}</span>
+              <span class="metric-label">Tiempo total</span>
+            </div>
+         
+          </div>
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <button ng-click="openPlayer(selectedManual)">Abrir</button>
+        <button ng-click="openPDF(selectedManual.pdf)">Descargar</button>
+      </div>
     </div>
   </div>
 </div>
 
-            <button class="pdf-viewer-close" ng-click="closePdfViewer()"><i class="fas fa-times"></i></button>
-        </div>
 
-     <div class="online-badge-container">
-        <div class="online-badge" ng-if="isRecording2">
-            <div class="status-indicator">
-                <div class="status-dot"></div>
-                <div class="status-pulse"></div>
-                <div class="status-ring"></div>
-            </div>
-            <span class="status-text">Grabando...</span>
-        </div>
+
+
+
+     <div class="player-modal" ng-show="showPlayer">
+    <div class="player-header">
+  
+      <h4 class="mobile">{{currentManual.title}}</h4>
+    
+      <div class="player-tools">
+        <button class="tool-btn recording-btn mobile"
+          ng-click="setActivePanel('IArecording')"
+          ng-class="{'active': activePanel === 'IArecording'}">
+    <i class="ri-shining-line"></i> MozartIA
+  </button>
+         <button class="tool-btn recording-btn"
+          ng-click="setActivePanel('recording')"
+          ng-class="{'active': activePanel === 'recording'}">
+   <i class="ri-record-circle-line"></i> Grabación
+  </button>
+        <button class="tool-btn metrics-btn" 
+          ng-click="setActivePanel('session')"
+          ng-class="{'active': activePanel === 'session'}">
+     <i class="ri-timer-line"></i> Progreso
+  </button>
+
+         <button class="close-btn2" ng-click="closePlayer()">
+      <i class="ri-close-large-line"></i>
+        </button>
+      </div>
+    </div>
+    
+    <div class="progress-display">
+  <div class="progress-info" ng-show="activePanel === 'session'">
+    <div class="progress-bar-container">
+      <div class="progress-label">Progreso: {{getProgressPercentage()}}%</div>
+   <div class="progress-bar">
+  <div class="progress-fill" ng-style="{'width': getProgressPercentage() + '%', 'background': getProgressColor()}"></div>
+</div>
+    </div>
+     
+
+
+    <div class="time-displays-container">
+    <div class="time-display">
+        <span class="value">8  /  42</span>
+        <span class="label">Compases</span>
+      </div>
+      <div class="time-display">
+        <span class="value">{{sessionTimer.seconds | secondsToTime}}</span>
+        <span class="label">Sesión</span>
       </div>
 
-          <div class="modal-overlay" ng-class="{show: showSaveRecordingModal}">
-    <div class="modal-content2 save-recording-modal" ng-click="$event.stopPropagation()">
-        <div class="upload-modal-header">
-            <h2>Previsualizar y Guardar Grabación</h2>
-            <p>Escucha tu grabación y asigna un nombre antes de guardarla.</p>
-        </div>
-
-        <div class="audio-preview-container">
-            <audio ng-src="{{recording.url}}" controls controlsList="nodownload"></audio>
-        </div>
-
-        <div class="recording-form">
-            <div class="form-group">
-                <label for="rec-name">Nombre del archivo</label>
-                <input type="text" id="rec-name" ng-model="recording.name">
-            </div>
-            <div class="form-group">
-                <label for="rec-author">Autor (Opcional)</label>
-                <input type="text" id="rec-author" ng-model="recording.author" placeholder="Ej: Mi Práctica Diaria">
-            </div>
-            <div class="recording-metadata">
-                <span><i class="fas fa-calendar-alt"></i> <strong>Fecha:</strong> {{ recording.date | date:'dd/MM/yyyy h:mm a' }}</span>
-              
-            </div>
-        </div>
-
-        <div class="modal-actions-upload">
-            <button class="modal-button secondary danger" ng-click="deleteRecording()">
-                <i class="fas fa-trash"></i> Eliminar
-            </button>
-            <button class="modal-button primary" ng-click="saveRecording()">
-                <i class="fas fa-save"></i> Guardar
-            </button>
-        </div>
     </div>
+      
+  </div>
+      
+        <div class="progress-info" ng-show="activePanel === 'recording'">
+
+          <div class="recording-indicator" ng-show="isRecording2">
+    <div class="recording-dot"></div>
+    <span>Grabando...</span>
+  </div>
+  
+
+ <div class="recording-controls">
+  <!-- Controles izquierdos -->
+  <div class="left-controls">
+  <button class="tool-btn record-btn" ng-click="recordWav()" ng-class="{'active': isRecording2}">
+     <i class="ri-mic-line"></i>
+    </button>
+    <button class="tool-btn play-btn" ng-click="openWavs()">
+    <i class="ri-play-line"></i>
+    </button>
+
+  </div>
+  
+  <!-- Controles derechos -->
+  <div class="right-controls">
+    <audio id="metronomeAudio" src="https://dashboard.mozartacademy.mx/media/metronom.mp3" loop style="display: none;"></audio>
+   <div class="metronome-control">
+  <button class="tool-btn metronome-btn" ng-click="toggleMetronome()" ng-class="{'active': metronomeActive}">
+    <i class="ri-timer-flash-line"></i>
+  </button>
+  <div class="bpm-control">
+    <button class="bpm-btn" ng-mousedown="adjustBPM(-1, $event)" ng-touchstart="adjustBPM(-1, $event)">
+      <i class="ri-subtract-line"></i>
+    </button>
+    <span class="bpm-label">{{metronomeBPM}} BPM</span>
+    <button class="bpm-btn" ng-mousedown="adjustBPM(1, $event)" ng-touchstart="adjustBPM(1, $event)">
+      <i class="ri-add-line"></i>
+    </button>
+  </div>
 </div>
 
-        <iframe ng-src="{{pdfUrl}}" frameborder="0"></iframe>
+  </div>
+</div>
+  </div>
+
+
+
+   <div class="progress-info" ng-show="activePanel === 'IArecording'">
+
+          <div class="recording-indicator" ng-show="isRecording">
+    <div class="recording-dot"></div>
+    <span>Grabando...</span>
+  </div>
+  
+  <!-- Indicador de procesamiento -->
+  <div class="processing-indicator" ng-show="isProcessing">
+    <div class="spinner"></div>
+    <span>Procesando...</span>
+  </div>
+
+
+ <div class="recording-controls">
+  <!-- Controles izquierdos -->
+  <div class="left-controls">
+    <button class="tool-btn record-btn" ng-click="toggleRecording()" ng-class="{'active': isRecording}">
+     <i class="ri-mic-ai-line"></i>
+    </button>
+    <button class="tool-btn play-btn" ng-click="openRecordings()">
+    <i class="ri-folder-music-line"></i> 
+    </button>
+  </div>
+  
+
+  <div class="right-controls">
+    
+    
+      <div class="time-display" style="margin-right: 5px">
+        <div id="result" class="value" style="margin-right: 10px">--</div>
+        <span class="label">Acorde</span>
+      </div>
+     
+
+     <canvas id="oscilloscopeCanvas" width="100" height="40"></canvas>
+      <button class="tool-btn play-btn" id="listenIA">
+   <i class="ri-pulse-ai-line"></i>
+    </button>
+  </div>
+</div>
+  </div>
+
+      
+</div>
+    
+        
+      
+    <div class="player-container">
+      <iframe ng-src="{{trustSrc(currentManual.pdf)}}" frameborder="0" allowfullscreen></iframe>
+      
+
+      <!-- Modal de grabacion-->
+      <div class="recording-modal" ng-show="showRecordingModal">
+    <div class="modal-content2">
+      <midi-player id="recordingPlayer" sound-font visualizer="#recordingVisualizer" src=""></midi-player>
+     <div class="visualizer-container">
+  <midi-visualizer id="recordingVisualizer" 
+                   type="waterfall"
+src=""> 
+  </midi-visualizer>
+</div>
+      <button class="close-btn" ng-click="closeRecordingModal()">
+      <i class="ri-close-large-line"></i>
+      </button>
     </div>
+  </div>
 
-    <script>
-        const app = angular.module('libraryApp', []);
 
- 
-             app.controller('libraryCtrl', ['$http', '$scope', '$sce', '$timeout', function($http, $scope, $sce, $timeout) {
+   <!-- Modal de grabaciones guardadas -->
+      <div class="saved-recordings-modal" ng-show="showSavedRecordingsModal">
+        <div class="modal-content">
+          <h3>Midi files</h3>
+          <div class="recordings-list">
+            <div class="recording-item" ng-repeat="recording in recordings">
+              <div class="recording-info">
+              <div class="recording-details">
+            <div class="recording-name">{{recording.name}}</div>
+            <div class="recording-date">{{recording.date | date:'medium'}}</div>
+          </div>
+          <div class="recording-actions">
+            <button class="play-btn" ng-click="playSavedRecording(recording)">
+              <i class="ri-play-line"></i>
+            </button>
+            <button class="delete-btn" ng-click="deleteRecording(recording.id)">
+              <i class="ri-delete-bin-line"></i>
+            </button>
+          </div>
+              </div>
+            </div>
+            <div class="no-recordings" ng-show="recordings.length === 0">
+              No hay grabaciones guardadas
+            </div>
+          </div>
+          <button class="close-btn" ng-click="closeSavedRecordingsModal()">
+            <i class="ri-close-large-line"></i>
+          </button>
+        </div>
+      </div>
+      
+      
+      
+      <div class="ap" id="ap" ng-show="showSavedWavsModal">
+  <div class="ap__inner">
+      <div class="ap__item ap__item--playback">
+        <button class="ap__controls ap__controls--prev">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#333" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M9.516 12l8.484-6v12zM6 6h2.016v12h-2.016v-12z"></path>
+          </svg>
+        </button>
+        <button class="ap__controls ap__controls--toggle">
+          <svg class="icon-play" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#333" width="36" height="36" viewBox="0 0 36 36" data-play="M 12,26 18.5,22 18.5,14 12,10 z M 18.5,22 25,18 25,18 18.5,14 z" data-pause="M 12,26 16.33,26 16.33,10 12,10 z M 20.66,26 25,26 25,10 20.66,10 z">
+            <path d="M 12,26 18.5,22 18.5,14 12,10 z M 18.5,22 25,18 25,18 18.5,14 z"></path>
+          </svg>
+        </button>
+        <button class="ap__controls ap__controls--next">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#333" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M15.984 6h2.016v12h-2.016v-12zM6 18v-12l8.484 6z"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="ap__item ap__item--track">
+        <div class="track">
+          <div class="track__title">Queue is empty</div>
+          <div class="track__time">
+            <span class="track__time--current">--</span>
+            <span> / </span>
+            <span class="track__time--duration">--</span>
+          </div>
 
+          <div class="progress-container">
+            <div class="progressb">
+              <div class="progress__bar"></div>
+              <div class="progress__preload"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="ap__item ap__item--settings">
+        <div class="ap__controls volume-container">
+          <button class="volume-btn">
+            <svg class="icon-volume-on" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#333" width="24" height="24" viewBox="0 0 24 24">
+              <path d="M14.016 3.234q3.047 0.656 5.016 3.117t1.969 5.648-1.969 5.648-5.016 3.117v-2.063q2.203-0.656 3.586-2.484t1.383-4.219-1.383-4.219-3.586-2.484v-2.063zM16.5 12q0 2.813-2.484 4.031v-8.063q2.484 1.219 2.484 4.031zM3 9h3.984l5.016-5.016v16.031l-5.016-5.016h-3.984v-6z"></path>
+            </svg>
+            <svg class="icon-volume-off" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#333" width="24" height="24" viewBox="0 0 24 24">
+              <path d="M12 3.984v4.219l-2.109-2.109zM4.266 3l16.734 16.734-1.266 1.266-2.063-2.063q-1.734 1.359-3.656 1.828v-2.063q1.172-0.328 2.25-1.172l-4.266-4.266v6.75l-5.016-5.016h-3.984v-6h4.734l-4.734-4.734zM18.984 12q0-2.391-1.383-4.219t-3.586-2.484v-2.063q3.047 0.656 5.016 3.117t1.969 5.648q0 2.25-1.031 4.172l-1.5-1.547q0.516-1.266 0.516-2.625zM16.5 12q0 0.422-0.047 0.609l-2.438-2.438v-2.203q2.484 1.219 2.484 4.031z"></path>
+            </svg>
+          </button>
+          <div class="volume">
+            <div class="volume__track">
+              <div class="volume__bar"></div>
+            </div>
+          </div>
+        </div>
+       
+        <button class="ap__controls ap__controls--playlist">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#333" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M17.016 12.984l4.969 3-4.969 3v-6zM2.016 15v-2.016h12.984v2.016h-12.984zM18.984 5.016v1.969h-16.969v-1.969h16.969zM18.984 9v2.016h-16.969v-2.016h16.969z"></path>
+          </svg>
+        </button>
+        
+         <button class="ap__controls ap__controls--close" ng-click="closeSavedWavsModal()">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="#333" width="24" height="24" viewBox="0 0 24 24">
+    <path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7a1 1 0 0 0-1.41 1.41L10.59 12l-4.89 4.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4z"/>
+  </svg>
+        </button>
+        
+      </div>
+  </div>
+</div>
+
+      
+    </div> 
+</div>
+  
+    <div class="modal fade in custom-modal" ng-show="showPreferencias" style="display: block;" tabindex="-1">
+    <div class="modal-backdrop fade in" ng-click="showPreferencias = false"></div>
+    <div class="modal-wrapper">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content text-center">
+          <div class="modal-body">
+            <button type="button" class="close" ng-click="showPreferencias = false">×</button>
+            <h4>Avanza en las actividades para acceder a más contenido</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+</div>
+</div>
+
+<script>
+  
+
+angular.module('books', [])
+.controller('main', ['$http', '$scope', '$sce', '$timeout', function($http, $scope, $sce, $timeout){
+  
+  
+ $scope.manuals = [ 
+      {'title': 'Nivel Preparatorio','subtitle': 'Unidad 1','background': 'https://lh3.googleusercontent.com/d/1rFNza9NDinXOb0OOG3pTEYx8IYWygNKF', 'pdf': 'https://drive.google.com/file/d/1rFNza9NDinXOb0OOG3pTEYx8IYWygNKF/preview', 'lvl': 0, lsn: 0},
+      {'title': 'Nivel Preparatorio','subtitle': 'Unidad 2','background': 'https://lh3.googleusercontent.com/d/15qT2ccd4PkQC82qc-ig831qaqQo5gzbu', 'pdf': 'https://drive.google.com/file/d/15qT2ccd4PkQC82qc-ig831qaqQo5gzbu/preview', 'lvl': 0, lsn: 5},
+      {'title': 'Nivel Preparatorio','subtitle': 'Unidad 3','background': 'https://lh3.googleusercontent.com/d/1VVBfT4V3nfwekluTQcyepmm4-5XIFxis', 'pdf': 'https://drive.google.com/file/d/1VVBfT4V3nfwekluTQcyepmm4-5XIFxis/preview', 'lvl': 0, lsn: 9},
+      {'title': 'Nivel 1','subtitle': 'Unidad 1','background': 'https://lh3.googleusercontent.com/d/1sHsaDQvii8ApRIkpsN5h0e9yyRYg5tvY', 'pdf': 'https://drive.google.com/file/d/1sHsaDQvii8ApRIkpsN5h0e9yyRYg5tvY/preview', 'lvl': 1, lsn: 0},
+      {'title': 'Nivel 1','subtitle': 'Unidad 2','background': 'https://lh3.googleusercontent.com/d/12FwPz8DZqkRoeulbvXTzbMtcbQ4nE_xE', 'pdf': 'https://drive.google.com/file/d/12FwPz8DZqkRoeulbvXTzbMtcbQ4nE_xE/preview', 'lvl': 1, lsn: 4},
+      {'title': 'Nivel 1','subtitle': 'Unidad 3','background': 'https://lh3.googleusercontent.com/d/1tU1TzeczlheibtMLqucEYYpgvzkZ-48Q', 'pdf': 'https://drive.google.com/file/d/1tU1TzeczlheibtMLqucEYYpgvzkZ-48Q/preview', 'lvl': 1, lsn: 7},
+       {'title': 'Nivel 2','subtitle': 'Unidad 1','background': 'https://lh3.googleusercontent.com/d/1Ms7bmUV955rU5IzdgN4mcLhAe7KJYWWK', 'pdf': 'https://drive.google.com/file/d/1Ms7bmUV955rU5IzdgN4mcLhAe7KJYWWK/preview', 'lvl': 2, lsn: 0},
+      {'title': 'Nivel 2','subtitle': 'Unidad 2','background': 'https://lh3.googleusercontent.com/d/1AfEgtD_m-bSWmmZJXaxujlfTc6ehSDBJ', 'pdf': 'https://drive.google.com/file/d/1AfEgtD_m-bSWmmZJXaxujlfTc6ehSDBJ/preview', 'lvl': 2, lsn: 4},
+      {'title': 'Nivel 2','subtitle': 'Unidad 3','background': 'https://lh3.googleusercontent.com/d/1FHx4_pSIiA04oDAFhT4NM15D56unpRpw', 'pdf': 'https://drive.google.com/file/d/1FHx4_pSIiA04oDAFhT4NM15D56unpRpw/preview', 'lvl': 2, lsn: 7},
+       {'title': 'Nivel 3','subtitle': 'Unidad 1','background': 'https://lh3.googleusercontent.com/d/1P0azVqQgJKBr6B7rJQlCQIFfAELWUiif', 'pdf': 'https://drive.google.com/file/d/1P0azVqQgJKBr6B7rJQlCQIFfAELWUiif/preview', 'lvl': 2, lsn: 0},
+      {'title': 'Nivel 3','subtitle': 'Unidad 2','background': 'https://lh3.googleusercontent.com/d/1i-4cAu9BGFDN7kzoMFQAMKjp2vGzkKCs', 'pdf': 'https://drive.google.com/file/d/1i-4cAu9BGFDN7kzoMFQAMKjp2vGzkKCs/preview', 'lvl': 2, lsn: 4},
+      {'title': 'Nivel 3','subtitle': 'Unidad 3','background': 'https://lh3.googleusercontent.com/d/1P0azVqQgJKBr6B7rJQlCQIFfAELWUiif', 'pdf': '', 'lvl': 2, lsn: 7},
+     
+    ];
+
+
+  $scope.pieces = 
+[
+  {
+    "title": "Ode to Joy - var3",
+    "subtitle": "L.V. Beethoven",
+    "background": "https://lh3.googleusercontent.com/d/1Ad2scs9x1sxc_mx8L35NVUFk_0vj6hej",
+    "pdf": "https://drive.google.com/file/d/1Ad2scs9x1sxc_mx8L35NVUFk_0vj6hej/preview",
+    "lvl": 0,
+    "lsn": 0,
+    "grade": "Preparatory",
+    "totalBars": 50,
+    "practiceData": {
+      "totalTime": 0,
+      "completedBars": 2,
+      "sessions": []
+    }
+  },
+  {
+    "title": "Trumpet Voluntary",
+    "subtitle": "Jeremiah Clarke",
+    "background": "https://lh3.googleusercontent.com/d/1CR1bbjDnL3wzmeb0AM6hkt6D4G8VunTd",
+    "pdf": "https://drive.google.com/file/d/1CR1bbjDnL3wzmeb0AM6hkt6D4G8VunTd/preview",
+    "lvl": 0,
+    "lsn": 6,
+    "grade": "Preparatory",
+    "totalBars": 50,
+    "practiceData": {
+      "totalTime": 0,
+      "completedBars": 15,
+      "sessions": []
+    }
+  },
+  {
+    "title": "Old German Dance",
+    "subtitle": "Michael Praetorius",
+    "background": "https://lh3.googleusercontent.com/d/1JWJdVevaq7Oj2k4IxQ-2Zi7MP123vM_4",
+    "pdf": "https://drive.google.com/file/d/1JWJdVevaq7Oj2k4IxQ-2Zi7MP123vM_4/preview",
+    "lvl": 0,
+    "lsn": 7,
+    "grade": "Preparatory",
+    "totalBars": 50,
+    "practiceData": {
+      "totalTime": 0,
+      "completedBars": 32,
+      "sessions": []
+    }
+  },
+  {
+    "title": "Waltz",
+    "subtitle": "Carl Czerny",
+    "background": "https://lh3.googleusercontent.com/d/18-2Gfm_kZSGnSMe-dadCUnWlypbwxMsh",
+    "pdf": "https://drive.google.com/file/d/18-2Gfm_kZSGnSMe-dadCUnWlypbwxMsh/preview",
+    "lvl": 0,
+    "lsn": 9,
+    "grade": "Preparatory",
+    "totalBars": 50,
+    "practiceData": {
+      "totalTime": 0,
+      "completedBars": 47,
+      "sessions": []
+    }
+  },
+  {
+    "title": "Bagpipe",
+    "subtitle": "Anonymous",
+    "background": "https://lh3.googleusercontent.com/d/1iaC23Nv4CSXuQ5YPCLEIR_EUxqhs6pKj",
+    "pdf": "https://drive.google.com/file/d/1iaC23Nv4CSXuQ5YPCLEIR_EUxqhs6pKj/preview",
+    "lvl": 0,
+    "lsn": 10,
+    "grade": "Preparatory",
+    "totalBars": 50,
+    "practiceData": {
+      "totalTime": 0,
+      "completedBars": 0,
+      "sessions": []
+    }
+  },
+  {
+    "title": "Sonatina",
+    "subtitle": "C.H. Wilton",
+    "background": "https://lh3.googleusercontent.com/d/12In24V0ux173hjL_Q1zA6zvyUq57J38P",
+    "pdf": "https://drive.google.com/file/d/12In24V0ux173hjL_Q1zA6zvyUq57J38P/preview",
+    "lvl": 0,
+    "lsn": 12,
+    "grade": "Preparatory",
+    "totalBars": 50,
+    "practiceData": {
+      "totalTime": 0,
+      "completedBars": 0,
+      "sessions": []
+    }
+  },
+  {
+    "title": "March I",
+    "subtitle": "D. Gottlob Türk",
+    "background": "https://lh3.googleusercontent.com/d/1AIV_VAPNh_dFbsJH6VRbyx6GcDQEffSi",
+    "pdf": "https://drive.google.com/file/d/1AIV_VAPNh_dFbsJH6VRbyx6GcDQEffSi/preview",
+    "lvl": 1,
+    "lsn": 2,
+    "grade": "Preparatory",
+    "totalBars": 50,
+    "practiceData": {
+      "totalTime": 0,
+      "completedBars": 0,
+      "sessions": []
+    }
+  },
+  {
+    "title": "March II",
+    "subtitle": "D. Gottlob Türk",
+    "background": "https://lh3.googleusercontent.com/d/1Z_uQb4Vu5nI4nj4jjR6oNL-Xfsx27Bys",
+    "pdf": "https://drive.google.com/file/d/1Z_uQb4Vu5nI4nj4jjR6oNL-Xfsx27Bys/preview",
+    "lvl": 1,
+    "lsn": 2,
+    "grade": "Preparatory",
+    "totalBars": 50,
+    "practiceData": {
+      "totalTime": 0,
+      "completedBars": 0,
+      "sessions": []
+    }
+  },
+  {
+    "title": "Minuet",
+    "subtitle": "A. Reinagle",
+    "background": "https://lh3.googleusercontent.com/d/1Y2pG3Y3gf8_Y7RGBtBCb3wCHcYDCz2Mf",
+    "pdf": "https://drive.google.com/file/d/1Y2pG3Y3gf8_Y7RGBtBCb3wCHcYDCz2Mf/preview",
+    "lvl": 1,
+    "lsn": 3,
+    "grade": "Preparatory",
+    "totalBars": 50,
+    "practiceData": {
+      "totalTime": 0,
+      "completedBars": 0,
+      "sessions": []
+    }
+  },
+  {
+    "title": "Promenade",
+    "subtitle": "A. Reinagle",
+    "background": "https://lh3.googleusercontent.com/d/1S1IwsNd6pzbUUpLONCjHC39GssguknES",
+    "pdf": "https://drive.google.com/file/d/1S1IwsNd6pzbUUpLONCjHC39GssguknES/preview",
+    "lvl": 1,
+    "lsn": 4,
+    "grade": "Preparatory",
+    "totalBars": 50,
+    "practiceData": {
+      "totalTime": 0,
+      "completedBars": 0,
+      "sessions": []
+    }
+  },
+  {
+    "title": "Sonatina in C",
+    "subtitle": "Cornelius Gurlitt",
+    "background": "https://lh3.googleusercontent.com/d/1zUDSm_eKBu830fBpJg_l3pKHswkmV0RM",
+    "pdf": "https://drive.google.com/file/d/1zUDSm_eKBu830fBpJg_l3pKHswkmV0RM/preview",
+    "lvl": 1,
+    "lsn": 5,
+    "grade": "Grade 1",
+    "totalBars": 50,
+    "practiceData": {
+      "totalTime": 0,
+      "completedBars": 0,
+      "sessions": []
+    }
+  },
+  {
+    "title": "March in F",
+    "subtitle": "D. Gottlob Türk",
+    "background": "https://lh3.googleusercontent.com/d/1xoG80Ob1e2-d2_Vun_v_UrKJPJkrbFdM",
+    "pdf": "https://drive.google.com/file/d/1xoG80Ob1e2-d2_Vun_v_UrKJPJkrbFdM/preview",
+    "lvl": 1,
+    "lsn": 6,
+    "grade": "Grade 1",
+    "totalBars": 50,
+    "practiceData": {
+      "totalTime": 0,
+      "completedBars": 0,
+      "sessions": []
+    }
+  },
+  {
+    "title": "The Old Windmill",
+    "subtitle": "Dunhill",
+    "background": "https://lh3.googleusercontent.com/d/1rUCg7oSJgi4sTyMwlYaxdTdQjiB-peYt",
+    "pdf": "https://drive.google.com/file/d/1rUCg7oSJgi4sTyMwlYaxdTdQjiB-peYt/preview",
+    "lvl": 1,
+    "lsn": 6,
+    "grade": "Grade 1",
+    "totalBars": 50,
+    "practiceData": {
+      "totalTime": 0,
+      "completedBars": 0,
+      "sessions": []
+    }
+  },
+  {
+    "title": "Allemande",
+    "subtitle": "J.H. Schein",
+    "background": "https://lh3.googleusercontent.com/d/1m27dxSoHVEsMSplzIc2QYi_Ettm9LZhn",
+    "pdf": "https://drive.google.com/file/d/1m27dxSoHVEsMSplzIc2QYi_Ettm9LZhn/preview",
+    "lvl": 2,
+    "lsn": 1,
+    "grade": "Grade 1",
+    "totalBars": 50,
+    "practiceData": {
+      "totalTime": 0,
+      "completedBars": 0,
+      "sessions": []
+    }
+  },
+  {
+    "title": "Andante",
+    "subtitle": "F. Beyer",
+    "background": "https://lh3.googleusercontent.com/d/1LSa0lIkuOzU4fhgZr2r4kpgOyRlA2zgj",
+    "pdf": "https://drive.google.com/file/d/1LSa0lIkuOzU4fhgZr2r4kpgOyRlA2zgj/preview",
+    "lvl": 2,
+    "lsn": 2,
+    "grade": "Grade 1",
+    "totalBars": 50,
+    "practiceData": {
+      "totalTime": 0,
+      "completedBars": 0,
+      "sessions": []
+    }
+  }, 
+  {
+    "title": "Aria in F",
+    "subtitle": "J.S. Bach",
+    "background": "https://lh3.googleusercontent.com/d/1gW1tqwKgzmn-UZAmbK4ElCrJ8oRdN3yU",
+    "pdf": "https://drive.google.com/file/d/1gW1tqwKgzmn-UZAmbK4ElCrJ8oRdN3yU/preview",
+    "lvl": 2,
+    "lsn": 3,
+    "grade": "Grade 1",
+    "totalBars": 50,
+    "practiceData": {
+      "totalTime": 0,
+      "completedBars": 0,
+      "sessions": []
+    }
+  },
+  {
+    "title": "Sonatina in C",
+    "subtitle": "Frank Lynes",
+    "background": "https://lh3.googleusercontent.com/d/13kGxg8iUnBphTYoIotCalNkcJgcW_T12",
+    "pdf": "https://drive.google.com/file/d/13kGxg8iUnBphTYoIotCalNkcJgcW_T12/preview",
+    "lvl": 2,
+    "lsn": 7,
+    "grade": "Grade 2",
+    "totalBars": 50,
+    "practiceData": {
+      "totalTime": 0,
+      "completedBars": 0,
+      "sessions": []
+    }
+  },
+  {
+    "title": "Gigue in G",
+    "subtitle": "G. P. Telemann",
+    "background": "https://lh3.googleusercontent.com/d/1r1b7hkZU9jOb_Q37DMQmIYbdyqKovNjZ",
+    "pdf": "https://drive.google.com/file/d/1r1b7hkZU9jOb_Q37DMQmIYbdyqKovNjZ/preview",
+    "lvl": 2,
+    "lsn": 9,
+    "grade": "Grade 2",
+    "totalBars": 50,
+    "practiceData": {
+      "totalTime": 0,
+      "completedBars": 0,
+      "sessions": []
+    }
+  }
+]
+
+
+
+
+  $scope.repertoire = []
+  $scope.recordings = [];
+
+
+    var requestData = {
+    action: "getUserData",
+     token: "U2FsdGVkX1+O3QNKxr7i65+rZS88LOrcquA8lGK28gvecieY+EsOVZ9mREDrZlaX"
+  };
+
+  var config = {
+    headers: {
+      "Content-Type": "text/plain;charset=utf-8"
+    } 
+  };
            
+  $http.post('https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7IDc7KBrYGfix6hUa4kvJ1TFpjU82NltFXezUroGgQ/exec', requestData, config)
+    .then(function(response) { 
+    var stage = JSON.parse(response.data.stage)
+      $scope.lvl = stage.lvl;
+     $scope.lsn = stage.lsn;
+    $scope.repertoire = JSON.parse(response.data.repertoire);
+    $scope.recordings = response.data.audios
+     
+    $scope.datosCargados = true;
+      
+      $(function(){
+  $('.mhn-slide2').owlCarousel({
+    nav:true,
+    //loop:true,
+    slideBy: 1,
+    rewind:false,
 
-            // --- ESTADO DE LA UI ---
-            $scope.searchQuery = '';
-            $scope.showPreviewModal = false;
-            $scope.selectedBook = null;
-            $scope.selectedCategory = '';
-            $scope.showPdfViewer = false;
-            $scope.pdfUrl = '';
-            $scope.isLoaded = false;
-          //  $scope.exe = 4; 
-
-             $scope.showUploadModal = false;
-              $scope.showLockedModal = false;
-              $scope.newPdf = {}; 
-               $scope.userPDFs = []; 
-
-            // --- DATOS DE LA BIBLIOTECA ---
-       var manualsData = [
-    {'title': 'Nivel Preparatorio','subtitle': 'Unidad 1','background': 'https://lh3.googleusercontent.com/d/1rFNza9NDinXOb0OOG3pTEYx8IYWygNKF', 'pdf': 'https://drive.google.com/file/d/1rFNza9NDinXOb0OOG3pTEYx8IYWygNKF/preview', 'lvl': 0, lsn: 0, 'totalExercises': 25 },
-    {'title': 'Nivel Preparatorio','subtitle': 'Unidad 2','background': 'https://lh3.googleusercontent.com/d/15qT2ccd4PkQC82qc-ig831qaqQo5gzbu', 'pdf': 'https://drive.google.com/file/d/15qT2ccd4PkQC82qc-ig831qaqQo5gzbu/preview', 'lvl': 0, lsn: 5, 'totalExercises': 30 },
-    {'title': 'Nivel Preparatorio','subtitle': 'Unidad 3','background': 'https://lh3.googleusercontent.com/d/1VVBfT4V3nfwekluTQcyepmm4-5XIFxis', 'pdf': 'https://drive.google.com/file/d/1VVBfT4V3nfwekluTQcyepmm4-5XIFxis/preview', 'lvl': 0, lsn: 9, 'totalExercises': 28},
-    {'title': 'Nivel 1','subtitle': 'Unidad 1','background': 'https://lh3.googleusercontent.com/d/1sHsaDQvii8ApRIkpsN5h0e9yyRYg5tvY', 'pdf': 'https://drive.google.com/file/d/1sHsaDQvii8ApRIkpsN5h0e9yyRYg5tvY/preview', 'lvl': 1, lsn: 0, 'totalExercises': 35},
-    {'title': 'Nivel 1','subtitle': 'Unidad 2','background': 'https://lh3.googleusercontent.com/d/12FwPz8DZqkRoeulbvXTzbMtcbQ4nE_xE', 'pdf': 'https://drive.google.com/file/d/12FwPz8DZqkRoeulbvXTzbMtcbQ4nE_xE/preview', 'lvl': 1, lsn: 4, 'totalExercises': 32},
-    {'title': 'Nivel 1','subtitle': 'Unidad 3','background': 'https://lh3.googleusercontent.com/d/1tU1TzeczlheibtMLqucEYYpgvzkZ-48Q', 'pdf': 'https://drive.google.com/file/d/1tU1TzeczlheibtMLqucEYYpgvzkZ-48Q/preview', 'lvl': 1, lsn: 7, 'totalExercises': 40},
-    {'title': 'Nivel 2','subtitle': 'Unidad 1','background': 'https://lh3.googleusercontent.com/d/1Ms7bmUV955rU5IzdgN4mcLhAe7KJYWWK', 'pdf': 'https://drive.google.com/file/d/1Ms7bmUV955rU5IzdgN4mcLhAe7KJYWWK/preview', 'lvl': 2, lsn: 0, 'totalExercises': 28},
-    {'title': 'Nivel 2','subtitle': 'Unidad 2','background': 'https://lh3.googleusercontent.com/d/1AfEgtD_m-bSWmmZJXaxujlfTc6ehSDBJ', 'pdf': 'https://drive.google.com/file/d/1AfEgtD_m-bSWmmZJXaxujlfTc6ehSDBJ/preview', 'lvl': 2, lsn: 4, 'totalExercises': 33 },
-    {'title': 'Nivel 2','subtitle': 'Unidad 3','background': 'https://lh3.googleusercontent.com/d/1FHx4_pSIiA04oDAFhT4NM15D56unpRpw', 'pdf': 'https://drive.google.com/file/d/1FHx4_pSIiA04oDAFhT4NM15D56unpRpw/preview', 'lvl': 2, lsn: 7, 'totalExercises': 30},
-    {'title': 'Nivel 3','subtitle': 'Unidad 1','background': 'https://lh3.googleusercontent.com/d/1P0azVqQgJKBr6B7rJQlCQIFfAELWUiif', 'pdf': 'https://drive.google.com/file/d/1P0azVqQgJKBr6B7rJQlCQIFfAELWUiif/preview', 'lvl': 3, lsn: 0, 'totalExercises': 38},
-    {'title': 'Nivel 3','subtitle': 'Unidad 2','background': 'https://lh3.googleusercontent.com/d/1i-4cAu9BGFDN7kzoMFQAMKjp2vGzkKCs', 'pdf': 'https://drive.google.com/file/d/1i-4cAu9BGFDN7kzoMFQAMKjp2vGzkKCs/preview', 'lvl': 3, lsn: 4, 'totalExercises': 35},
-    {'title': 'Nivel 3','subtitle': 'Unidad 3','background': 'https://lh3.googleusercontent.com/d/1P0azVqQgJKBr6B7rJQlCQIFfAELWUiif', 'pdf': '', 'lvl': 3, lsn: 7, 'totalExercises': 30},
-];
-
-           var piecesData = [
-    { "title": "Ode to Joy - var3", "subtitle": "L.V. Beethoven", "background": "https://lh3.googleusercontent.com/d/1Ad2scs9x1sxc_mx8L35NVUFk_0vj6hej", "pdf": "https://drive.google.com/file/d/1Ad2scs9x1sxc_mx8L35NVUFk_0vj6hej/preview", "lvl": 0, "lsn": 0, "grade": "Preparatory"},
-    { "title": "Trumpet Voluntary", "subtitle": "Jeremiah Clarke", "background": "https://lh3.googleusercontent.com/d/1CR1bbjDnL3wzmeb0AM6hkt6D4G8VunTd", "pdf": "https://drive.google.com/file/d/1CR1bbjDnL3wzmeb0AM6hkt6D4G8VunTd/preview", "lvl": 0, "lsn": 6, "grade": "Preparatory"},
-    { "title": "Old German Dance", "subtitle": "Michael Praetorius", "background": "https://lh3.googleusercontent.com/d/1JWJdVevaq7Oj2k4IxQ-2Zi7MP123vM_4", "pdf": "https://drive.google.com/file/d/1JWJdVevaq7Oj2k4IxQ-2Zi7MP123vM_4/preview", "lvl": 0, "lsn": 7, "grade": "Preparatory"},
-    { "title": "Waltz", "subtitle": "Carl Czerny", "background": "https://lh3.googleusercontent.com/d/18-2Gfm_kZSGnSMe-dadCUnWlypbwxMsh", "pdf": "https://drive.google.com/file/d/18-2Gfm_kZSGnSMe-dadCUnWlypbwxMsh/preview", "lvl": 0, "lsn": 9, "grade": "Preparatory"},
-    { "title": "Sonatina", "subtitle": "C.H. Wilton", "background": "https://lh3.googleusercontent.com/d/12In24V0ux173hjL_Q1zA6zvyUq57J38P", "pdf": "https://drive.google.com/file/d/12In24V0ux173hjL_Q1zA6zvyUq57J38P/preview", "lvl": 0, "lsn": 12, "grade": "Preparatory"},
-    { "title": "March I", "subtitle": "D. Gottlob Türk", "background": "https://lh3.googleusercontent.com/d/1AIV_VAPNh_dFbsJH6VRbyx6GcDQEffSi", "pdf": "https://drive.google.com/file/d/1AIV_VAPNh_dFbsJH6VRbyx6GcDQEffSi/preview", "lvl": 1, "lsn": 2, "grade": "Preparatory"},
-    { "title": "Minuet", "subtitle": "A. Reinagle", "background": "https://lh3.googleusercontent.com/d/1Y2pG3Y3gf8_Y7RGBtBCb3wCHcYDCz2Mf", "pdf": "https://drive.google.com/file/d/1Y2pG3Y3gf8_Y7RGBtBCb3wCHcYDCz2Mf/preview", "lvl": 1, "lsn": 3, "grade": "Preparatory"},
-    { "title": "Sonatina in C", "subtitle": "Cornelius Gurlitt", "background": "https://lh3.googleusercontent.com/d/1zUDSm_eKBu830fBpJg_l3pKHswkmV0RM", "pdf": "https://drive.google.com/file/d/1zUDSm_eKBu830fBpJg_l3pKHswkmV0RM/preview", "lvl": 1, "lsn": 5, "grade": "Grade 1"},
-    { "title": "The Old Windmill", "subtitle": "Dunhill", "background": "https://lh3.googleusercontent.com/d/1rUCg7oSJgi4sTyMwlYaxdTdQjiB-peYt", "pdf": "https://drive.google.com/file/d/1rUCg7oSJgi4sTyMwlYaxdTdQjiB-peYt/preview", "lvl": 1, "lsn": 6, "grade": "Grade 1"},
-    { "title": "Allemande", "subtitle": "J.H. Schein", "background": "https://lh3.googleusercontent.com/d/1m27dxSoHVEsMSplzIc2QYi_Ettm9LZhn", "pdf": "https://drive.google.com/file/d/1m27dxSoHVEsMSplzIc2QYi_Ettm9LZhn/preview", "lvl": 2, "lsn": 1, "grade": "Grade 1"},
-    { "title": "Aria in F", "subtitle": "J.S. Bach", "background": "https://lh3.googleusercontent.com/d/1gW1tqwKgzmn-UZAmbK4ElCrJ8oRdN3yU", "pdf": "https://drive.google.com/file/d/1gW1tqwKgzmn-UZAmbK4ElCrJ8oRdN3yU/preview", "lvl": 2, "lsn": 3, "grade": "Grade 1"},
-    { "title": "Sonatina in C", "subtitle": "Frank Lynes", "background": "https://lh3.googleusercontent.com/d/13kGxg8iUnBphTYoIotCalNkcJgcW_T12", "pdf": "https://drive.google.com/file/d/13kGxg8iUnBphTYoIotCalNkcJgcW_T12/preview", "lvl": 2, "lsn": 7, "grade": "Grade 2"},
-    { "title": "Gigue in G", "subtitle": "G. P. Telemann", "background": "https://lh3.googleusercontent.com/d/1r1b7hkZU9jOb_Q37DMQmIYbdyqKovNjZ", "pdf": "https://drive.google.com/file/d/1r1b7hkZU9jOb_Q37DMQmIYbdyqKovNjZ/preview", "lvl": 2, "lsn": 9, "grade": "Grade 2"}
-];
-            
-            // --- TRANSFORMACIÓN DE DATOS ---
-       var manuals = manualsData.map(function(manual) {
-    return {
-        title: manual.title,
-        level: manual.title,
-        author: manual.subtitle,
-        coverUrl: manual.background,
-        pdf: manual.pdf,
-        lvl: manual.lvl,
-        lsn: manual.lsn,
-        totalExercises: manual.totalExercises,
-        totalTime: manual.totalTime, // <- AÑADIR ESTA LÍNEA
-        type: 'manual' 
-    };
+    responsive: {
+    0: {
+      items: 3,
+      stagePadding: 20,
+      margin: -5    
+    },
+    600: {
+      items: 4,
+      stagePadding: 40
+    },
+    1000: {
+      items: 5,
+      stagePadding: 60
+    }
+  },
+    smartSpeed:70,
+    
+    navText:['<svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path></svg>','<svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg>']
+  });
 });
 
-         var pieces = piecesData.map(function(piece) {
-    return {
-        title: piece.title,
-        level: piece.grade,
-        author: piece.subtitle,
-        coverUrl: piece.background,
-        pdf: piece.pdf,
-        lvl: piece.lvl,
-        lsn: piece.lsn,
-        // Las propiedades 'totalBars' y 'practiceData' se han eliminado
-        type: 'piece' 
-    };
-}); 
-
-            $scope.library = [
-                { title: 'Manuales', books: manuals },
-                { title: 'Piezas', books: pieces },
-                { title: 'Mis Archivos', books: $scope.userPDFs }
-            ];
-
-                var requestData = {
-          action: "getUserData",
-       //  token: "U2FsdGVkX1+pTAJ/i/vnElIrTlT7VjKJ6kuzk2FlnAIkGq9xl29aZsKgbGygQIfF"
-          token: localStorage.getItem('userMail')
-        };
-
-        var config = {
-          headers: {
-            "Content-Type": "text/plain;charset=utf-8"
-          } 
-        };
-                 
-        $http.post('https://script.google.com/macros/s/AKfycbxXD35z5FSf_m_dwBt5qcBwWq2L7IDc7KBrYGfix6hUa4kvJ1TFpjU82NltFXezUroGgQ/exec', requestData, config)
-          .then(function(response) { 
-              var repertoire = JSON.parse(response.data.repertoire);
-              var stage = JSON.parse(response.data.stage);
-
-                 $scope.library.push(repertoire)
-                $scope.lvl = stage.lvl;
-                 $scope.lsn = stage.lsn;
-                 $scope.exe = stage.exes;
-                 $scope.isLoaded = true;
-          })  
-
-         
-
-            // Formatear segundos a M:SS
-            $scope.formatTime = function(seconds) {
-                if (isNaN(seconds) || seconds < 0) return "0:00";
-                const minutes = Math.floor(seconds / 60);
-                const remainingSeconds = Math.floor(seconds % 60);
-                return minutes + ":" + (remainingSeconds < 10 ? '0' : '') + remainingSeconds;
-            };
-
-            // Desplazamiento del carrusel
-            $scope.scrollCarousel = function(elementId, direction) {
-                const carousel = document.getElementById(elementId);
-                if (carousel) {
-                    const scrollAmount = 200 * direction;
-                    carousel.scrollBy({
-                        left: scrollAmount,
-                        behavior: 'smooth'
-                    });
-                }
-            };
+    })  
 
 
-             $scope.openUploadModal = function() {
-        $scope.newPdf = {}; // Resetea el formulario
-        $scope.showUploadModal = true;
-    };
+     $scope.openPDF = function(URL) {
+      const regex = /\/d\/([^\/]+)\//;
+    const matches = URL.match(regex);
+    var id = matches ? matches[1] : null;
+     var url = "https://drive.google.com/uc?export=download&id="+id
+    window.open(url, '_blank');
+  };
+  
+ /*   $scope.openPDF = function(URL) {
+    window.open(URL, '_blank');
+  }; */
+  
+ $scope.selectedManual = null;
+  $scope.showPlayer = false;
+  $scope.currentManual = null;
 
-    $scope.closeUploadModal = function() {
-        $scope.showUploadModal = false;
-    };
-    
-    $scope.triggerFileInput = function() {
-        document.getElementById('fileInput').click();
-    };
+$scope.showPreview = function(manual, lvl, lsn) {
+  if (lvl == null || lsn == null) {
+    // Si los datos aún no se han cargado del servidor
+    $scope.marcarPreferencia();
+    return;
+  }
+ 
+  if (manual.lvl > lvl || (manual.lvl == lvl && manual.lsn >= lsn)) {
+    $scope.marcarPreferencia();
+  } else {
+    $scope.selectedManual = manual;
+  }
+};
 
-    $scope.onFileSelect = function(event) {
-        var file = event.target.files[0];
-        if (!file || file.type !== 'application/pdf') {
-            alert("Por favor, selecciona un archivo PDF.");
-            return;
-        }
-        var reader = new FileReader();
-        reader.onload = function(loadEvent) {
+  
+  $scope.showPreview2 = function(manual) {
+    $scope.selectedManual = manual;
+};
+  
+   $scope.openPlayer = function(manual) {
+    $scope.currentManual = manual;
+    $scope.showPlayer = true;
+    $scope.sessionStartTime = new Date();
+    if (document.documentElement.requestFullscreen) {
+                        document.documentElement.requestFullscreen();
+                    }
+    $scope.sessionTimer = {
+        seconds: 0,
+        interval: setInterval(function() {
             $scope.$apply(function() {
-                $scope.newPdf.fileData = loadEvent.target.result; // Esto es el Base64
-                $scope.newPdf.fileName = file.name;
+                $scope.sessionTimer.seconds++;
             });
-        };
-        reader.readAsDataURL(file);
+        }, 1000)
     };
+};
+  
+  $scope.activePanel = 'session'; // Panel por defecto
+$scope.setActivePanel = function(panel) {
+  if ($scope.activePanel === panel) return;
+  $scope.activePanel = panel;
+};
+  
+  // En tu controlador AngularJS
+$scope.showMetrics = false;
 
-    $scope.saveNewPdf = function() {
-        if (!$scope.newPdf.title || !$scope.newPdf.author || !$scope.newPdf.fileData) {
-            alert("Por favor, completa todos los campos y selecciona un archivo.");
-            return;
-        }
-
-        const newBook = {
-            "title": $scope.newPdf.title,
-            "author": $scope.newPdf.author,
-            "level": $scope.newPdf.grade || "N/A",
-            "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/1200px-PDF_file_icon.svg.png", // Icono genérico de PDF
-            "pdf": $scope.newPdf.fileData,
-            "isUserUploaded": true // Bandera para identificar estos archivos
-        };
-
-        $scope.userPDFs.push(newBook);
-        $scope.closeUploadModal();
-    };
-    
-    // === LÓGICA PARA ELIMINAR ARCHIVOS (NUEVA) ===
-    $scope.deleteUserPdf = function(index, event) {
-        event.stopPropagation(); // Evita que se abra el modal de vista previa
-        if (confirm("¿Estás seguro de que quieres eliminar este archivo?")) {
-            $scope.userPDFs.splice(index, 1);
-        }
-    };
-
-
-             $scope.showPreview = function(book, categoryTitle) {
-        // Los archivos del usuario nunca están bloqueados
-        if (book.isUserUploaded) {
-            $scope.selectedBook = book;
-            $scope.selectedCategory = categoryTitle;
-            $scope.showPreviewModal = true;
-            return;
-        }
-
-        var isLocked = !$scope.isLoaded || book.lvl > $scope.lvl || (book.lvl === $scope.lvl && book.lsn > $scope.lsn);
-        if (isLocked) {
-            $scope.showLockedModal = true;
-            $timeout(function() {
-                $scope.showLockedModal = false;
-            }, 3000); // Se cierra después de 4 segundos
-            return;
-        }
-
-        $scope.selectedBook = book;
-        $scope.selectedCategory = categoryTitle;
-        $scope.showPreviewModal = true;
-    };
-
-            // Mostrar el modal de vista previa
-         /*   $scope.showPreview = function(book, categoryTitle) {
-                var isLocked = !$scope.isLoaded || book.lvl > $scope.lvl || (book.lvl === $scope.lvl && book.lsn > $scope.lsn);
-                if (isLocked) {
-                    alert('Este material está bloqueado. ¡Sigue avanzando para desbloquearlo!');
-                    return;
-                }
-                $scope.selectedBook = book;
-                $scope.selectedCategory = categoryTitle;
-                $scope.showPreviewModal = true;
-            }; */
-
-            // Cerrar el modal
-            $scope.closePreviewModal = function(event) {
-                if (event && event.target !== event.currentTarget) {
-                    return;
-                }
-                $scope.showPreviewModal = false;
-            };
-            
-            // Abrir el visor de PDF
-            $scope.openPdfViewer = function(book) {
-                if (!book || !book.pdf) {
-                    alert('No hay un PDF disponible para este libro.');
-                    return;
-                }
-                // $sce.trustAsResourceUrl es necesario para que AngularJS permita URLs dinámicas en iframes
-                $scope.pdfUrl = $sce.trustAsResourceUrl(book.pdf);
-                $scope.showPreviewModal = false; // Ocultar modal pequeño
-                $scope.showPdfViewer = true;     // Mostrar visor grande
-            };
-
-            // Cerrar el visor de PDF
-            $scope.closePdfViewer = function() {
-                $scope.showPdfViewer = false;
-                $scope.pdfUrl = ''; // Limpiar la URL para detener la carga
-            };
-               
-               
-               
+  
   $scope.metronomeActive = false;
 $scope.metronomeBPM = 60; // Valor inicial igual al audio base (60 BPM)
 $scope.baseBPM = 60; // BPM del audio original
@@ -1360,15 +2401,380 @@ function clearBPMTimers() {
   clearInterval($scope.bpmInterval);
 } 
 
+$scope.playRecording = function() {
+  // Lógica para reproducir grabación
+  console.log('Reproduciendo grabación');
+};
 
- 
+// En tu controlador AngularJS
+$scope.getProgressPercentage = function() {
+    if (!$scope.currentManual?.practiceData || !$scope.currentManual.totalBars) return 0;
+    return Math.round(($scope.currentManual.practiceData.completedBars / $scope.currentManual.totalBars) * 100);
+};
+  
+  // En tu controlador AngularJS
+$scope.getProgressPercentage2 = function() {
+  if (!$scope.selectedManual?.practiceData || !$scope.selectedManual.totalBars) return 0;
+  return Math.round(($scope.selectedManual.practiceData.completedBars / $scope.selectedManual.totalBars) * 100);
+};
+  
+  $scope.getProgressColor = function() {
+  const percentage = $scope.getProgressPercentage() || 0;
+  // HSL: 0 (rojo) to 120 (verde)
+  const hue = Math.round((percentage / 100) * 120);
+  return 'hsl(' + hue + ', 85%, 50%)';
+};
+
+
+
+
+$scope.isRecording = false;
+$scope.isRecording2 = false;
+$scope.isProcessing = false;
+$scope.showRecordingModal = false;
+$scope.showSavedRecordingsModal = false;
+
+let recorder;
+let model = new mm.OnsetsAndFrames('https://storage.googleapis.com/mozartacademy-files/my-checkpoints');
+
+// Inicializar el modelo
+model.initialize().then(() => {
+    console.log('Modelo de transcripción cargado');
+});
+
+$scope.toggleRecording = function() {
+    if ($scope.isRecording) {
+        stopRecording();
+    } else {
+        startRecording();
+    }
+};
+
+$scope.openRecordings = function() {
+    $scope.showSavedRecordingsModal = true;
+};
+
+$scope.openWavs = function() {
+    $scope.showSavedWavsModal = true;
+};
+
+$scope.closeSavedRecordingsModal = function() {
+    $scope.showSavedRecordingsModal = false;
+};
+
+$scope.closeSavedWavsModal = function() {
+    $scope.showSavedWavsModal = false;
+};
+
+$scope.playSavedRecording = function(recording) {
+    $scope.currentRecording = recording;
+    $scope.showRecordingModal = true;
+    $timeout(() => {
+        $scope.showSavedRecordingsModal = false;
+        showRecording(recording);
+    });
+};
+
+$scope.deleteRecording = function(id) {
+    $scope.recordings = $scope.recordings.filter(r => r.id !== id);
+};
+
+
+let audioChunks = [];
+function startRecording() {
+    $scope.isRecording = true;
+    navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(stream => {
+            recorder = new MediaRecorder(stream);
+            audioChunks = [];
+
+            recorder.ondataavailable = (event) => {
+                if (event.data.size > 0) {
+                    audioChunks.push(event.data);
+                }
+            };
+
+            recorder.onstop = () => {
+                $scope.isRecording = false;
+                $scope.isProcessing = true;
+
+                $scope.$apply();
+                
+                const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+
+
+
+        const isAndroid = /Android/i.test(navigator.userAgent);
+        if (isAndroid) {
+            convertWebmToWav(audioBlob)
+                .then(wavBlob => {
+                    const formData = new FormData();
+                    formData.append('file', wavBlob, 'recording.wav');
+                    
+                    return fetch('https://midiconverter-145083375828.us-central1.run.app/transcribe', {
+                        method: 'POST',
+                        body: formData
+                    });
+                })
+                .then(async response => {
+                    if (!response.ok) {
+                        throw new Error(`Error del servidor: ${response.status}`);
+                    }
+                    
+                    const midiBlob = await response.blob();
+                    
+                    if (!midiBlob.type.includes('midi') && !midiBlob.type.includes('octet-stream')) {
+                        throw new Error('El servidor no devolvió un archivo MIDI válido');
+                    }
+                    
+                    const newRecording = {
+                        id: Date.now(),
+                        name: $scope.currentManual.title,
+                        date: new Date(),
+                        midiBlob: midiBlob,
+                        processedLocally: false,
+                        source: 'server'
+                    };
+                    
+                    $scope.recordings.unshift(newRecording);
+                    $scope.showRecordingModal = true;
+                    showRecording(newRecording);
+                })
+                .catch(err => {
+                    console.error('Error en transcripción servidor:', err);
+                    alert('Error al procesar la grabación en servidor');
+                })
+                .finally(() => {
+                    $scope.isProcessing = false;
+                    $scope.$apply();
+                });
+        }else{
+                model.transcribeFromAudioFile(audioBlob).then(noteSequence => {
+                    const newRecording = {
+                        id: Date.now(),
+                        data: noteSequence,
+                      name: $scope.currentManual.title,
+                        date: new Date(),
+                        midiBlob: null
+                    };
+                    
+                    // Convertir a MIDI y guardar
+                    const midiData = mm.sequenceProtoToMidi(noteSequence);
+                    newRecording.midiBlob = new Blob([midiData], { type: 'audio/midi' });
+                    
+                    $scope.recordings.unshift(newRecording);
+                                  $scope.showRecordingModal = true;
+                    showRecording(newRecording);
+                }).catch(err => {
+                    console.error('Error en la transcripción:', err);
+                    alert('Error al procesar la grabación');
+                }).finally(() => {
+                    $scope.isProcessing = false;
+                    $scope.$apply();
+                });
+            }
+
+
+
+            };
+
+            recorder.start();
+        })
+        .catch(err => {
+            console.error('Error al acceder al micrófono:', err);
+            $scope.isRecording = false;
+            $scope.$apply();
+        });
+}
+
+function stopRecording() {
+    if (recorder && recorder.state === "recording") {
+        recorder.stop();
+        // Detener todas las pistas del stream
+        recorder.stream.getTracks().forEach(track => track.stop());
+    }
+}
+
+function showRecording(recording) {
+    $timeout(() => {
+        try {
+           let url;
+            if (recording.midi) {
+                url = recording.midi;
+            } else if (recording.midiBlob) {
+                url = URL.createObjectURL(recording.midiBlob);
+            }
+            
+            const visualizer = document.getElementById('recordingVisualizer');
+            const player = document.getElementById('recordingPlayer');
+            
+            if (player && visualizer) {
+                player.src = url;
+                visualizer.src = url;
+                
+                // Forzar reinicio del player
+                if (player.player) {
+                    player.player.stop();
+                    player.player.loadMIDI(url);
+                }
+            }
+        } catch (err) {
+            console.error('Error al mostrar grabación:', err);
+        }
+    });
+}
+
+$scope.closeRecordingModal = function() {
+    $scope.showRecordingModal = false;
+    // Limpiar variables para nueva grabación
+    audioChunks = [];
+    $scope.currentRecording = null;
+};
+
+
+function convertWebmToWav(webmBlob) {
+    return new Promise((resolve, reject) => {
+        const audioContext2 = new (window.AudioContext || window.webkitAudioContext)();
+        const fileReader = new FileReader();
+        
+        fileReader.onload = function() {
+            audioContext2.decodeAudioData(this.result)
+                .then(audioBuffer => resolve(audioBufferToWav(audioBuffer)))
+                .catch(reject);
+        };
+        
+        fileReader.onerror = reject;
+        fileReader.readAsArrayBuffer(webmBlob);
+    });
+}
+
+function audioBufferToWav(buffer) {
+    const numChannels = buffer.numberOfChannels;
+    const length = buffer.length * numChannels * 2 + 44;
+    const bufferArray = new ArrayBuffer(length);
+    const view = new DataView(bufferArray);
+    
+    // Escribir encabezado WAV
+    writeString(view, 0, 'RIFF');
+    view.setUint32(4, 36 + buffer.length * numChannels * 2, true);
+    writeString(view, 8, 'WAVE');
+    writeString(view, 12, 'fmt ');
+    view.setUint32(16, 16, true);
+    view.setUint16(20, 1, true);
+    view.setUint16(22, numChannels, true);
+    view.setUint32(24, buffer.sampleRate, true);
+    view.setUint32(28, buffer.sampleRate * 2 * numChannels, true);
+    view.setUint16(32, numChannels * 2, true);
+    view.setUint16(34, 16, true);
+    writeString(view, 36, 'data');
+    view.setUint32(40, buffer.length * numChannels * 2, true);
+    
+    // Escribir datos de audio
+    let offset = 44;
+    for (let i = 0; i < buffer.numberOfChannels; i++) {
+        const channel = buffer.getChannelData(i);
+        for (let j = 0; j < channel.length; j++) {
+            const sample = Math.max(-1, Math.min(1, channel[j]));
+            view.setInt16(offset, sample < 0 ? sample * 0x8000 : sample * 0x7FFF, true);
+            offset += 2;
+        }
+    }
+    
+    return new Blob([view], { type: 'audio/wav' });
+}
+
+function writeString(view, offset, string) {
+    for (let i = 0; i < string.length; i++) {
+        view.setUint8(offset + i, string.charCodeAt(i));
+    }
+}
+
+
+
+
+// Modifica tu función closePlayer para guardar el progreso
+$scope.closePlayer = function() {
+    clearInterval($scope.sessionTimer.interval);
+
+    document.exitFullscreen();
+    
+    // Guardar tiempo de sesión
+    const sessionTime = $scope.sessionTimer.seconds;
+
+        $scope.currentManual.practiceData = $scope.currentManual.practiceData || {
+            totalTime: 0,
+            completedBars: 0,
+            sessions: []
+        };
+        
+        $scope.currentManual.practiceData.totalTime += sessionTime;
+        
+        $scope.currentManual.practiceData.sessions.push({
+            date: new Date().toISOString(),
+            sessionTime: sessionTime,
+            barsCompleted: 0 // Se actualizará cuando el usuario cierre el modal de progreso
+        });
+        
+        // Mostrar modal para registrar compases avanzados
+        $scope.showProgressModal = true;
+      $scope.showPlayer = false;
+   
+};
+  
+  $scope.trustSrc = function(src) {
+    return $sce.trustAsResourceUrl(src);
+  };
+
+  
+  $scope.showPreferencias = false;
+
+$scope.marcarPreferencia = function () {
+  $scope.showPreferencias = true;
+  setTimeout(function () {
+    $scope.$apply(function () {
+      $scope.showPreferencias = false;
+    });
+  }, 2500);
+};
+
+  
+
+  $(function(){
+  $('.mhn-slide').owlCarousel({
+    nav:true,
+    //loop:true,
+    slideBy: 1,
+    rewind:false,
+
+    responsive: {
+    0: {
+      items: 3,
+      stagePadding: 20,
+      margin: -5    
+    },
+    600: {
+      items: 4,
+      stagePadding: 40
+    },
+    1000: {
+      items: 5,
+      stagePadding: 60
+    }
+  },
+    smartSpeed:70,
+    
+    navText:['<svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path></svg>','<svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg>']
+  });
+});
+
+
+
+
+
 let mediaRecorder;
         let audioChunks2 = [];
         let audioContext2;
         let animationId;
-
-        $scope.showSaveRecordingModal = false;
-$scope.recording = {};
 
         // Opciones de audio con supresión de ruido y control de ganancia
         const constraints = {
@@ -1379,105 +2785,1061 @@ $scope.recording = {};
             }
         };
 
-    async function startRecordingAndOscilloscope() {
-    try {
-        const stream = await navigator.mediaDevices.getUserMedia(constraints);
-        mediaRecorder = new MediaRecorder(stream);
-        audioChunks2 = [];
+        async function startRecordingAndOscilloscope() {
+            try {
+                // Solicita acceso al micrófono
+                const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                
+                // Configura la MediaRecorder para la grabación de audio
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks2 = [];
 
-        mediaRecorder.ondataavailable = event => {
-            audioChunks2.push(event.data);
-        };
+                mediaRecorder.ondataavailable = event => {
+                    audioChunks2.push(event.data);
+                };
 
-        // **** ESTA ES LA SECCIÓN MODIFICADA ****
-        mediaRecorder.onstop = () => {
-            cancelAnimationFrame(animationId);
-            if (audioChunks2.length === 0) return;
+                mediaRecorder.onstop = () => {
+                    cancelAnimationFrame(animationId);
+                    const audioBlob = new Blob(audioChunks2, { type: 'audio/wav' });
+                    const audioUrl = URL.createObjectURL(audioBlob);
 
-            const audioBlob = new Blob(audioChunks2, { type: 'audio/wav' });
-            const audioUrl = URL.createObjectURL(audioBlob);
+                    const audioElement = document.createElement('audio');
+                    audioElement.controls = true;
+                    audioElement.src = audioUrl;
+                    addToPlaylist("Grabación " + new Date().toLocaleTimeString(), audioUrl);
 
-            // Usamos un elemento de audio temporal para leer la duración
-            const tempAudio = document.createElement('audio');
-            tempAudio.src = audioUrl;
-            tempAudio.onloadedmetadata = () => {
-                // Una vez que tenemos la duración, poblamos el scope y mostramos el modal
-                $scope.$apply(() => {
-                    const duration = tempAudio.duration;
-                    const minutes = Math.floor(duration / 60);
-                    const seconds = Math.floor(duration % 60);
+              
+          
+                };
 
-                    $scope.recording = {
-                        url: $sce.trustAsResourceUrl(audioUrl), // URL segura para ng-src
-                        blob: audioBlob,
-                        name: "Grabación " + new Date().toLocaleTimeString(),
-                        author: "", // El usuario puede llenarlo
-                        date: new Date(),
-                        duration: `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
-                    };
+                // Configura el osciloscopio con Web Audio API
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                analyser = audioContext.createAnalyser();
+                const source = audioContext.createMediaStreamSource(stream);
+                source.connect(analyser);
+                analyser.fftSize = 2048;
 
-                    $scope.showSaveRecordingModal = true;
-                });
-            };
-        };
+                mediaRecorder.start();
+       
+            } catch (err) {
 
-        // ... El resto de la función (analyser, mediaRecorder.start) sigue igual
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        analyser = audioContext.createAnalyser();
-        const source = audioContext.createMediaStreamSource(stream);
-        source.connect(analyser);
-        analyser.fftSize = 2048;
-        mediaRecorder.start();
+                console.error('Error al acceder al micrófono:', err);
+            }
+        }
+    
 
-    } catch (err) {
-        console.error('Error al acceder al micrófono:', err);
+
+    /*    startButton.addEventListener('click', startRecordingAndOscilloscope);
+        
+        stopButton.addEventListener('click', () => {
+            if (mediaRecorder && mediaRecorder.state === 'recording') {
+                mediaRecorder.stop();
+            }
+        });*/
+
+
+       $scope.recordWav = function(){ 
+            if (mediaRecorder && mediaRecorder.state === 'recording') {
+                mediaRecorder.stop();
+                $scope.isRecording2 = false
+            }else{
+              startRecordingAndOscilloscope()
+              $scope.isRecording2 = true
+            }
+        }
+
+
+
+function addToPlaylist(title, url) {
+    // Crear un nuevo objeto de canción
+    const newTrack = {
+        'icon': '', // Puedes añadir una imagen si quieres
+        'title': title,
+        'file': url
+    };
+    
+    // Actualizar la playlist
+    AP.update([newTrack]);
+    
+  
+}
+
+(function(window, undefined) {
+
+'use strict';
+
+var AudioPlayer = (function() {
+
+  // Player vars!
+  var
+  docTitle = document.title,
+  player   = document.getElementById('ap'),
+  playBtn,
+  playSvg,
+  playSvgPath,
+  prevBtn,
+  nextBtn,
+  plBtn,
+  closeBtn,
+  volumeBtn,
+  progressBar,
+  preloadBar,
+  curTime,
+  durTime,
+  trackTitle,
+  audio,
+  index = 0,
+  playList,
+  volumeBar,
+  wheelVolumeValue = 0,
+  volumeLength,
+  repeating = false,
+  seeking = false,
+  seekingVol = false,
+  rightClick = false,
+  apActive = false,
+  // playlist vars
+  pl,
+  plUl,
+  plLi,
+  tplList =
+            '<li class="pl-list" data-track="{count}">'+
+              '<div class="pl-list__track">'+
+                '<div class="pl-list__icon"></div>'+
+                '<div class="pl-list__eq">'+
+                  '<div class="eq">'+
+                    '<div class="eq__bar"></div>'+
+                    '<div class="eq__bar"></div>'+
+                    '<div class="eq__bar"></div>'+
+                  '</div>'+
+                '</div>'+
+              '</div>'+
+              '<div class="pl-list__title">{title}</div>'+
+              '<button class="pl-list__remove">'+
+                '<svg fill="#000000" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">'+
+                    '<path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>'+
+                    '<path d="M0 0h24v24H0z" fill="none"/>'+
+                '</svg>'+
+              '</button>'+
+            '</li>',
+  // settings
+  settings = {
+    volume        : 1,
+    changeDocTitle: true,
+    confirmClose  : true,
+    autoPlay      : false,
+    buffered      : true,
+    notification  : true,
+    playList      : []
+  };
+
+  function init(options) {
+
+    if(!('classList' in document.documentElement)) {
+      return false;
+    }
+
+    if(apActive || player === null) {
+      return 'Player already init';
+    }
+
+    settings = extend(settings, options);
+
+    // get player elements
+    playBtn        = player.querySelector('.ap__controls--toggle');
+    playSvg        = playBtn.querySelector('.icon-play');
+    playSvgPath    = playSvg.querySelector('path');
+    prevBtn        = player.querySelector('.ap__controls--prev');
+    nextBtn        = player.querySelector('.ap__controls--next');
+    closeBtn      = player.querySelector('.ap__controls--close');
+    volumeBtn      = player.querySelector('.volume-btn');
+    plBtn          = player.querySelector('.ap__controls--playlist');
+    curTime        = player.querySelector('.track__time--current');
+    durTime        = player.querySelector('.track__time--duration');
+    trackTitle     = player.querySelector('.track__title');
+    progressBar    = player.querySelector('.progress__bar');
+    preloadBar     = player.querySelector('.progress__preload');
+    volumeBar      = player.querySelector('.volume__bar');
+
+    playList = settings.playList;
+
+    playBtn.addEventListener('click', playToggle, false);
+    volumeBtn.addEventListener('click', volumeToggle, false);
+    closeBtn.addEventListener('click', closePlayer, false);
+
+    progressBar.closest('.progress-container').addEventListener('mousedown', handlerBar, false);
+    progressBar.closest('.progress-container').addEventListener('mousemove', seek, false);
+
+    document.documentElement.addEventListener('mouseup', seekingFalse, false);
+
+    volumeBar.closest('.volume').addEventListener('mousedown', handlerVol, false);
+    volumeBar.closest('.volume').addEventListener('mousemove', setVolume);
+    volumeBar.closest('.volume').addEventListener(wheel(), setVolume, false);
+
+    prevBtn.addEventListener('click', prev, false);
+    nextBtn.addEventListener('click', next, false);
+
+    apActive = true;
+
+    // Create playlist
+    renderPL();
+    plBtn.addEventListener('click', plToggle, false);
+
+    // Create audio object
+    audio = new Audio();
+    audio.volume = settings.volume;
+    audio.preload = 'auto';
+
+    audio.addEventListener('error', errorHandler, false);
+    audio.addEventListener('timeupdate', timeUpdate, false);
+    audio.addEventListener('ended', doEnd, false);
+
+    volumeBar.style.height = audio.volume * 100 + '%';
+    volumeLength = volumeBar.css('height');
+
+    if(settings.confirmClose) {
+      window.addEventListener("beforeunload", beforeUnload, false);
+    }
+
+    if(isEmptyList()) {
+      return false;
+    }
+    audio.src = playList[index].file;
+    trackTitle.innerHTML = playList[index].title;
+
+    if(settings.autoPlay) {
+      audio.play();
+      playBtn.classList.add('is-playing');
+      playSvgPath.setAttribute('d', playSvg.getAttribute('data-pause'));
+      plLi[index].classList.add('pl-list--current');
+      notify(playList[index].title, {
+        icon: playList[index].icon,
+        body: 'Now playing'
+      });
+    }
+  }
+
+
+  function closePlayer(){
+    var player = document.getElementById('ap');
+    player.style.display = 'none'
+  }
+
+  function changeDocumentTitle(title) {
+    if(settings.changeDocTitle) {
+      if(title) {
+        document.title = title;
+      }
+      else {
+        document.title = docTitle;
+      }
+    }
+  }
+
+  function beforeUnload(evt) {
+    if(!audio.paused) {
+      var message = 'Music still playing';
+      evt.returnValue = message;
+      return message;
+    }
+  }
+
+  function errorHandler(evt) {
+    if(isEmptyList()) {
+      return;
+    }
+    var mediaError = {
+      '1': 'MEDIA_ERR_ABORTED',
+      '2': 'MEDIA_ERR_NETWORK',
+      '3': 'MEDIA_ERR_DECODE',
+      '4': 'MEDIA_ERR_SRC_NOT_SUPPORTED'
+    };
+    audio.pause();
+    curTime.innerHTML = '--';
+    durTime.innerHTML = '--';
+    progressBar.style.width = 0;
+    preloadBar.style.width = 0;
+    playBtn.classList.remove('is-playing');
+    playSvgPath.setAttribute('d', playSvg.getAttribute('data-play'));
+    plLi[index] && plLi[index].classList.remove('pl-list--current');
+    changeDocumentTitle();
+    throw new Error('Houston we have a problem: ' + mediaError[evt.target.error.code]);
+  }
+
+/**
+ * UPDATE PL
+ */
+  function updatePL(addList) {
+    if(!apActive) {
+      return 'Player is not yet initialized';
+    }
+    if(!Array.isArray(addList)) {
+      return;
+    }
+    if(addList.length === 0) {
+      return;
+    }
+
+    var count = playList.length;
+    var html  = [];
+    playList.push.apply(playList, addList);
+    addList.forEach(function(item) {
+      html.push(
+        tplList.replace('{count}', count++).replace('{title}', item.title)
+      );
+    });
+    // If exist empty message
+    if(plUl.querySelector('.pl-list--empty')) {
+      plUl.removeChild( pl.querySelector('.pl-list--empty') );
+      audio.src = playList[index].file;
+      trackTitle.innerHTML = playList[index].title;
+    }
+    // Add song into playlist
+    plUl.insertAdjacentHTML('beforeEnd', html.join(''));
+    plLi = pl.querySelectorAll('li');
+  }
+
+/**
+ *  PlayList methods
+ */
+    function renderPL() {
+      var html = [];
+
+      playList.forEach(function(item, i) {
+        html.push(
+          tplList.replace('{count}', i).replace('{title}', item.title)
+        );
+      });
+
+      pl = create('div', {
+        'className': 'pl-container',
+        'id': 'pl',
+        'innerHTML': '<ul class="pl-ul">' + (!isEmptyList() ? html.join('') : '<li class="pl-list--empty">PlayList is empty</li>') + '</ul>'
+      });
+
+      player.parentNode.insertBefore(pl, player.nextSibling);
+
+      plUl = pl.querySelector('.pl-ul');
+      plLi = plUl.querySelectorAll('li');
+
+      pl.addEventListener('click', listHandler, false);
+    }
+
+    function listHandler(evt) {
+      evt.preventDefault();
+
+      if(evt.target.matches('.pl-list__title')) {
+        var current = parseInt(evt.target.closest('.pl-list').getAttribute('data-track'), 10);
+        if(index !== current) {
+          index = current;
+          play(current);
+        }
+        else {
+          playToggle();
+        }
+      }
+      else {
+          if(!!evt.target.closest('.pl-list__remove')) {
+            var parentEl = evt.target.closest('.pl-list');
+            var isDel = parseInt(parentEl.getAttribute('data-track'), 10);
+
+            playList.splice(isDel, 1);
+            parentEl.closest('.pl-ul').removeChild(parentEl);
+
+            plLi = pl.querySelectorAll('li');
+
+            [].forEach.call(plLi, function(el, i) {
+              el.setAttribute('data-track', i);
+            });
+
+            if(!audio.paused) {
+
+              if(isDel === index) {
+                play(index);
+              }
+
+            }
+            else {
+              if(isEmptyList()) {
+                clearAll();
+              }
+              else {
+                if(isDel === index) {
+                  if(isDel > playList.length - 1) {
+                    index -= 1;
+                  }
+                  audio.src = playList[index].file;
+                  trackTitle.innerHTML = playList[index].title;
+                  progressBar.style.width = 0;
+                }
+              }
+            }
+            if(isDel < index) {
+              index--;
+            }
+          }
+
+      }
+    }
+
+    function plActive() {
+      if(audio.paused) {
+        plLi[index].classList.remove('pl-list--current');
+        return;
+      }
+      var current = index;
+      for(var i = 0, len = plLi.length; len > i; i++) {
+        plLi[i].classList.remove('pl-list--current');
+      }
+      plLi[current].classList.add('pl-list--current');
+    }
+
+
+/**
+ * Player methods
+ */
+  function play(currentIndex) {
+
+    if(isEmptyList()) {
+      return clearAll();
+    }
+
+    index = (currentIndex + playList.length) % playList.length;
+
+    audio.src = playList[index].file;
+    trackTitle.innerHTML = playList[index].title;
+
+    // Change document title
+    changeDocumentTitle(playList[index].title);
+
+    // Audio play
+    audio.play();
+
+    // Show notification
+    notify(playList[index].title, {
+      icon: playList[index].icon,
+      body: 'Now playing',
+      tag: 'music-player'
+    });
+
+    // Toggle play button
+    playBtn.classList.add('is-playing');
+    playSvgPath.setAttribute('d', playSvg.getAttribute('data-pause'));
+
+    // Set active song playlist
+    plActive();
+  }
+
+  function prev() {
+    play(index - 1);
+  }
+
+  function next() {
+    play(index + 1);
+  }
+
+  function isEmptyList() {
+    return playList.length === 0;
+  }
+
+  function clearAll() {
+    audio.pause();
+    audio.src = '';
+    trackTitle.innerHTML = 'queue is empty';
+    curTime.innerHTML = '--';
+    durTime.innerHTML = '--';
+    progressBar.style.width = 0;
+    preloadBar.style.width = 0;
+    playBtn.classList.remove('is-playing');
+    playSvgPath.setAttribute('d', playSvg.getAttribute('data-play'));
+    if(!plUl.querySelector('.pl-list--empty')) {
+      plUl.innerHTML = '<li class="pl-list--empty">PlayList is empty</li>';
+    }
+    changeDocumentTitle();
+  }
+
+  function playToggle() {
+    if(isEmptyList()) {
+      return;
+    }
+    if(audio.paused) {
+
+      if(audio.currentTime === 0) {
+        notify(playList[index].title, {
+          icon: playList[index].icon,
+          body: 'Now playing'
+        });
+      }
+      changeDocumentTitle(playList[index].title);
+
+      audio.play();
+
+      playBtn.classList.add('is-playing');
+      playSvgPath.setAttribute('d', playSvg.getAttribute('data-pause'));
+    }
+    else {
+      changeDocumentTitle();
+      audio.pause();
+      playBtn.classList.remove('is-playing');
+      playSvgPath.setAttribute('d', playSvg.getAttribute('data-play'));
+    }
+    plActive();
+  }
+
+  function volumeToggle() {
+    if(audio.muted) {
+      if(parseInt(volumeLength, 10) === 0) {
+        volumeBar.style.height = settings.volume * 100 + '%';
+        audio.volume = settings.volume;
+      }
+      else {
+        volumeBar.style.height = volumeLength;
+      }
+      audio.muted = false;
+      volumeBtn.classList.remove('has-muted');
+    }
+    else {
+      audio.muted = true;
+      volumeBar.style.height = 0;
+      volumeBtn.classList.add('has-muted');
+    }
+  }
+
+
+
+  function plToggle() {
+    plBtn.classList.toggle('is-active');
+    pl.classList.toggle('h-show');
+  }
+
+ function timeUpdate() {
+    if (audio.readyState === 0 || seeking) return;
+
+    const barlength = Math.round(audio.currentTime * (100 / audio.duration));
+    progressBar.style.width = barlength + '%';
+
+    let curMins = Math.floor(audio.currentTime / 60);
+    let curSecs = Math.floor(audio.currentTime - curMins * 60);
+
+    let mins = '--';
+    let secs = '--';
+
+    // This is the correct placement for the 'if' block
+    if (isFinite(audio.duration)) {
+        mins = Math.floor(audio.duration / 60);
+        secs = Math.floor(audio.duration - mins * 60);
+        (secs < 10) && (secs = '0' + secs);
+    }
+    
+    (curSecs < 10) && (curSecs = '0' + curSecs);
+
+    curTime.innerHTML = curMins + ':' + curSecs;
+    durTime.innerHTML = mins + ':' + secs;
+    
+    if (settings.buffered) {
+        const buffered = audio.buffered;
+        if (buffered.length) {
+            const loaded = Math.round(100 * buffered.end(0) / audio.duration);
+            preloadBar.style.width = loaded + '%';
+        }
     }
 }
 
-// La función recordWav no necesita cambios
-$scope.recordWav = function() {
-    if (mediaRecorder && mediaRecorder.state === 'recording') {
-        mediaRecorder.stop();
-        $scope.isRecording2 = false;
-    } else {
-        startRecordingAndOscilloscope();
-        $scope.isRecording2 = true;
+  /**
+   * TODO shuffle
+   */
+  function shuffle() {
+    if(shuffle) {
+      index = Math.round(Math.random() * playList.length);
     }
-};
+  }
 
-// --- AGREGA ESTAS NUEVAS FUNCIONES AL FINAL DE TU CONTROLADOR ---
-
-// Cierra el modal y limpia los datos
-$scope.closeSaveModal = function() {
-    // Revoca el Object URL para liberar memoria
-    if ($scope.recording && $scope.recording.url) {
-        URL.revokeObjectURL($scope.recording.url.toString());
-    }
-    $scope.showSaveRecordingModal = false;
-    $scope.recording = {};
-};
-
-// Se ejecuta al hacer clic en "Guardar"
-$scope.saveRecording = function() {
-    if (!$scope.recording.name) {
-        alert("Por favor, asigna un nombre a la grabación.");
+  function doEnd() {
+    if(index === playList.length - 1) {
+      if(!repeating) {
+        audio.pause();
+        plActive();
+        playBtn.classList.remove('is-playing');
+        playSvgPath.setAttribute('d', playSvg.getAttribute('data-play'));
         return;
+      }
+      else {
+        play(0);
+      }
     }
-    // Lógica de guardado (como pediste, un alert temporal)
-    alert(`Guardando archivo: \nNombre: ${$scope.recording.name}\nAutor: ${$scope.recording.author || 'N/A'}`);
-    
-    // Aquí iría tu lógica para subir el $scope.recording.blob a tu servidor o base de datos
-    
-    $scope.closeSaveModal();
+    else {
+      play(index + 1);
+    }
+  }
+
+  function moveBar(evt, el, dir) {
+    var value;
+    if(dir === 'horizontal') {
+      value = Math.round( ((evt.clientX - el.offset().left) + window.pageXOffset)  * 100 / el.parentNode.offsetWidth);
+      el.style.width = value + '%';
+      return value;
+    }
+    else {
+      if(evt.type === wheel()) {
+        value = parseInt(volumeLength, 10);
+        var delta = evt.deltaY || evt.detail || -evt.wheelDelta;
+        value = (delta > 0) ? value - 10 : value + 10;
+      }
+      else {
+        var offset = (el.offset().top + el.offsetHeight) - window.pageYOffset;
+        value = Math.round((offset - evt.clientY));
+      }
+      if(value > 100) value = wheelVolumeValue = 100;
+      if(value < 0) value = wheelVolumeValue = 0;
+      volumeBar.style.height = value + '%';
+      return value;
+    }
+  }
+
+  function handlerBar(evt) {
+    rightClick = (evt.which === 3) ? true : false;
+    seeking = true;
+    !rightClick && progressBar.classList.add('progress__bar--active');
+    seek(evt);
+  }
+
+  function handlerVol(evt) {
+    rightClick = (evt.which === 3) ? true : false;
+    seekingVol = true;
+    setVolume(evt);
+  }
+
+  function seek(evt) {
+    evt.preventDefault();
+    if(seeking && rightClick === false && audio.readyState !== 0) {
+      window.value = moveBar(evt, progressBar, 'horizontal');
+    }
+  }
+
+ function seekingFalse() {
+  if (seeking && rightClick === false && audio.readyState !== 0) {
+    // Add a check to ensure audio.duration is a valid number
+    if (isFinite(audio.duration)) {
+      audio.currentTime = audio.duration * (window.value / 100);
+    }
+    progressBar.classList.remove('progress__bar--active');
+  }
+  seeking = false;
+  seekingVol = false;
+}
+
+  function setVolume(evt) {
+    evt.preventDefault();
+    volumeLength = volumeBar.css('height');
+    if(seekingVol && rightClick === false || evt.type === wheel()) {
+      var value = moveBar(evt, volumeBar.parentNode, 'vertical') / 100;
+      if(value <= 0) {
+        audio.volume = 0;
+        audio.muted = true;
+        volumeBtn.classList.add('has-muted');
+      }
+      else {
+        if(audio.muted) audio.muted = false;
+        audio.volume = value;
+        volumeBtn.classList.remove('has-muted');
+      }
+    }
+  }
+
+  function notify(title, attr) {
+    if(!settings.notification) {
+      return;
+    }
+    if(window.Notification === undefined) {
+      return;
+    }
+    attr.tag = 'AP music player';
+    window.Notification.requestPermission(function(access) {
+      if(access === 'granted') {
+        var notice = new Notification(title.substr(0, 110), attr);
+        setTimeout(notice.close.bind(notice), 5000);
+      }
+    });
+  }
+
+/* Destroy method. Clear All */
+  function destroy() {
+    if(!apActive) return;
+
+    if(settings.confirmClose) {
+      window.removeEventListener('beforeunload', beforeUnload, false);
+    }
+
+    playBtn.removeEventListener('click', playToggle, false);
+    volumeBtn.removeEventListener('click', volumeToggle, false);
+    closeBtn.removeEventListener('click', closePlayer, false);
+    plBtn.removeEventListener('click', plToggle, false);
+
+    progressBar.closest('.progress-container').removeEventListener('mousedown', handlerBar, false);
+    progressBar.closest('.progress-container').removeEventListener('mousemove', seek, false);
+    document.documentElement.removeEventListener('mouseup', seekingFalse, false);
+
+    volumeBar.closest('.volume').removeEventListener('mousedown', handlerVol, false);
+    volumeBar.closest('.volume').removeEventListener('mousemove', setVolume);
+    volumeBar.closest('.volume').removeEventListener(wheel(), setVolume);
+    document.documentElement.removeEventListener('mouseup', seekingFalse, false);
+
+    prevBtn.removeEventListener('click', prev, false);
+    nextBtn.removeEventListener('click', next, false);
+
+    audio.removeEventListener('error', errorHandler, false);
+    audio.removeEventListener('timeupdate', timeUpdate, false);
+    audio.removeEventListener('ended', doEnd, false);
+
+    // Playlist
+    pl.removeEventListener('click', listHandler, false);
+    pl.parentNode.removeChild(pl);
+
+    audio.pause();
+    apActive = false;
+    index = 0;
+
+    playBtn.classList.remove('is-playing');
+    playSvgPath.setAttribute('d', playSvg.getAttribute('data-play'));
+    volumeBtn.classList.remove('has-muted');
+    plBtn.classList.remove('is-active');
+    closeBtn.classList.remove('is-active');
+
+    // Remove player from the DOM if necessary
+    // player.parentNode.removeChild(player);
+  }
+
+
+/**
+ *  Helpers
+ */
+  function wheel() {
+    var wheel;
+    if ('onwheel' in document) {
+      wheel = 'wheel';
+    } else if ('onmousewheel' in document) {
+      wheel = 'mousewheel';
+    } else {
+      wheel = 'MozMousePixelScroll';
+    }
+    return wheel;
+  }
+
+  function extend(defaults, options) {
+    for(var name in options) {
+      if(defaults.hasOwnProperty(name)) {
+        defaults[name] = options[name];
+      }
+    }
+    return defaults;
+  }
+  function create(el, attr) {
+    var element = document.createElement(el);
+    if(attr) {
+      for(var name in attr) {
+        if(element[name] !== undefined) {
+          element[name] = attr[name];
+        }
+      }
+    }
+    return element;
+  }
+
+  Element.prototype.offset = function() {
+    var el = this.getBoundingClientRect(),
+    scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+    scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    return {
+      top: el.top + scrollTop,
+      left: el.left + scrollLeft
+    };
+  };
+
+  Element.prototype.css = function(attr) {
+    if(typeof attr === 'string') {
+      return getComputedStyle(this, '')[attr];
+    }
+    else if(typeof attr === 'object') {
+      for(var name in attr) {
+        if(this.style[name] !== undefined) {
+          this.style[name] = attr[name];
+        }
+      }
+    }
+  };
+
+  // matches polyfill
+  window.Element && function(ElementPrototype) {
+      ElementPrototype.matches = ElementPrototype.matches ||
+      ElementPrototype.matchesSelector ||
+      ElementPrototype.webkitMatchesSelector ||
+      ElementPrototype.msMatchesSelector ||
+      function(selector) {
+          var node = this, nodes = (node.parentNode || node.document).querySelectorAll(selector), i = -1;
+          while (nodes[++i] && nodes[i] != node);
+          return !!nodes[i];
+      };
+  }(Element.prototype);
+
+  // closest polyfill
+  window.Element && function(ElementPrototype) {
+      ElementPrototype.closest = ElementPrototype.closest ||
+      function(selector) {
+          var el = this;
+          while (el.matches && !el.matches(selector)) el = el.parentNode;
+          return el.matches ? el : null;
+      };
+  }(Element.prototype);
+
+/**
+ *  Public methods
+ */
+  return {
+    init: init,
+    update: updatePL,
+    destroy: destroy
+  };
+
+})();
+
+window.AP = AudioPlayer;
+
+})(window);
+
+// TEST: image for web notifications
+var iconImage = 'http://funkyimg.com/i/21pX5.png';
+
+AP.init({
+  playList: [
+  ]
+});
+
+  
+}])
+  
+  .filter('secondsToTime', function() {
+    return function(seconds) {
+        const h = Math.floor(seconds / 3600);
+        const m = Math.floor((seconds % 3600) / 60);
+        const s = seconds % 60;
+        return [h, m > 9 ? m : (h ? '0' + m : m || '0'), s > 9 ? s : '0' + s]
+            .filter(Boolean).join(':');
+    };
+});
+
+  
+
+</script>
+
+
+
+ <script>
+
+  setTimeout(function() {
+         var loader = document.getElementById("loader");
+    var main = document.getElementById("container");
+           loader.style.display = "none";
+          main.style.display = "block";
+        }, 4000);
+
+
+
+   const NOTES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+// 🎶 Base de datos de acordes actualizada
+const CHORD_PATTERNS = {
+    'mayor':     [0, 4, 7],
+    'menor':     [0, 3, 7],
+    '7':         [0, 4, 7, 10],   // Séptima dominante
+    'dim':       [0, 3, 6],      // Tríada disminuida (ej: C, Eb, Gb)
+    'dim7':      [0, 3, 6, 9]     // Acorde disminuido 7 (ej: C, Eb, Gb, Bbb)
 };
 
-// Se ejecuta al hacer clic en "Eliminar"
-$scope.deleteRecording = function() {
-    // No se hace nada, solo se cierra el modal y se liberan los recursos
-    $scope.closeSaveModal();
-};
+// Renombrar las variables para mayor claridad y consistencia.
+// Ahora se usa 'audioContext' y 'analyser'.
+let audioContext, analyser, srcNode, rafId;
+let listening = false;
 
-        }]);
-    </script>
-</body>
-</html>  
+// Estabilidad
+let lastChord = null;
+let candidateChord = null;
+let candidateSince = 0;
+const HOLD_MS = 300; // tiempo mínimo para aceptar cambio
+
+  const canvas = document.getElementById('oscilloscopeCanvas');
+ const canvasCtx = canvas.getContext('2d');
+
+
+// Asegurarse de que el ID del botón es 'listenIA'
+document.getElementById('listenIA').addEventListener('click', () => {
+    listening ? stopListening() : startListening();
+});
+
+async function startListening() {
+    // Se crea una nueva instancia de AudioContext
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    analyser = audioContext.createAnalyser();
+    analyser.fftSize = 4096;
+
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    srcNode = audioContext.createMediaStreamSource(stream);
+    srcNode.connect(analyser);
+
+    listening = true;
+    loop();
+  drawOscilloscope()
+}
+
+function stopListening() {
+    listening = false;
+    cancelAnimationFrame(rafId);
+    if (srcNode) srcNode.disconnect();
+    // Usar la variable 'audioContext' correcta
+    if (audioContext) audioContext.close();
+    document.getElementById('result').textContent = '--';
+    lastChord = null;
+    candidateChord = null;
+}
+
+function loop() {
+    if (!listening) return;
+
+    // Usar la variable 'analyser' correcta
+    const N = analyser.frequencyBinCount;
+    const freqData = new Float32Array(N);
+    analyser.getFloatFrequencyData(freqData);
+
+    const chroma = new Float32Array(12);
+    // Usar la variable 'audioContext' correcta
+    const sampleRate = audioContext.sampleRate;
+    const fftSize = analyser.fftSize;
+
+    for (let i = 1; i < N; i++) {
+        const db = freqData[i];
+        if (db < -60) continue; // puerta de ruido simple
+        const mag = Math.pow(10, db / 20);
+        const freq = i * sampleRate / fftSize;
+        if (freq < 30 || freq > 5000) continue;
+        const pc = freqToPitchClass(freq);
+        chroma[pc] += mag * weighting(freq);
+    }
+
+    normalize(chroma);
+    const chord = detectChord(chroma);
+
+    applyStability(chord);
+
+    rafId = requestAnimationFrame(loop);
+}
+
+function freqToPitchClass(freq) {
+    const midi = Math.round(12 * Math.log2(freq / 440) + 69);
+    return ((midi % 12) + 12) % 12;
+}
+
+function weighting(freq) {
+    const mid = 600, spread = 800;
+    return 0.6 + 0.9 * Math.exp(-Math.pow((freq - mid) / spread, 2));
+}
+
+function normalize(vec) {
+    const sum = vec.reduce((a,b)=>a+b,0);
+    if (sum > 0) for (let i=0;i<vec.length;i++) vec[i] /= sum;
+}
+
+function detectChord(chroma) {
+    let best = { name: null, score: -1 };
+    for (let root = 0; root < 12; root++) {
+        for (const [name, intervals] of Object.entries(CHORD_PATTERNS)) {
+            const tpl = new Array(12).fill(0);
+            const weights = [1.0, 0.9, 0.85, 0.75]; 
+            intervals.forEach((int, idx) => {
+                tpl[(root + int) % 12] = weights[idx] || 0.5;
+            });
+            const sim = cosineSim(chroma, tpl);
+            if (sim > best.score) best = { name: `${NOTES[root]}${name === '7' ? '7' : name === 'dim' ? '°' : name === 'dim7' ? '°7' : ' ' + name}`, score: sim };
+        }
+    }
+    return best.score > 0.6 ? best.name : null;
+}
+
+function cosineSim(a, b) {
+    let dot=0, na=0, nb=0;
+    for (let i=0;i<a.length;i++) {
+        dot += a[i]*b[i];
+        na += a[i]*a[i];
+        nb += b[i]*b[i];
+    }
+    return (na && nb) ? dot / (Math.sqrt(na)*Math.sqrt(nb)) : 0;
+}
+
+function applyStability(newChord) {
+    const now = performance.now();
+
+    if (newChord !== candidateChord) {
+        candidateChord = newChord;
+        candidateSince = now;
+    }
+
+    if (newChord && newChord !== lastChord) {
+        if (now - candidateSince >= HOLD_MS) {
+            lastChord = newChord;
+            let displayChord = newChord || '';
+            // Cambios en esta sección para manejar los nuevos nombres
+            displayChord = displayChord
+                .replace(" mayor", "")
+                .replace(" menor", "m");
+            document.getElementById('result').textContent = displayChord;
+        }
+    }
+
+    if (!newChord && lastChord !== null) {
+        if (now - candidateSince >= HOLD_MS) {
+            lastChord = null;
+            document.getElementById('result').textContent = '--';
+        }
+    }
+}
+
+
+    
+       function drawOscilloscope() {
+    const bufferLength = analyser.fftSize;
+    const dataArray = new Uint8Array(bufferLength);
+
+    function draw() {
+        animationId = requestAnimationFrame(draw);
+        analyser.getByteTimeDomainData(dataArray);
+
+        // Fondo transparente
+        canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Estilo de la onda: negro
+        canvasCtx.lineWidth = 2;
+        canvasCtx.strokeStyle = '#000000';
+        canvasCtx.beginPath();
+
+        const sliceWidth = canvas.width / bufferLength;
+        let x = 0;
+
+        for (let i = 0; i < bufferLength; i++) {
+            const v = dataArray[i] / 128.0;
+            const y = v * canvas.height / 2;
+            if (i === 0) {
+                canvasCtx.moveTo(x, y);
+            } else {
+                canvasCtx.lineTo(x, y);
+            }
+            x += sliceWidth;
+        }
+
+        canvasCtx.lineTo(canvas.width, canvas.height / 2);
+        canvasCtx.stroke();
+    }
+
+    draw();
+}
+
+
+
+    </script>   
